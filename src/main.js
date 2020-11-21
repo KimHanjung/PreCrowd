@@ -9,7 +9,7 @@ import Register from './register';
 import Profile from './Profile';
 import LoginForm from './LoginForm';
 import LogoutButton from './LogoutButton';
-import Admin from './admin.js';
+import Admin from './admin/admin.js';
 import './main.css'
 
 function Main() {
