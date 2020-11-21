@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Redirect } from "react-router-dom"
+import {Link, Redirect } from "react-router-dom"
 
 function LoginForm({ authenticated, login, location }) {
   const [email, setEmail] = useState("")
@@ -8,6 +8,7 @@ function LoginForm({ authenticated, login, location }) {
   const handleClick = () => {
     try {
       login({ email, password })
+      alert("email: "+ email+"  password: "+password)
     } catch (e) {
       alert("Failed to login")
       setEmail("")
@@ -33,7 +34,9 @@ function LoginForm({ authenticated, login, location }) {
         type="password"
         placeholder="password"
       />
+      <Link to="/admin">
       <button onClick={handleClick}>Login</button>
+      </Link>
     </>
   )
 }

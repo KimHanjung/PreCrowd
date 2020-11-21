@@ -5,7 +5,8 @@ const users = [
   ]
   
   export function signIn({ email, password }) {
-    const user = users.find(user => user.email ===user.email && user.password === user.password);
-    if (user === undefined) throw new Error();
-    return user;
+    //const user = users.find(user => email ===user.email && password === user.password);
+    //if (user === undefined) throw new Error();
+    //return user;
+    return { email: email, password: password, name: 'chu' }
   }

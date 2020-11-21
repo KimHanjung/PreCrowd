@@ -9,6 +9,7 @@ import Register from './register';
 import Profile from './Profile';
 import LoginForm from './LoginForm';
 import LogoutButton from './LogoutButton';
+import Admin from './admin.js';
 import './main.css'
 
 function Main() {
@@ -20,7 +21,7 @@ function Main() {
 
   return (
 
-        <Router>
+    <Router>
             <body>
         <header className='el-header'>
             <div className='headercontents'>
@@ -31,6 +32,7 @@ function Main() {
         </header>
         
         <Route exact path="/" component={Home} />
+        
         <Route path="/register" component={Register} />
         <Route
             path="/login"
@@ -38,14 +40,9 @@ function Main() {
             <LoginForm authenticated={authenticated} login={login} {...props} />
             )}
         />
-        <AuthRoute
-            authenticated={authenticated}
-            path="/profile"
-            render={props => <Profile user={user} {...props} />}
-        />
+
         </body>
     </Router>
-  
     
   );
 }
