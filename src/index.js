@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Main from './main';
+import Paging from './paging';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Main />
+  <BrowserRouter>
+    <Paging/>
+  </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
