@@ -1,6 +1,20 @@
 import React, { useState } from "react"
 import {Link, Redirect } from "react-router-dom"
 
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const cors = require('cors');
+// set up port
+const PORT = process.env.PORT || 3000;
+app.use(bodyParser.json());
+app.use(cors());
+// add routes
+const router = require('../routes/router.js');
+app.use('/api', router);
+// run server
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
 function LoginForm({ authenticated, login, location }) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -21,7 +35,7 @@ function LoginForm({ authenticated, login, location }) {
 
   return (
     <>
-      <h1>Login</h1>
+      <h1>김한중</h1>
       <input
         value={email}
         onChange={({ target: { value } }) => setEmail(value)}

@@ -8,7 +8,7 @@ import Home from './Home';
 import About from './About';
 import Profile from './Profile';
 import NotFound from './NotFound';
-import LoginForm from './LoginForm';
+import LoginForm from './api/LoginForm';
 import LogoutButton from './LogoutButton';
 
 function App() {

@@ -5,9 +5,9 @@ import { signIn } from './auth';
 import AuthRoute from './AuthRoute';
 
 import Home from './Home';
-import Register from './register';
+import Register from './api/register';
 import Profile from './Profile';
-import LoginForm from './LoginForm';
+import LoginForm from './api/LoginForm';
 import LogoutButton from './LogoutButton';
 import Admin from './admin.js';
 import './main.css'
