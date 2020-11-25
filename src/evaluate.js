@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import './main.css';
 import openSocket from 'socket.io-client';
-const socket = openSocket('http://localhost:4002');
 class Admin extends Component {
   constructor(props) {
     super(props);

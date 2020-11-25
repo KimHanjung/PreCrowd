@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 
 import { signIn } from './auth';
-import AuthRoute from './AuthRoute';
 
 import Home from './Home';
-import Register from './api/register';
+import Register from './components/register';
 import Profile from './Profile';
-import LoginForm from './api/LoginForm';
+import Login from './components/login';
 import LogoutButton from './LogoutButton';
-import Admin from './admin.js';
+import Admin from './admin/admin.js';
 import './main.css'
 
 function Main() {

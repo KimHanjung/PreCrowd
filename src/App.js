@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 
 import { signIn } from './auth';
-import AuthRoute from './AuthRoute';
 
 import Home from './Home';
 import About from './About';
@@ -48,11 +47,6 @@ function App() {
             render={props => (
               <LoginForm authenticated={authenticated} login={login} {...props} />
             )}
-          />
-          <AuthRoute
-            authenticated={authenticated}
-            path="/profile"
-            render={props => <Profile user={user} {...props} />}
           />
           <Route component={NotFound} />
         </Switch>
