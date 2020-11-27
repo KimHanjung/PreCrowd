@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import './main.css';
 
 import Home from './Home';
 import Register from './components/register';
 import Login from './components/login'
 import Profile from './components/profile'
+
+import AuthService from './services/auth.service';
+import AppContainer from './AppContainer';
 
 import Admin from './admin/admin.js';
 import manage_member from './admin/manage_member.js';
@@ -22,10 +25,54 @@ import Submit from './submit.js'
 class Paging extends Component {
     constructor(props) {
         super(props);
+        this.state = {login:false};
+        this.checkLogin = this.checkLogin.bind(this);
+    }
+    componentDidUpdate()
+    {
+        this.checkLogin();
+        console.log('bye');
+    }
+    checkLogin(){
+        console.log(localStorage.getItem("user"));
+        if(localStorage.getItem("user") === null && this.state.login) this.setState({login:false});
+        else if(localStorage.getItem('user') !== null && !this.state.login) this.setState({login:true});
     }
     render() {
+        console.log(this.state);
         return (
             <div>
+                <header className='el-header'>
+                    <div className='headercontents'>
+                        <Link to="/">
+                            <button className='title'>PRECROWD</button>
+                        </Link>
+                        <div className='space'>
+                        </div>
+                        <AppContainer change={this.checkLogin}>
+                            {this.state.login && 
+                                <div>
+                                    <Link to="/password">
+                                        <button className='header-right'>비밀번호 수정</button>
+                                    </Link>
+                                    <Link to="/">
+                                        <button className='header-right' onClick={console.log('onclick')}>로그아웃</button>
+                                    </Link>
+                                </div>
+                            }
+                            {!this.state.login && 
+                                <div>
+                                    <Link to="/login">
+                                        <button className='header-right'>로그인</button>
+                                    </Link>
+                                    <Link to="/register">
+                                        <button className='header-right'>회원가입</button>
+                                    </Link>
+                                </div>
+                            }
+                        </AppContainer>
+                    </div>
+                </header>
                 <Route exact path="/" component={Home} />
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />

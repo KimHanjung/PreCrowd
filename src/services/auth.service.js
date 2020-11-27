@@ -1,4 +1,5 @@
 import axios from "axios";
+import Paging from '../paging'
 
 const API_URL = "http://localhost:4000/src/auth/";
 
@@ -27,6 +28,7 @@ const login = (id, password) => {
 };
 
 const logout = () => {
+  console.log('logout');
   localStorage.removeItem("user");
 };
 
