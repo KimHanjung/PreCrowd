@@ -28,18 +28,16 @@ class Paging extends Component {
         this.state = {login:false};
         this.checkLogin = this.checkLogin.bind(this);
     }
-    componentDidUpdate()
+    componentDidMount()
     {
         this.checkLogin();
-        console.log('bye');
+        //console.log('bye');
     }
     checkLogin(){
-        console.log(localStorage.getItem("user"));
         if(localStorage.getItem("user") === null && this.state.login) this.setState({login:false});
         else if(localStorage.getItem('user') !== null && !this.state.login) this.setState({login:true});
     }
     render() {
-        console.log(this.state);
         return (
             <div>
                 <header className='el-header'>
@@ -50,13 +48,14 @@ class Paging extends Component {
                         <div className='space'>
                         </div>
                         <AppContainer change={this.checkLogin}>
+                            {console.log(this.state.login)}
                             {this.state.login && 
                                 <div>
                                     <Link to="/password">
                                         <button className='header-right'>비밀번호 수정</button>
                                     </Link>
                                     <Link to="/">
-                                        <button className='header-right' onClick={console.log('onclick')}>로그아웃</button>
+                                        <button className='header-right' onClick={() => AuthService.logout()}>로그아웃</button>
                                     </Link>
                                 </div>
                             }

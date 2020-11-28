@@ -11,26 +11,6 @@ class Admin extends Component {
 
   render() {
     return (
-        <body>
-        <header className='el-header'>
-            <nav>
-                <div className='headercontents'>
-                <Link to="/">
-                    <button className='title'>PRECROWD</button>
-                </Link>
-                <div className='space'>
-                </div>
-                <div className='welcome'>{this.state.ID}님 환영합니다!</div>
-                <Link to="/password">
-                    <button className='header-right'>비밀번호 수정</button>
-                </Link>
-                <Link to="/">
-                    <button className='header-right' onClick={AuthService.logout()}>로그아웃</button>
-                </Link>
-                </div>
-            </nav>
-        </header>
-        
         <div className='home'>
             <div className='wise'>
                 <pre>지식은 모일수록 가치있다.
@@ -52,7 +32,6 @@ class Admin extends Component {
                 </Link>
             </div>
         </div>
-        </body>
     );
   }
 }

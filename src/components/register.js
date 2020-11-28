@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import Select from "react-validation/build/select";
 //import { isEmail } from "validator";
 
 import AuthService from "../services/auth.service";
@@ -77,7 +78,6 @@ const Register = (props) => {
   const onChangeRole = (e) => {
     const role = e.target.value;
     setRole(role);
-    console.log(e.target.value);
   }
 
   const handleRegister = (e) => {
@@ -154,14 +154,11 @@ const Register = (props) => {
 
               <div className="form-group">
                 <label htmlFor="role">Role<br/></label>
-                  <label>
-                    Submittor
-                    <Input type="radio" name="role" value="Submittor" onChange={onChangeRole}/>
-                  </label>
-                  <label>
-                    Evaluationer
-                    <Input type="radio" name="role" value="Evaluationer" onChange={onChangeRole}/>
-                  </label>
+                <Select name='role' value={role} validations={[required]} onChange={onChangeRole}>
+                  <option value=''>Choose your role</option>
+                  <option value='Submittor'>Submittor</option>
+                  <option value='Evaluationer'>Evaluationer</option>
+                </Select>
               </div>
 
               <div className="form-group">
