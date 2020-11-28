@@ -6,7 +6,7 @@ import Select from "react-validation/build/select";
 //import { isEmail } from "validator";
 
 import AuthService from "../services/auth.service";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 const required = (value) => {
   if (!value) {
@@ -15,57 +15,6 @@ const required = (value) => {
         This field is required!
       </div>
     );
-  }
-};
-
-const validId = (value) => {
-  if (value.length < 5 || value.length > 20) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        Plean enter your Id between 5 and 20.
-      </div>
-    );
-  }
-};
-
-const vusername = (value) => {
-  if (value.length < 3 || value.length > 20) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        The username must be between 3 and 20 characters.
-      </div>
-    );
-  }
-};
-
-const vpassword = (value) => {
-  if (value.length < 6 || value.length > 40) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        The password must be between 6 and 40 characters.
-      </div>
-    );
-  }
-};
-
-const vbdate = (value) => {
-  if (value.length !== 8) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        YYYYMMDD
-      </div>
-    );
-  }
-  else {
-    const month = parseInt(value.slice(4, 6));
-    const date = parseInt(value.slice(6, 8));
-    if ((month < 1 || month > 12) || (date < 1 || date > 31)) {
-      return (
-        <div className="alert alert-danger" role="alert">
-          YYYYMMDD
-        </div>
-      );
-    }
   }
 };
 
@@ -79,64 +28,37 @@ const vphone = (value) => {
   }
 }
 
-const Register = (props) => {
+const Profile = (props) => {
   const history = useHistory();
   const form = useRef();
   const checkBtn = useRef();
-
-  const [username, setUsername] = useState("");
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [address, setAddress] = useState("");
-  const [gender, setGender] = useState("");
-  const [bdate, setBdate] = useState("");
-  const [phone, setPhone] = useState("");
-  const [role, setRole] = useState("");
+  const user_data = JSON.parse(localStorage.getItem('user'));
+  const [username] = useState(user_data.name);
+  const [id] = useState(user_data.id);
+  const [address, setAddress] = useState(user_data.address);
+  const [gender] = useState(user_data.gender);
+  const [bdate] = useState(user_data.bdate);
+  const [phone, setPhone] = useState(user_data.phone);
+  const [role] = useState(user_data.role);
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
 
-  const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
-  };
-
-  const onChangeId = (e) => {
-    const id = e.target.value;
-    setId(id);
-  };
-
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
-  };
+  const withdrawal = () => {
+    AuthService.withdrawal()
+    .then(() => history.push('/'));
+  }
 
   const onChangeAddress = (e) => {
     const address = e.target.value;
     setAddress(address);
   };
 
-  const onChangeGender = (e) => {
-    const gender = e.target.value;
-    setGender(gender);
-    
-  }
-
-  const onChangeBdate = (e) => {
-    const bdate = e.target.value;
-    setBdate(bdate);
-  }
-
   const onChangePhone = (e) => {
     const phone = e.target.value;
     setPhone(phone);
   }
 
-  const onChangeRole = (e) => {
-    const role = e.target.value;
-    setRole(role);
-  }
-
-  const handleRegister = (e) => {
+  const handleUpdate = (e) => {
     e.preventDefault();
 
     setMessage("");
@@ -144,9 +66,8 @@ const Register = (props) => {
 
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(username, id, password, address, gender, bdate, phone, role).then(
+      AuthService.update(id, address, phone).then(
         (response) => {
-          console.log(response.data.message);
           setMessage(response.data.message);
           setSuccessful(true);
           props.history.push('/');
@@ -169,7 +90,7 @@ const Register = (props) => {
   return (
     <div className="col-md-12">
       <div className="card card-container">
-        <Form onSubmit={handleRegister} ref={form}>
+        <Form onSubmit={handleUpdate} ref={form}>
           {!successful && (
             <div>
               <div className="form-group">
@@ -179,8 +100,7 @@ const Register = (props) => {
                   className="form-control"
                   name="username"
                   value={username}
-                  onChange={onChangeUsername}
-                  validations={[required, vusername]}
+                  disabled = {true}
                 />
               </div>
 
@@ -191,20 +111,7 @@ const Register = (props) => {
                   className="form-control"
                   name="Id"
                   value={id}
-                  onChange={onChangeId}
-                  validations={[required, validId]}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <Input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  value={password}
-                  onChange={onChangePassword}
-                  validations={[required, vpassword]}
+                  disabled = {true}
                 />
               </div>
 
@@ -222,10 +129,13 @@ const Register = (props) => {
 
               <div className="form-group">
                 <label htmlFor="gender">Gender<br/></label>
-                <Select name='gender' value={gender} validations={[required]} onChange={onChangeGender}>
-                  <option value=''>Gender</option>
+                <Select name='gender' value={gender} disabled={true}>
+                  {gender && 
                   <option value='M'>Man</option>
+                  }
+                  {!gender && 
                   <option value='F'>Female</option>
+                  }
                 </Select>
               </div>
 
@@ -237,8 +147,7 @@ const Register = (props) => {
                   name="bdate"
                   placeholder = "YYYYMMDD"
                   value={bdate}
-                  onChange={onChangeBdate}
-                  validations={[required, vbdate]}
+                  disabled={true}
                 />
               </div>
 
@@ -257,15 +166,18 @@ const Register = (props) => {
 
               <div className="form-group">
                 <label htmlFor="role">Role<br/></label>
-                <Select name='role' value={role} validations={[required]} onChange={onChangeRole}>
-                  <option value=''>Choose your role</option>
+                <Select name='role' value={role} disabled = {true}>
+                  {(role === 'Submittor') && 
                   <option value='Submittor'>Submittor</option>
+                  }
+                  {(role === 'Evaluationer') && 
                   <option value='Evaluationer'>Evaluationer</option>
+                  }
                 </Select>
               </div>
 
               <div className="form-group">
-                <button className="btn btn-primary btn-block">Sign Up</button>
+                <button className="btn btn-primary btn-block">Update</button>
               </div>
             </div>
           )}
@@ -282,9 +194,13 @@ const Register = (props) => {
           )}
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
+        <Link to="/password">
+          <button className='header-right'>Modify Password</button>
+        </Link>
+        <button className='header-right' onClick={withdrawal}>Withdrawal</button>
       </div>
     </div>
   );
 };
 
-export default Register;
+export default Profile;

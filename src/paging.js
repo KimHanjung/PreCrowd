@@ -5,7 +5,7 @@ import './main.css';
 import Home from './Home';
 import Register from './components/register';
 import Login from './components/login'
-import Profile from './components/profile'
+import Profile from './components/Profile'
 
 import AuthService from './services/auth.service';
 import AppContainer from './AppContainer';
@@ -20,6 +20,7 @@ import task_statistics from './admin/task_statistics.js';
 import Evaluate from './evaluate.js'
 
 import Submit from './submit.js'
+import Password from './components/password';
 
 
 class Paging extends Component {
@@ -48,11 +49,10 @@ class Paging extends Component {
                         <div className='space'>
                         </div>
                         <AppContainer change={this.checkLogin}>
-                            {console.log(this.state.login)}
                             {this.state.login && 
                                 <div>
-                                    <Link to="/password">
-                                        <button className='header-right'>비밀번호 수정</button>
+                                    <Link to="/profile">
+                                        <button className='header-right'>프로필</button>
                                     </Link>
                                     <Link to="/">
                                         <button className='header-right' onClick={() => AuthService.logout()}>로그아웃</button>
@@ -76,6 +76,7 @@ class Paging extends Component {
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />
                 <Route path="/profile" component={Profile} />
+                <Route path="/password" component={Password} />
                 
                 <Route path="/admin" component={Admin} />
                 <Route path="/manage_member" component={manage_member} />

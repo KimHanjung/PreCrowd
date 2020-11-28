@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
       },
       Bdate: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
       },
       Gender: {
         type: Sequelize.BOOLEAN,

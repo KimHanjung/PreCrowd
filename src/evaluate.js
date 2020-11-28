@@ -21,15 +21,8 @@ class Admin extends Component {
   }
   render() {
     return (
-        <body>
-        <header className='el-header'>
         <div className='headercontents'>
-        <Link to="/">
-            <button className='title'>PRECROWD</button>
-        </Link>
         </div>
-        </header>
-        </body>
     );
   }
 }

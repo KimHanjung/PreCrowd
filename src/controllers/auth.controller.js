@@ -6,14 +6,18 @@ const Op = db.Sequelize.Op;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
-const { member } = require("../models");
 
 exports.signup = (req, res) => {
   // Save User to Database
+  const gender = (req.body.gender === 'M') ? 1 : 0;
   Member.create({
     Name: req.body.username,
     Id: req.body.id,
     Pw: bcrypt.hashSync(req.body.password, 8),
+    Bdate: req.body.bdate,
+    Address: req.body.address,
+    Gender: gender,
+    Phone: req.body.phone,
     Role: req.body.role
   })
     .then(user => {
@@ -25,9 +29,12 @@ exports.signup = (req, res) => {
       console.log('failed');
     });
 };
-exports.signout = (req, res) =>{
+exports.withdrawal = (req, res) =>{
   Member.destroy({
-    Id: req.body.id}
+    where:
+    {
+      Id: req.body.id
+    }
   })
     .then(user =>{
       res.send({ message: "Member withdrawl is completed!"});
@@ -38,6 +45,7 @@ exports.signout = (req, res) =>{
       console.log('wrong id');
     });
 };
+
 exports.signin = (req, res) => {
   Member.findOne({
     where: {
@@ -69,6 +77,68 @@ exports.signin = (req, res) => {
         id: member.Id,
         name: member.Name,
         role: member.Role,
+        address: member.Address,
+        gender: member.Gender,
+        phone: member.Phone,
+        bdate: member.Bdate,
         accessToken: token
       });
     })
+};
+
+exports.update = (req, res) => {
+  // Save User to Database
+  Member.update({
+    Address: req.body.address,
+    Phone: req.body.phone,
+  },
+  {
+    where: {Id: req.body.id},
+    returning: true,
+    plain: true
+})
+    .then((member) => {
+          Member.findOne({
+            where: {
+              Id: req.body.id
+            }
+          })
+          .then((member) => {
+              
+            var token = req.body.headers["x-access-token"];
+
+            res.status(200).send({
+              id: member.Id,
+              name: member.Name,
+              role: member.Role,
+              address: member.Address,
+              gender: member.Gender,
+              phone: member.Phone,
+              bdate: member.Bdate,
+              accessToken: token
+            });
+
+            })
+          console.log('updated');
+        })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+      console.log('update failed');
+    });
+};
+
+exports.password = (req, res) => {
+  // Save User to Database
+  Member.update({
+    Pw: bcrypt.hashSync(req.body.password, 8),
+  },
+  {where: {Id: req.body.id}})
+    .then(user => {
+      res.send({ message: "User's password was updated successfully!" });
+      console.log('password');
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+      console.log('failed');
+    });
+};
