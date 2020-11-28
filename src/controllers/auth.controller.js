@@ -25,7 +25,19 @@ exports.signup = (req, res) => {
       console.log('failed');
     });
 };
-
+exports.signout = (req, res) =>{
+  Member.destroy({
+    Id: req.body.id}
+  })
+    .then(user =>{
+      res.send({ message: "Member withdrawl is completed!"});
+      console.log('sign out');
+    })
+    .catch(err => {
+      res.status(500).send({ message: "Wrong Id" });
+      console.log('wrong id');
+    });
+};
 exports.signin = (req, res) => {
   Member.findOne({
     where: {
@@ -52,7 +64,7 @@ exports.signin = (req, res) => {
       var token = jwt.sign({ id: member.id }, config.secret, {
         expiresIn: 86400 // 24 hours
       });
-      
+
       res.status(200).send({
         id: member.Id,
         name: member.Name,
@@ -60,4 +72,3 @@ exports.signin = (req, res) => {
         accessToken: token
       });
     })
-};
