@@ -7,7 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //import { isEmail } from "validator";
 
 import AuthService from "../services/auth.service";
-import { useHistory, Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
+import Modal from "./Modal";
 
 const required = (value) => {
   if (!value) {
@@ -30,7 +31,6 @@ const vphone = (value) => {
 }
 
 const Profile = (props) => {
-  const history = useHistory();
   const form = useRef();
   const checkBtn = useRef();
   const user_data = JSON.parse(localStorage.getItem('user'));
@@ -43,11 +43,6 @@ const Profile = (props) => {
   const [role] = useState(user_data.role);
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
-
-  const withdrawal = () => {
-    AuthService.withdrawal()
-    .then(() => history.push('/'));
-  }
 
   const onChangeAddress = (e) => {
     const address = e.target.value;
@@ -199,9 +194,23 @@ const Profile = (props) => {
           <Link to="/password">
             <button className='btn btn-secondary'>Modify Password</button>
           </Link>
-          <button className='btn btn-secondary' onClick={withdrawal}>Withdrawal</button>
+          <Link to={`${props.match.url}/modal`}>
+          <button className='btn btn-secondary'>withdrawal</button>
+          </Link>
         </div>
       </div>
+      <Route
+          path={`${props.match.url}/modal`}
+          render={() => {
+            return (
+              <Modal
+                onClick={() => {
+                  props.history.push(props.match.url);
+                }}
+              />
+            );
+          }}
+        />
     </div>
   );
 };
