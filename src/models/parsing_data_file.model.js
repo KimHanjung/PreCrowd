@@ -2,7 +2,7 @@ module.exports = (sequelize, Sequelize) => {
     const Parsing = sequelize.define("PARSING_DATA_FILE", {
       File_index: {
         type: Sequelize.INTEGER,
-        autoincrement:true,
+        autoIncrement:true,
         primaryKey: true
       },
       Parsing_file_name: {
@@ -17,14 +17,20 @@ module.exports = (sequelize, Sequelize) => {
       E_id: {
         type: Sequelize.STRING,
       },
-      System_score: {
+      Total_tuple_num: {
         type: Sequelize.INTEGER,
+      },
+      overlap_tuple: {
+        type: Sequelize.INTEGER,
+      },
+      null_percent : {
+        type: Sequelize.STRING,
       },
       Type_id: {
         type: Sequelize.INTEGER,
       },
       Data_file: {
-        type: Sequelize.BLOB,
+        type: Sequelize.BLOB('long'),
       },
     },{timestamps: false,});
   

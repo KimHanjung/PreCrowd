@@ -8,7 +8,7 @@ module.exports = (sequelize, Sequelize) => {
       Schema: {
         type: Sequelize.STRING
       },
-      Schema_mapping_info: {
+      Type_name: {
         type: Sequelize.STRING,
       },
       Task_name: {

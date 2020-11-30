@@ -11,10 +11,10 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
       },
       Task_data_table_name: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
       },
       Task_data_table_schema: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.STRING,
       },
     },{timestamps: false,});
   
