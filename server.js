@@ -23,11 +23,13 @@ const Member = db.member;
 
 require('./src/routes/auth.routes')(app);
 require('./src/routes/user.routes')(app);
+require('./src/routes/submit.routes')(app);
 
 db.sequelize.sync({force: true}).then(() => {
   console.log('Drop and Resync Db');
   initial();
 });
+
 
 // simple route
 app.get("/", (req, res) => {
@@ -43,7 +45,7 @@ app.listen(PORT, () => {
 
 function initial(){
   Member.create({
-    Name: '관리자',
+    Name: 'admin',
     Id: 'admin',
     Pw: bcrypt.hashSync('admin', 8),
     Role: 'Administrator'

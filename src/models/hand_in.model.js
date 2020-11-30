@@ -1,5 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const Handin = sequelize.define("HAND_IN", {
+      
       H_id: {
         type: Sequelize.STRING,
         primaryKey: true
@@ -13,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
       Period: {
         type: Sequelize.STRING,
       },
-    });
+    },{timestamps: false,});
   
     return Handin;
   };

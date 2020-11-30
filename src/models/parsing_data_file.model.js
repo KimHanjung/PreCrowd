@@ -26,7 +26,7 @@ module.exports = (sequelize, Sequelize) => {
       Data_file: {
         type: Sequelize.BLOB,
       },
-    });
+    },{timestamps: false,});
   
     return Parsing;
   };

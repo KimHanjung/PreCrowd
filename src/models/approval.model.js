@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize) => {
       Status: {
         type: Sequelize.BOOLEAN,
       },
-    });
+    },{timestamps: false,});
   
     return Approval;
   };

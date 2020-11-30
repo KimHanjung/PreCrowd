@@ -16,7 +16,7 @@ module.exports = (sequelize, Sequelize) => {
       Task_data_table_schema: {
         type: Sequelize.BOOLEAN,
       },
-    });
+    },{timestamps: false,});
   
     return Task;
   };
