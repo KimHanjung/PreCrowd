@@ -1,7 +1,65 @@
 div {
+    width: 100%;
+    display: block;
+    justify-content: center;
+    align-content: center;
+}
+.profilebottom{
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+}
+div.logincolumn {
+    display: inline-flex;
+    margin-top: 150px;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+}
+div.registercolumn {
+    display: inline-flex;
+    margin-top: 50px;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+}
+div.row {
     display: block;
 }
-pre{
+.header-right-box {
+    display: inline-flex;
+}
+.logincard{
+    position: relative;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: rgba(255,255,255,0.7);
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    padding: 10px;
+    width: 300px;
+    height: max-content;
+}
+.registercard{
+    position: relative;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: rgba(255,255,255,0.7);
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    padding: 10px;
+    width: 1000px;
+    height: max-content;
+}
+.pre{
     font-family: SpoqaHanSans;
     font-size: 14px;
     font-weight: 400;
@@ -52,7 +110,7 @@ div.headercontents{
     margin-right: auto;
     margin-left: auto;
     padding-left: 230px;
-    padding-right: 150px;
+    padding-right: none;
     align-items: center;
 }
 
@@ -82,12 +140,25 @@ div.menu{
     font-family: Verdana;
     font-size: 13px;
     color: #fff;
-    outline:0;
-    border:0;
+    border:none;
+    outline: none;
     font-style: normal;
     font-stretch: normal;
     background: unset;
     margin-left: 1px;
+    border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible; cursor:pointer;
+}
+
+
+button:focus,
+button:active{
+    border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible; cursor:pointer;
+    border:0;
+    outline:0;
+    border-bottom-color: none;
+    border-top-color: none;
+    border-right-color: none;
+    border-left-color: none;
 }
 
 .welcome{

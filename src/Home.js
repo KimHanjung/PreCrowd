@@ -23,7 +23,7 @@ class Home extends Component {
     return (
         <div className='home'>
             <div className='wise'>
-                <pre>지식은 모일수록 가치있다.
+                <pre className='pre'>지식은 모일수록 가치있다.
                     <br/>-???-
                 </pre>
             </div>
