@@ -192,6 +192,7 @@ const CreateTask = (props) => {
   return (
     <div className="registercolumn">
       <div className="registercard">
+        <div className='menutitle'> 태스크 생성 </div>
         <Form onSubmit={handleRegister} ref={form}>
           {!successful && (
             <div>
