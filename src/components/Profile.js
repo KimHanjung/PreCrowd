@@ -3,6 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import Select from "react-validation/build/select";
+import "bootstrap/dist/css/bootstrap.min.css";
 //import { isEmail } from "validator";
 
 import AuthService from "../services/auth.service";
@@ -88,8 +89,8 @@ const Profile = (props) => {
   };
 
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
+    <div className="registercolumn">
+      <div className="registercard">
         <Form onSubmit={handleUpdate} ref={form}>
           {!successful && (
             <div>
@@ -128,15 +129,14 @@ const Profile = (props) => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="gender">Gender<br/></label>
-                <Select name='gender' value={gender} disabled={true}>
-                  {gender && 
-                  <option value='M'>Man</option>
-                  }
-                  {!gender && 
-                  <option value='F'>Female</option>
-                  }
-                </Select>
+                <label htmlFor="gender">Gender</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="gender"
+                  value={gender ? 'Male' : 'Female'}
+                  disabled = {true}
+                />
               </div>
 
               <div className="form-group">
@@ -145,7 +145,6 @@ const Profile = (props) => {
                   type="text"
                   className="form-control"
                   name="bdate"
-                  placeholder = "YYYYMMDD"
                   value={bdate}
                   disabled={true}
                 />
@@ -166,14 +165,13 @@ const Profile = (props) => {
 
               <div className="form-group">
                 <label htmlFor="role">Role<br/></label>
-                <Select name='role' value={role} disabled = {true}>
-                  {(role === 'Submittor') && 
-                  <option value='Submittor'>Submittor</option>
-                  }
-                  {(role === 'Evaluationer') && 
-                  <option value='Evaluationer'>Evaluationer</option>
-                  }
-                </Select>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="role"
+                  value={role}
+                  disabled={true}
+                />
               </div>
 
               <div className="form-group">
@@ -194,10 +192,12 @@ const Profile = (props) => {
           )}
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
-        <Link to="/password">
-          <button className='header-right'>Modify Password</button>
-        </Link>
-        <button className='header-right' onClick={withdrawal}>Withdrawal</button>
+        <div className='profilebottom'>
+          <Link to="/password">
+            <button className='btn btn-secondary'>Modify Password</button>
+          </Link>
+          <button className='btn btn-secondary' onClick={withdrawal}>Withdrawal</button>
+        </div>
       </div>
     </div>
   );

@@ -5,16 +5,16 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true
       },
       Desc: {
-        type: Sequelize.STRING
-      },
-      Term: {
         type: Sequelize.STRING,
       },
+      Term: {
+        type: Sequelize.INTEGER,
+      },
       Task_data_table_name: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
       },
       Task_data_table_schema: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.STRING,
       },
     });
   

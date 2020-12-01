@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import "bootstrap/dist/css/bootstrap.min.css";
 //import { isEmail } from "validator";
 
 import AuthService from "../services/auth.service";
@@ -70,8 +71,8 @@ const Password = (props) => {
   };
 
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
+    <div className="logincolumn">
+      <div className="logincard">
         <Form onSubmit={handlePassword} ref={form}>
           {!successful && (
             <div>

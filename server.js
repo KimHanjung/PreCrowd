@@ -20,7 +20,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = require("./src/models");
 const Member = db.member;
 
-
 require('./src/routes/auth.routes')(app);
 require('./src/routes/user.routes')(app);
 
@@ -35,7 +34,8 @@ app.get("/", (req, res) => {
 });
 
 // set port, listen for requests
-const PORT = process.env.PORT || 4000;
+
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });

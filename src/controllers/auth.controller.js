@@ -1,8 +1,8 @@
 const db = require("../models");
 const config = require("../config/auth.config");
 const Member = db.member;
-const Task = db.Task;
-const Approval = db.Approval;
+const Task = db.task;
+const Approval = db.approval;
 
 const Op = db.Sequelize.Op;
 
@@ -40,7 +40,7 @@ exports.taketask = (req, res) =>{
       var list = [];
       var i = 0;
       while(i< task.length){
-        list.push(task[i].Task_name);
+        list.push(task[i]);
         i = i + 1;
       }
       res.send({

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import './main.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import Home from './Home';
 import Register from './components/register';
@@ -12,7 +13,6 @@ import AppContainer from './AppContainer';
 
 import Admin from './admin/admin.js';
 import manage_member from './admin/manage_member.js';
-import password from './admin/password.js';
 import create_task from './admin/create_task.js';
 import manage_task from './admin/manage_task.js';
 import task_statistics from './admin/task_statistics.js';
@@ -50,28 +50,28 @@ class Paging extends Component {
                 <header className='el-header'>
                     <div className='headercontents'>
                         <Link to="/">
-                            <button className='title'>PRECROWD</button>
+                            <button type='button' className='title'>PRECROWD</button>
                         </Link>
                         <div className='space'>
                         </div>
                         <AppContainer change={this.checkLogin}>
                             {this.state.login && 
-                                <div>
+                                <div className='header-right-box'>
                                     <Link to="/profile">
-                                        <button className='header-right'>프로필</button>
+                                        <button type='button' className='header-right'>프로필</button>
                                     </Link>
                                     <Link to="/">
-                                        <button className='header-right' onClick={() => AuthService.logout()}>로그아웃</button>
+                                        <button type='button' className='header-right' onClick={() => AuthService.logout()}>로그아웃</button>
                                     </Link>
                                 </div>
                             }
                             {!this.state.login && 
-                                <div>
+                                <div className='header-right-box'>
                                     <Link to="/login">
-                                        <button className='header-right'>로그인</button>
+                                        <button type='button' className='header-right'>로그인</button>
                                     </Link>
                                     <Link to="/register">
-                                        <button className='header-right'>회원가입</button>
+                                        <button type='button' className='header-right'>회원가입</button>
                                     </Link>
                                 </div>
                             }
@@ -86,7 +86,6 @@ class Paging extends Component {
                 
                 <Route path="/admin" component={Admin} />
                 <Route path="/manage_member" component={manage_member} />
-                <Route path="/password" component={password} />
                 <Route path="/create_task" component={create_task} />
                 <Route path="/manage_task" component={manage_task} />
                 <Route path="/task_statistics" component={task_statistics} />

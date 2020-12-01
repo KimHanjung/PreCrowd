@@ -10,7 +10,7 @@ module.exports = function(app) {
     next();
   });
   app.post(
-    "src/auth/taketask",
+    "/src/auth/taketask",
     controller.taketask
   );
   app.post(

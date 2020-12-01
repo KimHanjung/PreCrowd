@@ -16,25 +16,21 @@ const Manage = (props) => {
   const history = useHistory();
   const form = useRef();
   const checkBtn = useRef();
-  const initial = (e) => {
-    e.preventDefault();
-    form.current.validateAll();
+  const initial = () => {
+    
      AuthService.taketask().then(
       (response) =>{
-        tasklist = response;
+        listtask = [];
+        var x = 0;
+        while(x<response.length){
+          listtask.push(
+            <option value ={response[x].Task_name}>{response[x].Task_name}</option>
+          ); 
+          x = x + 1;
+        }
       }
-    );
-    write_task();
+     );
   };
-  const write_task = () => {
-    var k = 0;
-    while(k<tasklist.length){
-      listtask.push(
-      <option value = {tasklist[k]}>{tasklist[k]}</option>);
-        k = k + 1;
-    }
-
-  }
   const [id, setId] = useState("");
   const [gender, setGender] = useState("");
   const [byear1, setYear1] = useState("");
@@ -42,7 +38,9 @@ const Manage = (props) => {
   const [role, setRole] = useState("");
   const [user, setUser] = useState("");
   const [task, setTask] = useState("");
- 
+  const [listt, setList] = useState(initial);
+  
+  
 
   const onChangeId = (e) => {
     const id = e.target.value;
@@ -50,6 +48,7 @@ const Manage = (props) => {
   };
   
   const write  = () => {
+    j = 0;
     list = [];
     while(j<user.length){
       list.push(
@@ -118,7 +117,6 @@ const Manage = (props) => {
   return (
     <div className="col-md-12">
       <div className="card card-container">
-        {initial}
         <Form onSubmit={handleRegister} ref={form}>
           {
             <div>
@@ -199,12 +197,6 @@ const Manage = (props) => {
         </Form>
       </div>
       <div>
-        {console.log({id})}
-        {console.log({task})}
-        {console.log({gender})}
-        {console.log({byear1})}
-        {console.log({byear2})}
-        {console.log({role})}
        <table>
          <thead>
            <tr>

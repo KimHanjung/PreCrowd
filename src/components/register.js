@@ -3,6 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import Select from "react-validation/build/select";
+import "bootstrap/dist/css/bootstrap.min.css";
 //import { isEmail } from "validator";
 
 import AuthService from "../services/auth.service";
@@ -22,7 +23,7 @@ const validId = (value) => {
   if (value.length < 5 || value.length > 20) {
     return (
       <div className="alert alert-danger" role="alert">
-        Plean enter your Id between 5 and 20.
+        Please enter your Id between 5 and 20.
       </div>
     );
   }
@@ -167,8 +168,8 @@ const Register = (props) => {
   };
 
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
+    <div className="registercolumn">
+      <div className="registercard">
         <Form onSubmit={handleRegister} ref={form}>
           {!successful && (
             <div>
@@ -224,7 +225,7 @@ const Register = (props) => {
                 <label htmlFor="gender">Gender<br/></label>
                 <Select name='gender' value={gender} validations={[required]} onChange={onChangeGender}>
                   <option value=''>Gender</option>
-                  <option value='M'>Man</option>
+                  <option value='M'>Male</option>
                   <option value='F'>Female</option>
                 </Select>
               </div>
