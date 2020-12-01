@@ -31,61 +31,37 @@ exports.signup = (req, res) => {
     });
 };
 exports.management = (req, res) =>{
-  const gender_to = -1;
-  
-  if (req.body.gender === 'M'){
-    gender_to = 1;
-  }
-  else if (req.body.gender === 'F'){
-    gender_to = 0;
-  }
   Member.findAll({
     raw:true
-    /*where:
-    {
-      [Op.and]:
-      {
-        Id: {
-          [Op.contains]: req.body.id
-        },
-        Gender: {
-          [Op.contained]: [-1,0,1]
-        },
-        Bdate:{
-          [Op.and]:{
-            [Op.gte]: req.body.byear1,
-            [Op.lte]: req.body.byear2
-          }
-        },
-        Role:{
-          [Op.contains]: req.body.role
-        }
-      }
-    }*/
   })
     .then(member =>{
       var list = [];
       var i = 0;
       while(i < member.length){
         var bool = true;
+        if(member[i].Id === 'admin'){
+          bool = false;
+        }
         if(req.body.id != ''){
           if(member[i].Id.indexOf(req.body.id) === -1){
             bool = false;
           }
         }
-        if(gender_to != -1){
-          if(member[i].Gender != gender_to){
+        if(req.body.gender === "1"  || req.body.gender === "0"){
+          if(member[i].Gender !=  parseInt(req.body.gender)){
             bool = false;
           }
         }
-        if(req.body.byear1 != ''){
-          var bye = req.body.byear2
-          if(req.body.byear2 === ''){
-            bye = '9999'
-          }
-          if(member[i].Bdate.substr(0,4)< req.body.byear1 || member[i].Bdate.substr(0,4) > bye){
-            bool = false;
-          }
+        var by1 = req.body.byear1;
+        var by2 = req.body.byear2;
+        if(by1 === ""){
+          by1 = "0000";
+        }
+        if(by2 === ""){
+          by2 = "9999";
+        }
+        if(member[i].Bdate.slice(0,4)< by1 || member[i].Bdate.slice(0,4) > by2){
+          bool = false;
         }
         if(member[i].Role.indexOf(req.body.role) === -1){
           bool = false;
@@ -93,6 +69,7 @@ exports.management = (req, res) =>{
         if(bool){
           list.push(member[i]);
         }
+        i = i + 1;
       }
       res.send({ 
         users :list

@@ -10,7 +10,7 @@ class Admin extends Component {
 
   render() {
     return (<div className='home'>
-            asfasdfasdf
+            {console.log("2000">"1999")}
         </div>
     );
   }

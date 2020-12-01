@@ -17,7 +17,8 @@ const Manage = (props) => {
 
   const [id, setId] = useState("");
   const [gender, setGender] = useState("");
-  const [byear, setYear] = useState("");
+  const [byear1, setYear1] = useState("");
+  const [byear2, setYear2] = useState("");
   const [role, setRole] = useState("");
   const [user, setUser] = useState("");
 
@@ -28,26 +29,20 @@ const Manage = (props) => {
     setId(id);
   };
   const write  = () => {
-    var list2 = [];
-    while(j<list.length){
-      list2.push(
+    list = [];
+    while(j<user.length){
+      list.push(
       <tr>
-        <td>{list[j].Id}</td>
-        <td>{list[j].Pw}</td>
-        <td>{list[j].Name}</td>
-        <td>{list[j].Bdate}</td>
-        <td>{list[j].Gender}</td>
-        <td>{list[j].Phone}</td>
-        <td>{list[j].Address}</td>
-        <td>{list[j].Role}</td>
-        <td>{list[j].createdAt}</td>
-        <td>{list[j].updatedAt}</td>
+        <td>{user[j].Id}</td>
+        <td>{user[j].Name}</td>
+        <td>{user[j].Bdate}</td>
+        <td>{user[j].Gender}</td>
+        <td>{user[j].Phone}</td>
+        <td>{user[j].Address}</td>
+        <td>{user[j].Role}</td>
       </tr>);
       j = j + 1;
     }
-    return (
-      {list2}
-    );
   };
   const onChangeGender = (e) => {
     const gender = e.target.value;
@@ -55,9 +50,13 @@ const Manage = (props) => {
     
   }
 
-  const onChangeByear = (e) => {
-    const byear = e.target.value;
-    setYear(byear);
+  const onChangeByear1 = (e) => {
+    const byear1 = e.target.value;
+    setYear1(byear1);
+  }
+  const onChangeByear2 = (e) => {
+    const byear2 = e.target.value;
+    setYear2(byear2);
   }
 
 
@@ -74,10 +73,10 @@ const Manage = (props) => {
 
     form.current.validateAll();
     
-      AuthService.management(id, gender, byear, byear, role).then(
+      AuthService.management(id, gender, byear1, byear2, role).then(
         (response) => {
           setUser(response);
-          console.log('response: ', response[0].Id);
+          write();
         },
         (error) => {
           const resMessage =
@@ -89,7 +88,6 @@ const Manage = (props) => {
 
         }
       );
-      console.log(user);
   };
 
   return (
@@ -112,9 +110,9 @@ const Manage = (props) => {
               <div className="form-group">
                 <label htmlFor="gender">Gender<br/></label>
                 <Select name='gender' value={gender} onChange={onChangeGender}>
-                  <option value=''>Gender</option>
-                  <option value='M'>Man</option>
-                  <option value='F'>Female</option>
+                  <option value={Number(-1)}>Gender</option>
+                  <option value={Number(1)}>Male</option>
+                  <option value={Number(0)}>Female</option>
                 </Select>
               </div>
 
@@ -125,7 +123,8 @@ const Manage = (props) => {
                   className="form-control"
                   name="byear1"
                   placeholder = "YYYY"
-                  value={byear}
+                  onChange={onChangeByear1}
+                  value={byear1}
                 />
               </div>
               <div className="form-group">
@@ -135,7 +134,8 @@ const Manage = (props) => {
                   className="form-control"
                   name="byear2"
                   placeholder = "YYYY"
-                  value={byear}
+                  onChange={onChangeByear2}
+                  value={byear2}
                 />
               </div>
               
@@ -167,22 +167,25 @@ const Manage = (props) => {
         </Form>
       </div>
       <div>
+        {console.log({id})}
+        {console.log({gender})}
+        {console.log({byear1})}
+        {console.log({byear2})}
+        {console.log({role})}
        <table>
          <thead>
            <tr>
              <th>Id</th>
-             <th>Pw</th>
              <th>Name</th>
              <th>Bdate</th>
              <th>Gender</th>
              <th>Phone</th>
              <th>Address</th>
              <th>Role</th>
-             <th>createdAt</th>
-             <th>updatedAt</th>
            </tr>
          </thead>
          <tbody>
+           {list}
          </tbody>
        </table>
       </div>
