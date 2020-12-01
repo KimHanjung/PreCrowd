@@ -2,7 +2,7 @@ module.exports = (sequelize, Sequelize) => {
     const Parsing = sequelize.define("PARSING_DATA_FILE", {
       File_index: {
         type: Sequelize.INTEGER,
-        autoincrement:true,
+        autoIncrement:true,
         primaryKey: true
       },
       Parsing_file_name: {
@@ -16,12 +16,14 @@ module.exports = (sequelize, Sequelize) => {
       },
       E_id: {
         type: Sequelize.STRING,
+        onDelete: 'CASCADE',
       },
       System_score: {
         type: Sequelize.INTEGER,
       },
       Type_id: {
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
       },
       Data_file: {
         type: Sequelize.BLOB,

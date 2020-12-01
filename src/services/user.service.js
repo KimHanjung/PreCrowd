@@ -23,7 +23,24 @@ const create_original = (originalname, originalschema, taskname) => {
   });
 };
 
+const get_task = () => {
+  return axios.post(API_URL + "get_task", {
+  })
+  .then((response) => {
+
+    return response.data.users;
+  });
+};
+
+const delete_task = (Task_name) => {
+  return axios.post(API_URL + "delete_task", {
+    Task_name
+  });
+};
+
 export default {
   create_task,
   create_original,
+  get_task,
+  delete_task,
 };

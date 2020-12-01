@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
-import './main.css';
-import "bootstrap/dist/css/bootstrap.min.css";
+// import './main.css';
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 import Home from './Home';
 import Register from './components/register';

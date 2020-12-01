@@ -13,4 +13,9 @@ module.exports = function(app) {
   app.post("/src/user/create_task", controller.create_task);
   
   app.post("/src/user/create_original", controller.create_original);
+
+  app.post("/src/user/get_task", controller.get_task);
+
+  app.post("/src/user/delete_task", controller.delete_task);
+
 };

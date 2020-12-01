@@ -3,6 +3,20 @@ import authHeader from "./auth-header";
 
 const API_URL = "http://localhost:3001/src/auth/";
 
+const management = (id, gender, byear1, byear2, role) =>{
+  return axios.post(API_URL + "management",{
+    id,
+    gender,
+    byear1,
+    byear2,
+    role
+  })
+  .then((response) => {
+
+    return response.data.users;
+  });
+};
+
 const register = (username, id, password, address, gender, bdate, phone, role) => {
   return axios.post(API_URL + "signup", {
     username,
@@ -78,4 +92,5 @@ export default {
   update,
   password,
   getCurrentUser,
+  management,
 };

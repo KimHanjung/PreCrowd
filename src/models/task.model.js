@@ -2,7 +2,8 @@ module.exports = (sequelize, Sequelize) => {
     const Task = sequelize.define("TASK", {
       Task_name: {
         type: Sequelize.STRING,
-        primaryKey: true
+        primaryKey: true,
+        onDelete: 'CASCADE'
       },
       Desc: {
         type: Sequelize.STRING,
