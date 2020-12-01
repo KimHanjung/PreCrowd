@@ -1,40 +1,194 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import '../main.css';
+import React, { Component, useState, useRef } from "react";
+import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
+import CheckButton from "react-validation/build/button";
+import Select from "react-validation/build/select";
+//import { isEmail } from "validator";
 
-class Admin extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {ID:'default'};
-}
+import AuthService from "../services/auth.service";
+import { useHistory } from "react-router-dom";
 
-  render() {
+var list= [];
+var j = 0;
+const Manage = (props) => {
+  const history = useHistory();
+  const form = useRef();
+  const checkBtn = useRef();
+
+  const [id, setId] = useState("");
+  const [gender, setGender] = useState("");
+  const [byear, setYear] = useState("");
+  const [role, setRole] = useState("");
+  const [user, setUser] = useState("");
+
+ 
+
+  const onChangeId = (e) => {
+    const id = e.target.value;
+    setId(id);
+  };
+  const write  = () => {
+    var list2 = [];
+    while(j<list.length){
+      list2.push(
+      <tr>
+        <td>{list[j].Id}</td>
+        <td>{list[j].Pw}</td>
+        <td>{list[j].Name}</td>
+        <td>{list[j].Bdate}</td>
+        <td>{list[j].Gender}</td>
+        <td>{list[j].Phone}</td>
+        <td>{list[j].Address}</td>
+        <td>{list[j].Role}</td>
+        <td>{list[j].createdAt}</td>
+        <td>{list[j].updatedAt}</td>
+      </tr>);
+      j = j + 1;
+    }
     return (
-        <>
-        <body>
-        <header className='el-header'>
-            <div className='headercontents'>
-            <Link to="/">
-                <button className='title'>PRECROWD</button>
-            </Link>
-            <div className='space'>
-            </div>
-            <div className='welcome'>{this.state.ID}님 환영합니다!</div>
-            <Link to="/password">
-                <button className='header-right'>비밀번호 수정</button>
-            </Link>
-            <Link to="/">
-                <button className='header-right'>로그아웃</button>
-            </Link>
-            </div>
-        </header>
-        </body>
-        <div className='menu'>
-            asdfasdfasds
-        </div>
-        </>
-       
+      {list2}
     );
+  };
+  const onChangeGender = (e) => {
+    const gender = e.target.value;
+    setGender(gender);
+    
   }
-}
-export default Admin;
+
+  const onChangeByear = (e) => {
+    const byear = e.target.value;
+    setYear(byear);
+  }
+
+
+  
+  
+
+  const onChangeRole = (e) => {
+    const role = e.target.value;
+    setRole(role);
+  }
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    form.current.validateAll();
+    
+      AuthService.management(id, gender, byear, byear, role).then(
+        (response) => {
+          setUser(response);
+        },
+        (error) => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+        }
+      );
+    
+  };
+
+  return (
+    <div className="col-md-12">
+      <div className="card card-container">
+        <Form onSubmit={handleRegister} ref={form}>
+          {
+            <div>
+              <div className="form-group">
+                <label htmlFor="Id">Id</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="Id"
+                  value={id}
+                  onChange={onChangeId}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="gender">Gender<br/></label>
+                <Select name='gender' value={gender} onChange={onChangeGender}>
+                  <option value=''>Gender</option>
+                  <option value='M'>Man</option>
+                  <option value='F'>Female</option>
+                </Select>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="byear1">Birthyear1</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="byear1"
+                  placeholder = "YYYY"
+                  value={byear}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="byear2">Birthyear2</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="byear2"
+                  placeholder = "YYYY"
+                  value={byear}
+                />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="role">Role<br/></label>
+                <Select name='role' value={role} onChange={onChangeRole}>
+                  <option value='r'>Role</option>
+                  <option value='Submittor'>Submittor</option>
+                  <option value='Evaluationer'>Evaluationer</option>
+                </Select>
+              </div>
+
+              <div className="form-group">
+                <button className="btn btn-primary btn-block">Show members</button>
+              </div>
+            </div>
+          }
+
+          { (
+            <div className="form-group">
+              <div
+                
+                role="alert"
+              >
+              </div>
+            </div>
+          )}
+          <CheckButton style={{ display: "none" }} ref={checkBtn} />
+        </Form>
+      </div>
+      <div>
+       <table>
+         <thead>
+           <tr>
+             <th>Id</th>
+             <th>Pw</th>
+             <th>Name</th>
+             <th>Bdate</th>
+             <th>Gender</th>
+             <th>Phone</th>
+             <th>Address</th>
+             <th>Role</th>
+             <th>createdAt</th>
+             <th>updatedAt</th>
+             console.log
+           </tr>
+         </thead>
+         <tbody>
+            {list}
+         </tbody>
+       </table>
+      </div>
+    </div>
+  );
+};
+
+export default Manage;
