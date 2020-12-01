@@ -9,7 +9,10 @@ module.exports = function(app) {
     );
     next();
   });
-
+  app.post(
+    "src/auth/taketask",
+    contorller.taketask
+  );
   app.post(
     "/src/auth/signup",
     [

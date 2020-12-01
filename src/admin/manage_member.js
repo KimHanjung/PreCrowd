@@ -8,26 +8,47 @@ import Select from "react-validation/build/select";
 import AuthService from "../services/auth.service";
 import { useHistory } from "react-router-dom";
 
+var listtask = [];
 var list= [];
 var j = 0;
+var tasklist = [];
 const Manage = (props) => {
   const history = useHistory();
   const form = useRef();
   const checkBtn = useRef();
+  const initial = (e) => {
+    e.preventDefault();
+    form.current.validateAll();
+     AuthService.taketask().then(
+      (response) =>{
+        tasklist = response;
+      }
+    );
+    write_task();
+  };
+  const write_task = () => {
+    var k = 0;
+    while(k<tasklist.length){
+      listtask.push(
+      <option value = {tasklist[k]}>{tasklist[k]}</option>);
+        k = k + 1;
+    }
 
+  }
   const [id, setId] = useState("");
   const [gender, setGender] = useState("");
   const [byear1, setYear1] = useState("");
   const [byear2, setYear2] = useState("");
   const [role, setRole] = useState("");
   const [user, setUser] = useState("");
-
+  const [task, setTask] = useState("");
  
 
   const onChangeId = (e) => {
     const id = e.target.value;
     setId(id);
   };
+  
   const write  = () => {
     list = [];
     while(j<user.length){
@@ -58,6 +79,10 @@ const Manage = (props) => {
     const byear2 = e.target.value;
     setYear2(byear2);
   }
+  const onChangeSelect = (e) => {
+    const task = e.target.value;
+    setTask(task);
+  }
 
 
   
@@ -67,13 +92,13 @@ const Manage = (props) => {
     const role = e.target.value;
     setRole(role);
   }
-
+  
   const handleRegister = (e) => {
     e.preventDefault();
 
     form.current.validateAll();
     
-      AuthService.management(id, gender, byear1, byear2, role).then(
+      AuthService.management(id,task, gender, byear1, byear2, role).then(
         (response) => {
           setUser(response);
           write();
@@ -93,6 +118,7 @@ const Manage = (props) => {
   return (
     <div className="col-md-12">
       <div className="card card-container">
+        {initial}
         <Form onSubmit={handleRegister} ref={form}>
           {
             <div>
@@ -106,7 +132,13 @@ const Manage = (props) => {
                   onChange={onChangeId}
                 />
               </div>
-
+              <div className ="form-group">
+                <label htmlFor="task">Task_list<br/></label>
+                <Select name ="task_list" value ={task} onChange={onChangeSelect}>
+                  <option value = "">Task_List</option>
+                  {listtask}
+                </Select>
+              </div>
               <div className="form-group">
                 <label htmlFor="gender">Gender<br/></label>
                 <Select name='gender' value={gender} onChange={onChangeGender}>

@@ -1,6 +1,8 @@
 const db = require("../models");
 const config = require("../config/auth.config");
 const Member = db.member;
+const Task = db.Task;
+const Approval = db.Approval;
 
 const Op = db.Sequelize.Op;
 
@@ -30,50 +32,128 @@ exports.signup = (req, res) => {
       console.log('failed');
     });
 };
+exports.taketask = (req, res) =>{
+  Task.findAll({
+    raw:true
+  })
+    .then(task =>{
+      var list = [];
+      var i = 0;
+      while(i< task.length){
+        list.push(task[i].Task_name);
+        i = i + 1;
+      }
+      res.send({
+        task_list : list
+      });
+    });
+}
 exports.management = (req, res) =>{
   Member.findAll({
     raw:true
   })
     .then(member =>{
-      var list = [];
-      var i = 0;
-      while(i < member.length){
-        var bool = true;
-        if(member[i].Id === 'admin'){
-          bool = false;
-        }
-        if(req.body.id != ''){
-          if(member[i].Id.indexOf(req.body.id) === -1){
+      if(req.body.task === ""){
+        var list = [];
+        var i = 0;
+        while(i < member.length){
+          var bool = true;
+          if(member[i].Id === 'admin'){
             bool = false;
           }
-        }
-        if(req.body.gender === "1"  || req.body.gender === "0"){
-          if(member[i].Gender !=  parseInt(req.body.gender)){
+          if(req.body.id != ''){
+            if(member[i].Id.indexOf(req.body.id) === -1){
+              bool = false;
+            }
+          }
+          if(req.body.gender === "1"  || req.body.gender === "0"){
+            if(member[i].Gender !=  parseInt(req.body.gender)){
+              bool = false;
+            }
+          }
+          var by1 = parseInt(req.body.byear1)
+          var by2 = parseInt(req.body.byear2)
+          if(by1 === ""){
+            by1 = parseInt("0000");
+          }
+          if(by2 === ""){
+            by2 = parseInt("9999");
+          }
+          if(parseInt(member[i].Bdate) < by1 || parseInt(member[i].Bdate)  > by2){
+            console.log(by2);
             bool = false;
           }
+          if(member[i].Role.indexOf(req.body.role) === -1){
+            bool = false;
+          }
+          if(bool){
+            list.push(member[i]);
+          }
+          i = i + 1;
         }
-        var by1 = req.body.byear1;
-        var by2 = req.body.byear2;
-        if(by1 === ""){
-          by1 = "0000";
-        }
-        if(by2 === ""){
-          by2 = "9999";
-        }
-        if(member[i].Bdate.slice(0,4)< by1 || member[i].Bdate.slice(0,4) > by2){
-          bool = false;
-        }
-        if(member[i].Role.indexOf(req.body.role) === -1){
-          bool = false;
-        }
-        if(bool){
-          list.push(member[i]);
-        }
-        i = i + 1;
+        res.send({ 
+          users :list
+        });
       }
-      res.send({ 
-        users :list
-      });
+      else{
+        Approval.findAll({
+          where:
+          {
+            Task_name: req.body.task
+          }
+        })
+        .then(task =>{
+          var list = [];
+        var i = 0;
+        while(i < member.length){
+          var v = 0;
+          var bool = true;
+          var bool2 = false;
+          if(member[i].Id === 'admin'){
+            bool = false;
+          }
+          if(req.body.id != ''){
+            if(member[i].Id.indexOf(req.body.id) === -1){
+              bool = false;
+            }
+          }
+          while(t<task.length){
+            if(member[i].Id === task[t].H_id){
+              bool2 = true;
+            }
+            t = t + 1;
+          }
+          if(req.body.gender === "1"  || req.body.gender === "0"){
+            if(member[i].Gender !=  parseInt(req.body.gender)){
+              bool = false;
+            }
+          }
+          var by1 = parseInt(req.body.byear1)
+          var by2 = parseInt(req.body.byear2)
+          if(by1 === ""){
+            by1 = parseInt("0000");
+          }
+          if(by2 === ""){
+            by2 = parseInt("9999");
+          }
+          if(parseInt(member[i].Bdate) < by1 || parseInt(member[i].Bdate)  > by2){
+            console.log(by2);
+            bool = false;
+          }
+          if(member[i].Role.indexOf(req.body.role) === -1){
+            bool = false;
+          }
+          if(bool && bool2){
+            list.push(member[i]);
+          }
+          i = i + 1;
+        }
+        
+        })
+        res.send({
+          users: list
+        });
+      }
     });
 };
 exports.withdrawal = (req, res) =>{
