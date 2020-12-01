@@ -2,7 +2,7 @@ const db = require("../models");
 const {sequelize} = require("../models");
 const {QueryTypes} = require('sequelize');
 const fs = require('fs');
-var Iconv = require('iconv').Iconv;
+var iconv = require('iconv-lite');
 
 exports.tasklist = async (req, res) => {
   var id = req.query.id;
@@ -59,8 +59,9 @@ exports.submit = async (req, res) => {
   var csv_str = '';
   var csv_raw = fs.readFileSync(path);
   //var csv_info = jschardet.detect(csv_raw);
-  var iconv = new Iconv("EUC-KR", "utf-8");
-  var csv = iconv.convert(csv_raw);
+  var csv = iconv.decode(csv_raw, 'euc-kr');
+  //var iconv = new Iconv("EUC-KR", "utf-8");
+  //var csv = iconv.convert(csv_raw);
   var csv_str = csv.toString('utf-8');
 
   // original data 
