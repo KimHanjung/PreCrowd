@@ -134,7 +134,7 @@ const Manage = (props) => {
               </div>
               <div className ="form-group">
                 <label htmlFor="task">Task_list<br/></label>
-                <Select name ="task_list" value ={task} onChange={onChangeSelect}>
+                <Select name ="task" value ={task} onChange={onChangeSelect}>
                   <option value = "">Task_List</option>
                   {listtask}
                 </Select>
@@ -200,6 +200,7 @@ const Manage = (props) => {
       </div>
       <div>
         {console.log({id})}
+        {console.log({task})}
         {console.log({gender})}
         {console.log({byear1})}
         {console.log({byear2})}

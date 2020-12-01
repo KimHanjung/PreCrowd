@@ -47,7 +47,7 @@ exports.taketask = (req, res) =>{
         task_list : list
       });
     });
-}
+};
 exports.management = (req, res) =>{
   Member.findAll({
     raw:true
@@ -91,15 +91,14 @@ exports.management = (req, res) =>{
           }
           i = i + 1;
         }
-        res.send({ 
-          users :list
-        });
       }
       else{
         Approval.findAll({
+          raw: true,
           where:
           {
             Task_name: req.body.task
+          
           }
         })
         .then(task =>{
@@ -150,10 +149,11 @@ exports.management = (req, res) =>{
         }
         
         })
+      }
         res.send({
           users: list
         });
-      }
+      
     });
 };
 exports.withdrawal = (req, res) =>{

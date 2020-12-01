@@ -11,7 +11,7 @@ module.exports = function(app) {
   });
   app.post(
     "src/auth/taketask",
-    contorller.taketask
+    controller.taketask
   );
   app.post(
     "/src/auth/signup",
