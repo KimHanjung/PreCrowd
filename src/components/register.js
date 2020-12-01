@@ -23,7 +23,7 @@ const validId = (value) => {
   if (value.length < 5 || value.length > 20) {
     return (
       <div className="alert alert-danger" role="alert">
-        Plean enter your Id between 5 and 20.
+        Please enter your Id between 5 and 20.
       </div>
     );
   }

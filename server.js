@@ -20,7 +20,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = require("./src/models");
 const Member = db.member;
 
-
 require('./src/routes/auth.routes')(app);
 require('./src/routes/user.routes')(app);
 
