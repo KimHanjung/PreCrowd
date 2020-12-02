@@ -47,7 +47,7 @@ const vDesc = (value) => {
 };
 
 const vPass = (value) => {
-  if (value < 0 || value > 100) {
+  if (parseInt(value) < 0 || parseInt(value) > 100) {
     return (
       <div className="alert alert-danger" role="alert">
         Pass cut line must be 0 ~ 100
@@ -129,7 +129,7 @@ const CreateTask = (props) => {
 
   const onChangePass = (e) => {
     const pass = e.target.value;
-    setPass(pass);
+    setPass(parseInt(pass));
   };
 
   const onChangeTablename = (e) => {
@@ -140,17 +140,17 @@ const CreateTask = (props) => {
   const onChangeTableschema = (e) => {
     const tableschema = e.target.value;
     setTableschema(tableschema);
-  }
+  };
 
   const onChangeOriginalname = (e) => {
     const originalname = e.target.value;
     setOriginalname(originalname);
-  }
+  };
 
   const onChangeOriginalschema = (e) => {
     const originalschema = e.target.value;
     setOriginalschema(originalschema);
-  }
+  };
 
   const handleRegister = (e) => {
     e.preventDefault();

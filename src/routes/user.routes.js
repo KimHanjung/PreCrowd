@@ -22,4 +22,6 @@ module.exports = function(app) {
 
   app.post("/src/user/delete_task", controller.delete_task);
 
+  app.post("/src/user/set_pass", controller.set_pass);
+
 };

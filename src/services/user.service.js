@@ -42,12 +42,9 @@ const get_approval = (Task_name) => {
 };
 
 const modify_approval = (id, taskname, status) => {
-  return axios.post(API_URL + "get_approval", {
+  return axios.post(API_URL + "modify_approval", {
     id, taskname, status
   })
-  .then((response) => {
-    return response.data.result;
-  });
 };
 
 const delete_task = (Task_name) => {
@@ -56,6 +53,13 @@ const delete_task = (Task_name) => {
   });
 };
 
+const set_pass = (pass, taskname) => {
+  return axios.post(API_URL + "set_pass", {
+    pass, taskname
+  });
+};
+
+
 export default {
   create_task,
   create_original,
@@ -63,4 +67,5 @@ export default {
   delete_task,
   get_approval,
   modify_approval,
+  set_pass,
 };

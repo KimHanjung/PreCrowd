@@ -33,7 +33,6 @@ exports.create_task = (req, res) => {
 
 exports.create_original = (req, res) => {
   Original.create({
-    //Type_id: 7,
     Schema: req.body.originalschema,
     Type_name: req.body.originalname,
     Task_name: req.body.taskname
@@ -98,17 +97,37 @@ exports.create_original = (req, res) => {
   };
 
   exports.modify_approval = (req, res) => {
-    Approval.update({
-      Status: 1-req.body.status,
-    },
-    {
-      where: {H_id: req.body.id, Task_name: req.body.taskname},
-      returning: true,
-      plain: true
+    let id = req.body.id;
+    let taskname = req.body.taskname;
+    let input_status = 1-req.body.status;
+    db.sequelize.query('update Approvals\
+    set Status=?\
+    where Task_name=? and H_id=?', {
+      raw:true,
+      type: QueryTypes.UPDATE,
+      replacements: [input_status, taskname, id],
     })
       .then((message) => {
             res.send(message)
             console.log('success: modify_approval');
+          })
+      .catch(err => {
+        res.status(500).send({ message: err.message });
+        console.log(err);
+      });
+  };
+
+  exports.set_pass = (req, res) => {
+    db.sequelize.query('update Tasks\
+    set Pass=?\
+    where Task_name=?', {
+      raw:true,
+      type: QueryTypes.UPDATE,
+      replacements: [req.body.pass, req.body.taskname],
+    })
+      .then((message) => {
+            res.send(message)
+            console.log('success: set_pass');
           })
       .catch(err => {
         res.status(500).send({ message: err.message });
