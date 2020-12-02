@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true
       },
       Parsing_file_name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       Pass: {
         type: Sequelize.BOOLEAN,
@@ -32,7 +32,11 @@ module.exports = (sequelize, Sequelize) => {
       Data_file: {
         type: Sequelize.BLOB('long'),
       },
-    },{timestamps: false,});
+    },{
+      timestamps: false,
+      charset: 'utf8',
+      collate: 'utf8_unicode_ci',
+    });
   
     return Parsing;
   };

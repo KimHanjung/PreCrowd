@@ -14,7 +14,7 @@ exports.task_stat = (req, res) => {
     IFNULL(SUM(PARSING_DATA_FILEs.Pass), 0) as Pass, COUNT(PARSING_DATA_FILEs.File_index) as Total\
     from TASKs left join ORIGINAL_DATA_FILEs on TASKs.Task_name=ORIGINAL_DATA_FILEs.Task_name\
     left join PARSING_DATA_FILEs on ORIGINAL_DATA_FILEs.Type_id=PARSING_DATA_FILEs.Type_id\
-    group by TASKs.Task_name;', {
+    group by TASKs.Task_name order by TASKs.Task_name;', {
       raw:true,
       type: QueryTypes.SELECT,
     })
@@ -30,7 +30,7 @@ exports.task_stat = (req, res) => {
         temp['Member'] = [];
         db.sequelize.query('select Type_name, IFNULL(sum(Pass), 0) as Pass, count(File_index) as Total\
         from ORIGINAL_DATA_FILEs left join PARSING_DATA_FILEs on ORIGINAL_DATA_FILEs.Type_id=PARSING_DATA_FILEs.Type_id \
-        where Task_name=? group by Type_name;', {
+        where Task_name=? group by Type_name order by Type_name;', {
           replacements: [temp['Task_name']],
           raw:true,
           type: QueryTypes.SELECT,
@@ -45,7 +45,7 @@ exports.task_stat = (req, res) => {
           })
           result.push(temp);
           db.sequelize.query('select M.Name as Name, M.Id as Id from MEMBERs as M, APPROVALs as A\
-          where M.Id=A.H_id and A.Task_name=?;', {
+          where M.Id=A.H_id and A.Task_name=? order by Name;', {
             replacements: [temp['Task_name']],
             raw:true,
             type: QueryTypes.SELECT,

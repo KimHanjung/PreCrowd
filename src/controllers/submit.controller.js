@@ -55,6 +55,7 @@ exports.submit = async (req, res) => {
   
   // CSV file encoding 
   let filename = req.file.filename;
+  console.log(filename);
   let path = "./src/uploads/" + filename;
   var csv_str = '';
   var csv_raw = fs.readFileSync(path);
@@ -128,13 +129,16 @@ exports.submit = async (req, res) => {
   //convert count to percent
   for(var i=0;i<submit_schema.length;i++){
     null_percent[i] = null_percent[i]/total_tuple_num;
+    parsing_data[i] = parsing_data[i].join(',');
   }
   var str_null_percent = null_percent.join(',');
 
   //count overlap tuples
   for(var i=0;i<total_tuple_num;i++){
     for(var j=i+1;j<total_tuple_num;j++){
-      if(parsing_data[i]==parsing_data[j]) overlap_tuple ++;
+      if(parsing_data[i]==parsing_data[j]) {
+        overlap_tuple = overlap_tuple + 1;
+      } 
     }
   }
         

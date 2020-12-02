@@ -16,7 +16,11 @@ module.exports = (sequelize, Sequelize) => {
       Task_data_table_schema: {
         type: Sequelize.STRING,
       },
-    },{timestamps: false,});
+    },{
+      timestamps: false,
+      charset: 'utf8',
+      collate: 'utf8_unicode_ci',
+    });
   
     return Task;
   };

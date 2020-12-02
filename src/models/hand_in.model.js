@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
       },
       File_index: {
         type: Sequelize.INTEGER,
-        primaryKey:true,
+        primaryKey : true,
       },
       Round: {
         type: Sequelize.INTEGER,
@@ -15,7 +15,11 @@ module.exports = (sequelize, Sequelize) => {
       Period: {
         type: Sequelize.STRING,
       },
-    },{timestamps: false,});
+    },{
+      timestamps: false,
+      charset: 'utf8',
+      collate: 'utf8_unicode_ci',
+    });
   
     return Handin;
   };
