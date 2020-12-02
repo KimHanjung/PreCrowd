@@ -46,6 +46,16 @@ const vDesc = (value) => {
   }
 };
 
+const vPass = (value) => {
+  if (value < 0 || value > 100) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        Pass cut line must be 0 ~ 100
+      </div>
+    );
+  }
+};
+
 const vTablename = (value) => {
   if (value.length < 1 || value.length > 30) {
     return (
@@ -94,6 +104,7 @@ const CreateTask = (props) => {
   const [taskname, setTaskname] = useState("");
   const [term, setTerm] = useState("");
   const [desc, setDesc] = useState("");
+  const [pass, setPass] = useState("");
   const [tablename, setTablename] = useState("");
   const [tableschema, setTableschema] = useState("");
   const [originalname, setOriginalname] = useState("");
@@ -114,6 +125,11 @@ const CreateTask = (props) => {
   const onChangeDesc = (e) => {
     const desc = e.target.value;
     setDesc(desc);
+  };
+
+  const onChangePass = (e) => {
+    const pass = e.target.value;
+    setPass(pass);
   };
 
   const onChangeTablename = (e) => {
@@ -144,7 +160,7 @@ const CreateTask = (props) => {
 
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      UserService.create_task(taskname, term, desc, tablename, tableschema, originalschema)
+      UserService.create_task(taskname, term, desc, pass, tablename, tableschema, originalschema)
       .then(
         (response) => {
           console.log(response.data.message);
@@ -229,6 +245,18 @@ const CreateTask = (props) => {
                   value={desc}
                   onChange={onChangeDesc}
                   validations={[required, vDesc]}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="Cut line of pass(0~100)">Cut line of pass(0~100)</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="Cut line of pass(0~100)"
+                  value={pass}
+                  onChange={onChangePass}
+                  validations={[required, vPass]}
                 />
               </div>
 

@@ -2,7 +2,7 @@ module.exports = {
     HOST: "localhost",
     USER: "root",
     PASSWORD: "kbkj.1",
-    DB: "project",
+    DB: "db_project",
     dialect: "mariadb",
     port:3307,
     pool: {

@@ -16,6 +16,10 @@ module.exports = function(app) {
 
   app.post("/src/user/get_task", controller.get_task);
 
+  app.post("/src/user/get_approval", controller.get_approval);
+
+  app.post("/src/user/modify_approval", controller.modify_approval);
+
   app.post("/src/user/delete_task", controller.delete_task);
 
 };

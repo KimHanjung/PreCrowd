@@ -138,12 +138,12 @@ function initial(){
   )
   .catch((err) => console.log('Approval 1 creates error: ', err));
   
-  Approval.create({
-    H_id: 'Submittor1',
-    Task_name: 'Task2',
-    Status: false
-  })
-  .then((res) => console.log('Approval 2 is created!')
-  )
-  .catch((err) => console.log('Approval 2 creates error: ', err));
+  // Approval.create({
+  //   H_id: 'Submittor2',
+  //   Task_name: 'Task2',
+  //   Status: false
+  // })
+  // .then((res) => console.log('Approval 2 is created!')
+  // )
+  // .catch((err) => console.log('Approval 2 creates error: ', err));
 }

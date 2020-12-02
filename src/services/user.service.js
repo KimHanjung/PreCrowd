@@ -4,11 +4,12 @@ import authHeader from "./auth-header";
 const API_URL = "http://localhost:3001/src/user/";
 
 
-const create_task = (taskname, term, desc, tablename, tableschema, originalschema) => {
+const create_task = (taskname, term, desc, pass, tablename, tableschema, originalschema) => {
   return axios.post(API_URL + "create_task", {
     taskname,
     term,
     desc,
+    pass,
     tablename,
     tableschema,
     originalschema
@@ -27,8 +28,25 @@ const get_task = () => {
   return axios.post(API_URL + "get_task", {
   })
   .then((response) => {
-
     return response.data.users;
+  });
+};
+
+const get_approval = (Task_name) => {
+  return axios.post(API_URL + "get_approval", {
+    Task_name
+  })
+  .then((response) => {
+    return response.data.result;
+  });
+};
+
+const modify_approval = (id, taskname, status) => {
+  return axios.post(API_URL + "get_approval", {
+    id, taskname, status
+  })
+  .then((response) => {
+    return response.data.result;
   });
 };
 
@@ -43,4 +61,6 @@ export default {
   create_original,
   get_task,
   delete_task,
+  get_approval,
+  modify_approval,
 };

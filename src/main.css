@@ -1,13 +1,26 @@
 /* div {
     width: 100%;
+    height: 100%;
     display: block;
     justify-content: center;
     align-content: center;
 } */
+div:root{
+    height: 100%;
+}
+body.white{
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
 .white{
     background-color: white;
     width: 100%;
     height: 100%;
+    min-height: 650.5px;
+    opacity: 0.95;
+    box-sizing: border-box;
 }
 .menutitle{
     margin-bottom: 20px;
@@ -122,7 +135,7 @@ div.headercontents{
     margin-right: auto;
     margin-left: auto;
     padding-left: 230px;
-    padding-right: none;
+    padding-right: 230px;
     align-items: center;
 }
 

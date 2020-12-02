@@ -11,6 +11,10 @@ module.exports = (sequelize, Sequelize) => {
       Term: {
         type: Sequelize.INTEGER,
       },
+      Pass: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
       Task_data_table_name: {
         type: Sequelize.STRING,
       },

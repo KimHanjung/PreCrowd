@@ -1,12 +1,11 @@
 const db = require("../models");
-const config = require("../config/auth.config");
 const Task = db.task;
 const Original = db.origin;
+const Member = db.member;
+const Approval = db.approval;
 
+const { QueryTypes } = require('sequelize');
 const Op = db.Sequelize.Op;
-
-var jwt = require("jsonwebtoken");
-const { task } = require("../models");
 
 exports.create_task = (req, res) => {
   if ((req.body.tableschema.match(/,/g) || []).length != (req.body.originalschema.match(/,/g) || []).length) {
@@ -77,5 +76,42 @@ exports.create_original = (req, res) => {
       .catch(err => {
         res.status(500).send({ message: "failed: delete_task" });
         console.log('failed: delete_task');
+      });
+  };
+
+  exports.get_approval = (req, res) => {
+    db.sequelize.query('select Members.Id as Id, Members.Name as Name, Members.Score as Score, Approvals.Status as Status\
+    from Tasks, Approvals, Members\
+    where Tasks.Task_name=? and Tasks.Task_name=Approvals.Task_name and Approvals.H_id=Members.Id', {
+      raw:true,
+      type: QueryTypes.SELECT,
+      replacements: [req.body.Task_name],
+    })
+    .then((result) => {
+      res.send({result: result});
+      console.log('get_approval is completed!');
+    })
+    .catch(err => {
+      res.status(500).send({ message: "failed: get_approval" });
+      console.log("failed: get_approval", err);
+    });
+  };
+
+  exports.modify_approval = (req, res) => {
+    Approval.update({
+      Status: 1-req.body.status,
+    },
+    {
+      where: {H_id: req.body.id, Task_name: req.body.taskname},
+      returning: true,
+      plain: true
+    })
+      .then((message) => {
+            res.send(message)
+            console.log('success: modify_approval');
+          })
+      .catch(err => {
+        res.status(500).send({ message: err.message });
+        console.log(err);
       });
   };
