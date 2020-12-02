@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import '../main.css';
 
 class Scorer extends Component {
   constructor(props) {
@@ -28,7 +27,6 @@ class Scorer extends Component {
             </div>
         </header>
         
-        <div className='home'>
             <div className='mainSelect'>
                 <Link to="/score_file">
                     <button className='mainbutton'>파싱 데이터 시퀀스 파일 평가하기</button>
@@ -38,7 +36,6 @@ class Scorer extends Component {
                 </Link>
 
             </div>
-        </div>
         </div>
     );
   }

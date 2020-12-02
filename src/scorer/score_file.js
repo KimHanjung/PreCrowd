@@ -8,7 +8,7 @@ class Scorer extends Component {
     this.state = {
       ID:'default',
       score: 0,
-      pass: '',
+      pass: 0,
       checked: false,
     };
 }
@@ -29,9 +29,16 @@ class Scorer extends Component {
   handleCheckbox = (e) => {
     const { target: { checked } } = e;
     this.setState({ checked });
+    if(this.state.checked === true){
+      this.setState({pass: 0});
+    }
+    else{
+      this.setState({pass: 1});
+    }
+    console.log(this.state.pass);
 };
 
-  handleSubmit = () =>{
+  handleSubmit = () =>{ //submit 하면 서버로 점수와 패스 여부 보내줌
 
   }
 
@@ -40,7 +47,7 @@ class Scorer extends Component {
       <div>
       <button type = 'button' onClick = {this.downloadFile}>Download</button><br></br>
       <input type = 'text' onChange = {this.changeHandler} placeholder = "score"></input><br></br>
-      <div>Pass or Nonpass?</div>
+      <div>Pass?</div>
       <input type = 'checkbox' checked = {this.state.checked} onChange = {this.handleCheckbox} placeholder = "pass/nonpass"></input><br></br>
       <button type = 'button' onClick = {this.handleSubmit}>Submit</button>
       </div>

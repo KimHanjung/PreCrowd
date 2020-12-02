@@ -1,38 +1,45 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import '../main.css';
+import axios from 'axios';
+
+const divStyle = {
+  color: 'white',
+}
 
 class Scorer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {ID:'default'};
-}
+  state = {
+    ID : 'default',
+    data : [],
+  }
+
+  getData = async () => {
+    let response = await axios.get('https://jsonplaceholder.typicode.com/users');
+    response = response.data;
+    this.setState({data: response});
+  };
+
+  componentDidMount(){
+    this.getData();
+  }
 
   render() {
     return (
-        <body>
-        <header className='el-header'>
-            <div className='headercontents'>
-            <Link to="/">
-                <button className='title'>PRECROWD</button>
-            </Link>
-            <div className='space'>
-            </div>
-            <div className='welcome'>{this.state.ID}님 환영합니다!</div>
-            <Link to="/password">
-                <button className='header-right'>비밀번호 수정</button>
-            </Link>
-            <Link to="/">
-                <button className='header-right'>로그아웃</button>
-            </Link>
-            </div>
-        </header>
+      <div style={divStyle}>
+        {
+          this.state.data.map((item) => {
+            return(
+              <div>
+              <p key = {item.name}>name: {item.name} </p>
+              <p key = {item.username}>username: {item.username} </p>
+              </div>
+            );
+          })
+        }
+      </div>
         
-        <div className='home'>
-
-        </div>
-        </body>
     );
   }
 }
+
+
 export default Scorer;

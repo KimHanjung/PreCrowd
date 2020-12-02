@@ -4,7 +4,7 @@ module.exports = {
     PASSWORD: "root",
     DB: "test5",
     dialect: "mariadb",
-    port:3305,
+    port:3307,
     pool: {
       max: 5,
       min: 0,
