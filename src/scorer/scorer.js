@@ -10,7 +10,7 @@ class Scorer extends Component {
 
   render() {
     return (
-        <body>
+        <div>
         <header className='el-header'>
             <div className='headercontents'>
             <Link to="/">
@@ -29,24 +29,17 @@ class Scorer extends Component {
         </header>
         
         <div className='home'>
-            <div className='wise'>
-                <pre>지식은 모일수록 가치있다.
-                    <br/>-???-
-                </pre>
-            </div>
             <div className='mainSelect'>
-                <Link to="/create_task">
+                <Link to="/score_file">
                     <button className='mainbutton'>파싱 데이터 시퀀스 파일 평가하기</button>
                 </Link>
-                <Link to="/manage_task">
+                <Link to="/monitor_score">
                     <button className='mainbutton'>평가 내역 모니터링</button>
                 </Link>
-                <Link to="/task_statistics">
-                    <button className='mainbutton'>제출자의 평가 점수 관리하기</button>
-                </Link>
+
             </div>
         </div>
-        </body>
+        </div>
     );
   }
 }

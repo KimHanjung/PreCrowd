@@ -25,7 +25,6 @@ import Password from './components/password';
 import Scorer from './scorer/scorer.js';
 import score_file from './scorer/score_file.js';
 import monitor_score from './scorer/monitor_score.js';
-import manage_score from './scorer/manage_score';
 
 
 
@@ -95,8 +94,7 @@ class Paging extends Component {
 
                 <Route path="/scorer" component={Scorer} />
                 <Route path="/score_file" component={score_file} />
-                <Route path="/monitor_score" component={monitor_score} />
-                <Route path="/manage_score" component={manage_score} />                
+                <Route path="/monitor_score" component={monitor_score} />              
 
             </div>
         );
