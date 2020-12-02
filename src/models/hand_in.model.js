@@ -5,7 +5,8 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true
       },
       File_index: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        primaryKey:true,
       },
       Round: {
         type: Sequelize.INTEGER,

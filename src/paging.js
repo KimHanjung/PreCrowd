@@ -27,6 +27,9 @@ import score_file from './scorer/score_file.js';
 import monitor_score from './scorer/monitor_score.js';
 import manage_score from './scorer/manage_score';
 
+import Collapse from './1';
+import Virtual from './2';
+
 
 
 class Paging extends Component {
@@ -97,6 +100,9 @@ class Paging extends Component {
                 <Route path="/score_file" component={score_file} />
                 <Route path="/monitor_score" component={monitor_score} />
                 <Route path="/manage_score" component={manage_score} />                
+
+                <Route path="/collapse" component={Collapse}/>
+                <Route path="/virtual" component={Virtual}/>
 
             </div>
         );

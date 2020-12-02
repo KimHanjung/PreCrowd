@@ -2,7 +2,7 @@ module.exports = (sequelize, Sequelize) => {
     const Parsing = sequelize.define("PARSING_DATA_FILE", {
       File_index: {
         type: Sequelize.INTEGER,
-        autoincrement:true,
+        autoIncrement:true,
         primaryKey: true
       },
       Parsing_file_name: {

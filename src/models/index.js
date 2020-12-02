@@ -43,7 +43,7 @@ db.parsing.belongsTo(db.member, {
   foreignKey: 'E_id', 
 });
 db.parsing.belongsTo(db.origin, {
-  foreignKey: 'Type_id', 
+ foreignKey: 'Type_id', 
 });
 
 db.origin.belongsTo(db.task, {

@@ -8,13 +8,13 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
       Term: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       Task_data_table_name: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
       },
       Task_data_table_schema: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.STRING,
       },
     });
   
