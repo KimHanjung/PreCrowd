@@ -4,6 +4,8 @@ import axios from 'axios';
 
 const divStyle = {
   color: 'white',
+  margin: 100,
+  font: 'Helvetica',
 }
 
 class Scorer extends Component {

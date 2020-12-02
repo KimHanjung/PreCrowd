@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { getDownloadFile } from './file';
 import { saveAs } from 'file-saver'
 
+
 class Scorer extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +30,7 @@ class Scorer extends Component {
   handleCheckbox = (e) => {
     const { target: { checked } } = e;
     this.setState({ checked });
-    if(this.state.checked === true){
+    if(this.state.checked === false){
       this.setState({pass: 0});
     }
     else{
@@ -44,12 +45,19 @@ class Scorer extends Component {
 
   render() {
     return (
-      <div>
-      <button type = 'button' onClick = {this.downloadFile}>Download</button><br></br>
-      <input type = 'text' onChange = {this.changeHandler} placeholder = "score"></input><br></br>
-      <div>Pass?</div>
-      <input type = 'checkbox' checked = {this.state.checked} onChange = {this.handleCheckbox} placeholder = "pass/nonpass"></input><br></br>
-      <button type = 'button' onClick = {this.handleSubmit}>Submit</button>
+      <div style = {
+        {marginLeft: 100}
+      }>
+        <div>
+        <button className = 'scorebutton' type = 'button' onClick = {this.downloadFile}>Download</button>
+        </div>
+        <div>
+        <input style = {{width: 300}} type = 'text' onChange = {this.changeHandler} placeholder = "score"></input><br></br>
+        </div>
+        <div style = {{color: 'white'}}>Pass?
+        <input style = {{width: 30}} type = 'checkbox' checked = {this.state.checked} onChange = {this.handleCheckbox} placeholder = "pass/nonpass"></input>
+        </div>
+        <button type = 'button' onClick = {this.handleSubmit}>Submit</button>
       </div>
     );
   }
