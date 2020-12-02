@@ -8,7 +8,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
       Term: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       Task_data_table_name: {
         type: Sequelize.STRING,
