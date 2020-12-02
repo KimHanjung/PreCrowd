@@ -11,7 +11,11 @@ module.exports = (sequelize, Sequelize) => {
       Status: {
         type: Sequelize.BOOLEAN,
       },
-    },{timestamps: false,});
+    },{
+      timestamps: false,
+      charset: 'utf8',
+      collate: 'utf8_unicode_ci',
+    });
   
     return Approval;
   };

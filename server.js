@@ -24,6 +24,7 @@ const Member = db.member;
 require('./src/routes/auth.routes')(app);
 require('./src/routes/user.routes')(app);
 require('./src/routes/submit.routes')(app);
+require('./src/routes/rating.routes')(app);
 
 db.sequelize.sync({force: true}).then(() => {
   console.log('Drop and Resync Db');

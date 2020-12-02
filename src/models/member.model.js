@@ -25,7 +25,11 @@ module.exports = (sequelize, Sequelize) => {
       Role: {
         type: Sequelize.STRING,
       },
-    },{timestamps: false,});
+    },{
+      timestamps: false,
+      charset: 'utf8',
+      collate: 'utf8_unicode_ci',
+    });
   
     return Role;
   };
