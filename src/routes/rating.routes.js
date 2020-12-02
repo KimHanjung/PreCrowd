@@ -18,4 +18,9 @@ module.exports = function(app) {
         "/src/api/download",
         controller.download
     );
+
+    app.get(
+        "/src/api/pass",
+        controller.pass
+    )
 }
