@@ -3,6 +3,8 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import Select from "react-validation/build/select";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 //import { isEmail } from "validator";
 
 import AuthService from "../services/auth.service";
@@ -10,6 +12,8 @@ import { useHistory } from "react-router-dom";
 
 var listtask = [];
 var list= [];
+var subtask= [];
+var evatask= [];
 var j = 0;
 var tasklist = [];
 const Manage = (props) => {
@@ -31,6 +35,64 @@ const Manage = (props) => {
       }
      );
   };
+  const confirm_sub = (e) => {
+    confirmAlert({
+      title: 'Show the statistics',
+      message: 'Are you sure?',
+      buttons: [
+        {
+          label:'Yes',
+          onClick: () => alert(e)
+        },
+        {
+          label: 'No',
+        }
+      ]
+    });
+  };
+  const confirm_eva = (e) => {
+    confirmAlert({
+      title: 'Show the file list',
+      message: 'Are you sure?',
+      buttons: [
+        {
+          label:'Yes',
+          onClick: () => alert(e)
+        },
+        {
+          label: 'No',
+        }
+      ]
+    });
+  };
+  const takesub = () => {
+    AuthService.takesub(user_id).then(
+      (response) =>{
+        subtask = [];
+        var y = 0;
+        while(y<response.length){
+          subtask.push(
+            response[y]
+          );
+          y = y + 1;
+        }
+      }
+    );
+  };
+  const takeeva = () => {
+    AuthService.takeeva(user_id).then(
+      (response) => {
+        evatask = [];
+        var z = 0;
+        while(z<response.length){
+          evatask.push(
+            response[z]
+          );
+          z = z + 1;
+        }
+      }
+    );
+  };
   const [id, setId] = useState("");
   const [gender, setGender] = useState("");
   const [byear1, setYear1] = useState("");
@@ -39,6 +101,7 @@ const Manage = (props) => {
   const [user, setUser] = useState("");
   const [task, setTask] = useState("");
   const [listt, setList] = useState(initial);
+  const [user_id, setUserid] = useState("");
   
   
 
@@ -51,16 +114,33 @@ const Manage = (props) => {
     j = 0;
     list = [];
     while(j<user.length){
-      list.push(
-      <tr>
-        <td>{user[j].Id}</td>
-        <td>{user[j].Name}</td>
-        <td>{user[j].Bdate}</td>
-        <td>{user[j].Gender}</td>
-        <td>{user[j].Phone}</td>
-        <td>{user[j].Address}</td>
-        <td>{user[j].Role}</td>
-      </tr>);
+      setUserid(user[j].id);
+      if(user[j].Role === "Submittor"){
+        takesub();
+        list.push(
+          <tr onClick={()=>{{confirm_sub(subtask)}}}>
+            <td>{user[j].Id}</td>
+            <td>{user[j].Name}</td>
+            <td>{user[j].Bdate}</td>
+            <td>{user[j].Gender}</td>
+            <td>{user[j].Phone}</td>
+            <td>{user[j].Address}</td>
+            <td>{user[j].Role}</td>
+          </tr>);
+      }
+      else{
+        takeeva();
+        list.push(
+          <tr onClick={()=>{{confirm_eva(evatask)}}}>
+            <td>{user[j].Id}</td>
+            <td>{user[j].Name}</td>
+            <td>{user[j].Bdate}</td>
+            <td>{user[j].Gender}</td>
+            <td>{user[j].Phone}</td>
+            <td>{user[j].Address}</td>
+            <td>{user[j].Role}</td>
+          </tr>);
+      }
       j = j + 1;
     }
   };
@@ -113,7 +193,7 @@ const Manage = (props) => {
         }
       );
   };
-
+  
   return (
     <div className="col-md-12">
       <div className="card card-container">

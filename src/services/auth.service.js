@@ -17,6 +17,22 @@ const management = (id, task, gender, byear1, byear2, role) =>{
     return response.data.users;
   });
 };
+const takeeva = (user_id) => {
+  return axios.post(API_URL+"takeeva",{
+    user_id
+  })
+  .then((response) =>{
+    return response.data.eva;
+  });
+};
+const takesub = (user_id) => {
+  return axios.post(API_URL+"takesub",{
+    user_id
+  })
+  .then((response) =>{
+    return response.data.sub;
+  });
+};
 const taketask = () =>{
   return axios.post(API_URL + "taketask")
   .then((response) =>{
@@ -91,6 +107,8 @@ const getCurrentUser = () => {
 };
 
 export default {
+  takeeva,
+  takesub,
   taketask,
   register,
   withdrawal,
