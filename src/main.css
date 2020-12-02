@@ -44,6 +44,7 @@ div.right {
     display: inline-flex;
     justify-content: flex-end;
     width: 100%;
+    padding: 10px;
 }
 div.task_popup_form{
     display: inline-flex;
@@ -56,7 +57,7 @@ div.modalSheet{
     top: 0;
     bottom: 0;
     right: 0;
-    background-color: rgba(255,255,255,0.9);
+    background-color: rgba(0,0,0,0.6);
     color: black;
     min-height: max-content;
     box-sizing: border-box;
@@ -67,7 +68,14 @@ div.modalContent{
     justify-items: center;
     margin: 5%;
     background-color: rgba(255,255,255);
+    border-radius: 5px;
+    border: darkgreen;
+    border-width: thin;
     box-sizing: border-box;
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 600px;
+
 }
 div:root{
     height: 100%;
@@ -77,6 +85,7 @@ body.white{
     width: 100%;
     height: 100%;
     box-sizing: border-box;
+
 }
 .white{
     background-color: white;
@@ -86,6 +95,9 @@ body.white{
     opacity: 0.95;
     box-sizing: border-box;
     display: block;
+    border-radius: 5px;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 .menutitle{
     margin-bottom: 20px;
