@@ -162,8 +162,8 @@ exports.management = (req, res) =>{
           raw: true,
           where:
           {
-            Task_name: req.body.task
-          
+            Task_name: req.body.task,
+            Status: 1
           }
         })
         .then(task =>{
