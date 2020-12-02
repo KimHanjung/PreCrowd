@@ -42,7 +42,6 @@ function Row(props) {
   const handleClickOpen = (id) => {
     UserService.task_member(id)
     .then(rows => {
-      console.log(rows.data);
       setMemtask(rows.data);
     })
     setDial(true);
@@ -52,13 +51,6 @@ function Row(props) {
     setDial(false);
   };
 
-
-  const list = (id) => {
-    UserService.task_member(id)
-    .then(rows => console.log(rows.data));
-  };
-
-  console.log(row);
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
@@ -169,7 +161,6 @@ export default function CollapsibleTable() {
     // Update the document title using the browser API
     UserService.task_stat().then(
         (response) => {
-            console.log(response.data);
             setRows(response.data)
             setLoading(false);
         }
@@ -179,28 +170,22 @@ export default function CollapsibleTable() {
         setLoading(false)
     });
   }, []);
-
-  const submit = () => {
-    confirmAlert({
-      title: 'Confirm to submit',
-      message: [
-        'Are you sure to do this.\n', 
-        'hi'],
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => alert('Click Yes')
-        },
-        {
-          label: 'No',
-          onClick: () => alert('Click No')
-        }
-      ]
-    });
-  };
-
+  
   return (
     <TableContainer component={Paper}>
+      {isLoading && <div>
+      <Table aria-label="collapsible table">
+        <TableHead>
+          <TableRow>
+              <TableCell />
+              <TableCell >Task Name</TableCell>
+              <TableCell align="right">Description</TableCell>
+              <TableCell align="right">Pass&nbsp;</TableCell>
+              <TableCell align="right">Total&nbsp;</TableCell>
+          </TableRow>
+        </TableHead>
+      </Table>
+        </div>}
         {!isLoading && <div>
         <Table aria-label="collapsible table">
             <TableHead>
