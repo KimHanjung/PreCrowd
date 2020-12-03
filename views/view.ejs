@@ -7,7 +7,7 @@
   <body>
     example ejs
     <h1><%= data %></h1>
-
+    
     <form method="post" action ="http://localhost:3001/src/api/submit" enctype = "multipart/form-data" accept-charset="utf-8">
         <div>
         file: <input type="file" name ="userfile" id = "imageFileOpenInput">
@@ -18,11 +18,13 @@
         period: <input type="text" name ="period">
         </div>
         <input type="submit">
-    </form>  
-    <form method="post" action ="http://localhost:3001/src/api/taskreq">
+    </form>
+    
+    <form method="post" action ="http://localhost:3001/src/api/pass">
       <div>
-        task_name: <input type="text" name ="task_name">
-        user_id: <input type="text" name ="user_id">
+        file_index: <input type="text" name ="file_index">
+        pass: <input type="text" name = "pass">
+        user_score: <input type= "text" name= "user_score">
       </div>
       <input type="submit">
     </form>

@@ -152,7 +152,7 @@ exports.submit = async (req, res) => {
     replacements : [type_name, task_name],
     type: QueryTypes.SELECT
   });
-  var sql = "SELECT Id FROM members WHERE Role= 2 ORDER BY RAND() LIMIT 1 ;";
+  var sql = "SELECT Id FROM `members` WHERE Role= \'Evaluationer\' ORDER BY RAND() LIMIT 1 ;";
   var result2 = await sequelize.query(sql, {
     type: QueryTypes.SELECT
   });
@@ -187,11 +187,14 @@ exports.submit = async (req, res) => {
     }
   }
 
+  var average_null_percent = 0;
   //convert count to percent
   for(var i=0;i<submit_schema.length;i++){
-    null_percent[i] = null_percent[i]/total_tuple_num;
+    average_null_percent += null_percent[i]/total_tuple_num;
     parsing_data[i] = parsing_data[i].join(',');
   }
+
+  average_null_percent = (average_null_percent/submit_schema.length);
 
   //count overlap tuples
   for(var i=0;i<total_tuple_num;i++){
@@ -203,18 +206,19 @@ exports.submit = async (req, res) => {
   }
 
   // System score
-  null_percent
-  total_tuple_num      
+  var system_score = (100 - average_null_percent)/2 + (100 - overlap_tuple/total_tuple_num)/2;
+  console.log(system_score);   
+  
   data[0] = submit_schema.join(',');
   csv_parsing = parsing_data.join('\r\n');
   fs.writeFileSync(path,csv_parsing);
 
   
   sql = 'INSERT INTO parsing_data_files'+
-        '(Parsing_file_name, E_id, Total_tuple_num, Type_id, Data_file) '+
-        'VALUES(?,?,?,?,?);';
+        '( Parsing_file_name, E_id, System_score, Total_tuple_num, Type_id, Data_file) '+
+        'VALUES(?,?,?,?,?,?);';
   await sequelize.query(sql, {
-    replacements : [filename, e_id, total_tuple_num, overlap_tuple, str_null_percent ,type_id, csv_parsing],
+    replacements : [filename, e_id, system_score, total_tuple_num ,type_id, csv_parsing],
     type: QueryTypes.INSERT
   });
   
