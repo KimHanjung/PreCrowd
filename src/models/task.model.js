@@ -8,6 +8,10 @@ module.exports = (sequelize, Sequelize) => {
       Desc: {
         type: Sequelize.STRING,
       },
+      Pass: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
       Term: {
         type: Sequelize.INTEGER,
       },

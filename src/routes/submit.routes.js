@@ -27,6 +27,26 @@ module.exports = function(app) {
       "/src/api/tasklist",
       controller.tasklist
   );
+  
+  app.post(
+      "/src/api/taskreq",
+      controller.taskreq
+  );
+
+  app.get(
+    "/src/api/submit/score",
+    controller.submitscore
+  );
+  
+  app.get(
+    "/src/api/submit/taskstate",
+    controller.submittaskstate
+  );
+
+  app.get(
+    "/src/api/submit/typestate",
+    controller.submittypestate
+  );
 
   app.get(
     "/src/api/taskin",
@@ -43,4 +63,5 @@ module.exports = function(app) {
     upload.single('userfile'),
     controller.submit
   );
+  
 };
