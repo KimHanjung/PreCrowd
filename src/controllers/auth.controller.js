@@ -6,6 +6,7 @@ const Op = db.Sequelize.Op;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const { response } = require("express");
 
 exports.signup = (req, res) => {
   // Save User to Database
@@ -27,6 +28,52 @@ exports.signup = (req, res) => {
     .catch(err => {
       res.status(500).send({ message: err.message });
       console.log('failed');
+    });
+};
+exports.management = (req, res) =>{
+  Member.findAll({
+    raw:true
+  })
+    .then(member =>{
+      var list = [];
+      var i = 0;
+      while(i < member.length){
+        var bool = true;
+        if(member[i].Id === 'admin'){
+          bool = false;
+        }
+        if(req.body.id != ''){
+          if(member[i].Id.indexOf(req.body.id) === -1){
+            bool = false;
+          }
+        }
+        if(req.body.gender === "1"  || req.body.gender === "0"){
+          if(member[i].Gender !=  parseInt(req.body.gender)){
+            bool = false;
+          }
+        }
+        var by1 = req.body.byear1;
+        var by2 = req.body.byear2;
+        if(by1 === ""){
+          by1 = "0000";
+        }
+        if(by2 === ""){
+          by2 = "9999";
+        }
+        if(member[i].Bdate.slice(0,4)< by1 || member[i].Bdate.slice(0,4) > by2){
+          bool = false;
+        }
+        if(member[i].Role.indexOf(req.body.role) === -1){
+          bool = false;
+        }
+        if(bool){
+          list.push(member[i]);
+        }
+        i = i + 1;
+      }
+      res.send({ 
+        users :list
+      });
     });
 };
 exports.withdrawal = (req, res) =>{

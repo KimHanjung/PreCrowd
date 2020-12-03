@@ -16,6 +16,19 @@ exports.tasklist = async (req, res) => {
   res.json(result);
 };
 
+exports.taskreq = async (req, res) => {
+  var post = req.body;
+  var user_id = post.user_id;
+  var task_name = post.task_name;
+  var sql = "INSERT INTO `approvals` VALUES(?, ?, 0);";
+  const result = await sequelize.query(sql, {
+    replacements : [user_id, task_name],
+    type: QueryTypes.SELECT
+  });
+  console.log(result);
+  res.json(result);
+};
+
 exports.taskin = async (req, res) => {
   var id = req.query.id;
   var sql = "SELECT t.Task_name, t.Desc, t.Term FROM `tasks` t WHERE EXISTS "+ 
@@ -24,6 +37,54 @@ exports.taskin = async (req, res) => {
     replacements : [id],
     type: QueryTypes.SELECT
   });
+  
+  console.log(result);
+  res.json(result);
+};
+
+exports.submitscore = async (req, res) => {
+  var user_id = req.query.user_id;
+
+  var sql = "SELECT `Score` FROM `members` WHERE Id = ?";
+  const result = await sequelize.query(sql, {
+    replacements : [user_id],
+    type: QueryTypes.SELECT
+  });
+  console.log(result);
+  res.json(result);
+};
+
+exports.submittaskstate = async (req,res) => {
+  var user_id = req.query.user_id;
+  var task_name =req.query.task_name;
+  var sql = "SELECT COUNT(*) as pass_num, COALESCE(SUM(p.Total_tuple_num), 0) as tuple_num "+
+            "FROM  (`Parsing_data_files` p JOIN `Hand_ins` h ON p.File_index = h.File_index) "+ 
+            "JOIN `Original_data_files` o ON p.Type_id = o.Type_id " +
+            "WHERE (o.Task_name = ?) AND (h.H_id = ? ) AND (p.pass = 1) "
+            "GROUP BY Task_name";
+  const result = await sequelize.query(sql,{
+    replacements: [task_name, user_id],
+    type: QueryTypes.SELECT
+  });
+
+  console.log(result);
+  res.json(result);
+};
+
+exports.submittypestate = async (req,res) => {
+  var user_id = req.query.user_id;
+  var task_name = req.query.task_name;
+  var type_name =req.query.type_name;
+  var sql = "SELECT  p.Parsing_file_name, p.Pass, h.Round "+
+            "FROM  (`Parsing_data_files` p JOIN `Hand_ins` h ON p.File_index = h.File_index) "+ 
+            "JOIN `Original_data_files` o ON p.Type_id = o.Type_id "+
+            "WHERE (o.Task_name = ?) AND (h.H_id = ? ) AND (o.Type_name = ?) "+
+            "ORDER by h.Round;";
+  const result = await sequelize.query(sql,{
+    replacements: [task_name, user_id, type_name],
+    type: QueryTypes.SELECT
+  });
+
   console.log(result);
   res.json(result);
 };
@@ -39,7 +100,6 @@ exports.typelist = async (req, res) => {
   console.log(result);
   res.json(result);
 };
-
 
 exports.submit = async (req, res) => {
   //Get Post request
@@ -96,6 +156,7 @@ exports.submit = async (req, res) => {
   var result2 = await sequelize.query(sql, {
     type: QueryTypes.SELECT
   });
+
   // 해당 data type과 task가 없을 때 error handleing 필요
   console.log(result1[0]);
   var ori_sch = result1[0].ori_sch.split(',');
@@ -131,7 +192,6 @@ exports.submit = async (req, res) => {
     null_percent[i] = null_percent[i]/total_tuple_num;
     parsing_data[i] = parsing_data[i].join(',');
   }
-  var str_null_percent = null_percent.join(',');
 
   //count overlap tuples
   for(var i=0;i<total_tuple_num;i++){
@@ -141,14 +201,18 @@ exports.submit = async (req, res) => {
       } 
     }
   }
-        
+
+  // System score
+  null_percent
+  total_tuple_num      
   data[0] = submit_schema.join(',');
   csv_parsing = parsing_data.join('\r\n');
   fs.writeFileSync(path,csv_parsing);
+
   
   sql = 'INSERT INTO parsing_data_files'+
-        '(Parsing_file_name, E_id, Total_tuple_num, Overlap_tuple, Null_percent, Type_id, Data_file) '+
-        'VALUES(?,?,?,?,?,?,?);';
+        '(Parsing_file_name, E_id, Total_tuple_num, Type_id, Data_file) '+
+        'VALUES(?,?,?,?,?);';
   await sequelize.query(sql, {
     replacements : [filename, e_id, total_tuple_num, overlap_tuple, str_null_percent ,type_id, csv_parsing],
     type: QueryTypes.INSERT

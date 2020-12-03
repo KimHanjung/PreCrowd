@@ -7,7 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //import { isEmail } from "validator";
 
 import AuthService from "../services/auth.service";
-import { useHistory, Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
+import Modal from "./Modal";
 
 const required = (value) => {
   if (!value) {
@@ -30,7 +31,6 @@ const vphone = (value) => {
 }
 
 const Profile = (props) => {
-  const history = useHistory();
   const form = useRef();
   const checkBtn = useRef();
   const user_data = JSON.parse(localStorage.getItem('user'));
@@ -43,11 +43,6 @@ const Profile = (props) => {
   const [role] = useState(user_data.role);
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
-
-  const withdrawal = () => {
-    AuthService.withdrawal()
-    .then(() => history.push('/'));
-  }
 
   const onChangeAddress = (e) => {
     const address = e.target.value;
@@ -128,29 +123,27 @@ const Profile = (props) => {
                 />
               </div>
 
-              {/* <div className="form-group">
-                <label htmlFor="gender">Gender<br/></label>
-                <Select name='gender' value={gender} disabled={true}>
-                  {gender && 
-                  <option value='M'>Man</option>
-                  }
-                  {!gender && 
-                  <option value='F'>Female</option>
-                  }
-                </Select>
-              </div> */}
+              <div className="form-group">
+                <label htmlFor="gender">Gender</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="gender"
+                  value={gender ? 'Male' : 'Female'}
+                  disabled = {true}
+                />
+              </div>
 
-              {/* <div className="form-group">
+              <div className="form-group">
                 <label htmlFor="bdate">Birthday</label>
                 <Input
                   type="text"
                   className="form-control"
                   name="bdate"
-                  placeholder = "YYYYMMDD"
                   value={bdate}
                   disabled={true}
                 />
-              </div> */}
+              </div>
 
               <div className="form-group">
                 <label htmlFor="phone">Phone</label>
@@ -165,17 +158,16 @@ const Profile = (props) => {
                 />
               </div>
 
-              {/* <div className="form-group">
+              <div className="form-group">
                 <label htmlFor="role">Role<br/></label>
-                <Select name='role' value={role} disabled = {true}>
-                  {(role === 'Submittor') && 
-                  <option value='Submittor'>Submittor</option>
-                  }
-                  {(role === 'Evaluationer') && 
-                  <option value='Evaluationer'>Evaluationer</option>
-                  }
-                </Select>
-              </div> */}
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="role"
+                  value={role}
+                  disabled={true}
+                />
+              </div>
 
               <div className="form-group">
                 <button className="btn btn-primary btn-block">Update</button>
@@ -199,9 +191,23 @@ const Profile = (props) => {
           <Link to="/password">
             <button className='btn btn-secondary'>Modify Password</button>
           </Link>
-          <button className='btn btn-secondary' onClick={withdrawal}>Withdrawal</button>
+          <Link to={`${props.match.url}/modal`}>
+          <button className='btn btn-secondary'>withdrawal</button>
+          </Link>
         </div>
       </div>
+      <Route
+          path={`${props.match.url}/modal`}
+          render={() => {
+            return (
+              <Modal
+                onClick={() => {
+                  props.history.push(props.match.url);
+                }}
+              />
+            );
+          }}
+        />
     </div>
   );
 };

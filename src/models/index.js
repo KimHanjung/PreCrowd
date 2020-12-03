@@ -34,27 +34,32 @@ db.handin = require("./hand_in.model.js")(sequelize, Sequelize);
 
 db.approval.belongsTo(db.member, {
   foreignKey: 'H_id', 
+  onDelete: 'CASCADE',
 });
 db.approval.belongsTo(db.task, {
   foreignKey: 'Task_name', 
+  onDelete: 'CASCADE',
 });
 
 db.parsing.belongsTo(db.member, {
   foreignKey: 'E_id', 
+  onDelete: 'CASCADE',
 });
 db.parsing.belongsTo(db.origin, {
   foreignKey: 'Type_id', 
+  onDelete: 'CASCADE',
 });
-
 db.origin.belongsTo(db.task, {
   foreignKey: 'Task_name', 
+  onDelete: 'CASCADE',
 });
-
 db.handin.belongsTo(db.member, {
   foreignKey: 'H_id', 
+  onDelete: 'CASCADE',
 });
 db.handin.belongsTo(db.parsing, {
   foreignKey: 'File_index', 
+  onDelete: 'CASCADE',
 });
 
 

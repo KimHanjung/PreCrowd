@@ -10,23 +10,22 @@ module.exports = function(app) {
     next();
   });
 
-  app.get("/api/test/all", controller.allAccess);
+  app.post("/src/user/create_task", controller.create_task);
+  
+  app.post("/src/user/create_original", controller.create_original);
 
-  app.get(
-    "/api/test/user",
-    [authJwt.verifyToken],
-    controller.userBoard
-  );
+  app.post("/src/user/get_task", controller.get_task);
 
-  app.get(
-    "/api/test/mod",
-    [authJwt.verifyToken, authJwt.isModerator],
-    controller.moderatorBoard
-  );
+  app.post("/src/user/get_approval", controller.get_approval);
 
-  app.get(
-    "/api/test/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
-  );
+  app.post("/src/user/modify_approval", controller.modify_approval);
+
+  app.post("/src/user/delete_task", controller.delete_task);
+
+  app.post("/src/user/set_pass", controller.set_pass);
+
+  app.post("/src/user/task_stat", controller.task_stat);
+
+  app.post("/src/user/task_member", controller.task_member);
+  console.log('hi@!#!@#!@#!@#!@#!@#!@#@@#!!@#@!#@!#!@#!@#');
 };

@@ -16,18 +16,17 @@ module.exports = (sequelize, Sequelize) => {
       },
       E_id: {
         type: Sequelize.STRING,
+        onDelete: 'CASCADE',
+      },
+      System_score: {
+        type: Sequelize.INTEGER,
       },
       Total_tuple_num: {
         type: Sequelize.INTEGER,
       },
-      overlap_tuple: {
-        type: Sequelize.INTEGER,
-      },
-      null_percent : {
-        type: Sequelize.STRING,
-      },
       Type_id: {
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
       },
       Data_file: {
         type: Sequelize.BLOB('long'),

@@ -2,7 +2,7 @@ module.exports = (sequelize, Sequelize) => {
     const Original = sequelize.define("ORIGINAL_DATA_FILE", {
       Type_id: {
         type: Sequelize.INTEGER,
-        autoincrement: true,
+        autoIncrement: true,
         primaryKey: true
       },
       Schema: {
@@ -13,6 +13,7 @@ module.exports = (sequelize, Sequelize) => {
       },
       Task_name: {
         type: Sequelize.STRING,
+        onDelete: 'CASCADE',
       },
     },{
       timestamps: false,

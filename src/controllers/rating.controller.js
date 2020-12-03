@@ -56,7 +56,6 @@ exports.download = async (req, res) => {
 
 exports.pass = async (req, res) => {
     
-    /*
     var post = req.body;
     var file_index = post.file_index;
     var pass = post.pass;
@@ -64,16 +63,11 @@ exports.pass = async (req, res) => {
     if (!((pass == 1) || (pass ==0))) {
         return res.status(400).send("You need pass information!");
     }
-    */
-    var file_index = req.query.file_index;
-    var pass = req.query.pass;
-    var User_score = req.query.user_score;
    
     var sql;
     if(pass = 1){
         var sql = "SELECT t.`Task_data_table_name`,t.`Task_data_table_schema`, p.`Parsing_file_name`, p.`Data_file` "+
-              "FROM ((`parsing_data_files` p "+
-              "JOIN `original_data_files` o ON p.Type_id = o.Type_id) "+
+              "FROM (`parsing_data_files` p JOIN `original_data_files` o ON p.Type_id = o.Type_id) "+
               "JOIN `tasks` t ON t.task_name = o.task_name) " +
               "WHERE p.File_index = ?;";
         var result1 = await sequelize.query(sql, {

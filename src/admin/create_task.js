@@ -2,10 +2,8 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import Select from "react-validation/build/select";
-import "bootstrap/dist/css/bootstrap.min.css";
 
-import AuthService from "../services/auth.service";
+import UserService from "../services/user.service";
 import { useHistory } from "react-router-dom";
 
 const required = (value) => {
@@ -18,123 +16,141 @@ const required = (value) => {
   }
 };
 
-const validId = (value) => {
-  if (value.length < 5 || value.length > 20) {
+const vTaskname = (value) => {
+  if (value.length < 1 || value.length > 30) {
     return (
       <div className="alert alert-danger" role="alert">
-        Plean enter your Id between 5 and 20.
+        Task name must be less than 30 characters.
       </div>
     );
   }
 };
 
-const vusername = (value) => {
-  if (value.length < 3 || value.length > 20) {
+const vTerm = (value) => {
+  if (parseInt(value) < 1 || parseInt(value) > 30) {
     return (
       <div className="alert alert-danger" role="alert">
-        The username must be between 3 and 20 characters.
+        Minimum term must be 1 ~ 30 days.
       </div>
     );
   }
 };
 
-const vpassword = (value) => {
-  if (value.length < 6 || value.length > 40) {
+const vDesc = (value) => {
+  if (value.length > 100) {
     return (
       <div className="alert alert-danger" role="alert">
-        The password must be between 6 and 40 characters.
+        Description must be less than 100 characters.
       </div>
     );
   }
 };
 
-const vbdate = (value) => {
-  if (value.length !== 8) {
+const vPass = (value) => {
+  if (parseInt(value) < 0 || parseInt(value) > 100) {
     return (
       <div className="alert alert-danger" role="alert">
-        YYYYMMDD
+        Pass cut line must be 0 ~ 100
       </div>
     );
-  }
-  else {
-    const month = parseInt(value.slice(4, 6));
-    const date = parseInt(value.slice(6, 8));
-    if ((month < 1 || month > 12) || (date < 1 || date > 31)) {
-      return (
-        <div className="alert alert-danger" role="alert">
-          YYYYMMDD
-        </div>
-      );
-    }
   }
 };
 
-const vphone = (value) => {
-  if (value.match( /^[0-9]{3}[-]+[0-9]{4}[-]+[0-9]{4}$/ ) === null) {
+const vTablename = (value) => {
+  if (value.length < 1 || value.length > 30) {
     return (
       <div className="alert alert-danger" role="alert">
-        xxx-xxxx-xxxx
+        Table name must be less than 30 characters.
       </div>
     );
   }
-}
+};
 
-const Register = (props) => {
+const vTableschema = (value) => {
+  if (value.length < 1 || value.length > 100) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        Table schema must be less than 100 characters.
+      </div>
+    );
+  }
+};
+
+const vOriginalname = (value) => {
+  if (value.length < 1 || value.length > 30) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        Original data type name must be less than 30 characters.
+      </div>
+    );
+  }
+};
+
+const vOriginalschema = (value) => {
+  if (value.length < 1 || value.length > 100) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        Table schema must be less than 100 characters.
+      </div>
+    );
+  }
+};
+
+const CreateTask = (props) => {
   const history = useHistory();
   const form = useRef();
   const checkBtn = useRef();
 
-  const [username, setUsername] = useState("");
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [address, setAddress] = useState("");
-  const [gender, setGender] = useState("");
-  const [bdate, setBdate] = useState("");
-  const [phone, setPhone] = useState("");
-  const [role, setRole] = useState("");
+  const [taskname, setTaskname] = useState("");
+  const [term, setTerm] = useState("");
+  const [desc, setDesc] = useState("");
+  const [pass, setPass] = useState("");
+  const [tablename, setTablename] = useState("");
+  const [tableschema, setTableschema] = useState("");
+  const [originalname, setOriginalname] = useState("");
+  const [originalschema, setOriginalschema] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
 
-  const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
+  const onChangeTaskname = (e) => {
+    const taskname = e.target.value;
+    setTaskname(taskname);
   };
 
-  const onChangeId = (e) => {
-    const id = e.target.value;
-    setId(id);
+  const onChangeTerm = (e) => {
+    const term = e.target.value;
+    setTerm(term);
   };
 
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
+  const onChangeDesc = (e) => {
+    const desc = e.target.value;
+    setDesc(desc);
   };
 
-  const onChangeAddress = (e) => {
-    const address = e.target.value;
-    setAddress(address);
+  const onChangePass = (e) => {
+    const pass = e.target.value;
+    setPass(parseInt(pass));
   };
 
-  const onChangeGender = (e) => {
-    const gender = e.target.value;
-    setGender(gender);
-    
-  }
+  const onChangeTablename = (e) => {
+    const tablename = e.target.value;
+    setTablename(tablename);
+  };
 
-  const onChangeBdate = (e) => {
-    const bdate = e.target.value;
-    setBdate(bdate);
-  }
+  const onChangeTableschema = (e) => {
+    const tableschema = e.target.value;
+    setTableschema(tableschema);
+  };
 
-  const onChangePhone = (e) => {
-    const phone = e.target.value;
-    setPhone(phone);
-  }
+  const onChangeOriginalname = (e) => {
+    const originalname = e.target.value;
+    setOriginalname(originalname);
+  };
 
-  const onChangeRole = (e) => {
-    const role = e.target.value;
-    setRole(role);
-  }
+  const onChangeOriginalschema = (e) => {
+    const originalschema = e.target.value;
+    setOriginalschema(originalschema);
+  };
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -144,13 +160,35 @@ const Register = (props) => {
 
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(username, id, password, address, gender, bdate, phone, role).then(
+      UserService.create_task(taskname, term, desc, pass, tablename, tableschema, originalschema)
+      .then(
         (response) => {
           console.log(response.data.message);
           setMessage(response.data.message);
-          setSuccessful(true);
-          props.history.push('/');
-        },
+          //alert('success 1!');
+          
+          UserService.create_original(originalname, originalschema, taskname).then(
+            (response) => {
+              //alert('success 2!');
+              console.log(response.data.message);
+              setMessage(response.data.message);
+              setSuccessful(true);
+              props.history.push('/');
+            },
+            (error) => {
+              const resMessage =
+                (error.response &&
+                  error.response.data &&
+                  error.response.data.message) ||
+                error.message ||
+                error.toString();
+              //alert('2:',resMessage);
+              setMessage(resMessage);
+              setSuccessful(false);
+            }
+          );
+        })
+        .catch(
         (error) => {
           const resMessage =
             (error.response &&
@@ -158,7 +196,7 @@ const Register = (props) => {
               error.response.data.message) ||
             error.message ||
             error.toString();
-
+            //alert('1:',resMessage);
           setMessage(resMessage);
           setSuccessful(false);
         }
@@ -166,102 +204,108 @@ const Register = (props) => {
     }
   };
 
+
   return (
     <div className="registercolumn">
       <div className="registercard">
+        <div className='menutitle'> 태스크 생성 </div>
         <Form onSubmit={handleRegister} ref={form}>
           {!successful && (
             <div>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="Task name">Task name</label>
                 <Input
                   type="text"
                   className="form-control"
-                  name="username"
-                  value={username}
-                  onChange={onChangeUsername}
-                  validations={[required, vusername]}
+                  name="Task name"
+                  value={taskname}
+                  onChange={onChangeTaskname}
+                  validations={[required, vTaskname]}
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="Id">Id</label>
+                <label htmlFor="Minimum update term">Minimum update term</label>
                 <Input
                   type="text"
                   className="form-control"
-                  name="Id"
-                  value={id}
-                  onChange={onChangeId}
-                  validations={[required, validId]}
+                  name="Minimum update term"
+                  value={term}
+                  onChange={onChangeTerm}
+                  validations={[required, vTerm]}
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <Input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  value={password}
-                  onChange={onChangePassword}
-                  validations={[required, vpassword]}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="address">Address</label>
+                <label htmlFor="Description of task">Description of task</label>
                 <Input
                   type="text"
                   className="form-control"
-                  name="address"
-                  value={address}
-                  onChange={onChangeAddress}
-                  validations={[required]}
+                  name="Description of task"
+                  value={desc}
+                  onChange={onChangeDesc}
+                  validations={[required, vDesc]}
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="gender">Gender<br/></label>
-                <Select name='gender' value={gender} validations={[required]} onChange={onChangeGender}>
-                  <option value=''>Gender</option>
-                  <option value='M'>Male</option>
-                  <option value='F'>Female</option>
-                </Select>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="bdate">Birthday</label>
+                <label htmlFor="Cut line of pass(0~100)">Cut line of pass(0~100)</label>
                 <Input
                   type="text"
                   className="form-control"
-                  name="bdate"
-                  placeholder = "YYYYMMDD"
-                  value={bdate}
-                  onChange={onChangeBdate}
-                  validations={[required, vbdate]}
+                  name="Cut line of pass(0~100)"
+                  value={pass}
+                  onChange={onChangePass}
+                  validations={[required, vPass]}
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="phone">Phone</label>
+                <label htmlFor="Table name">Task data table name</label>
                 <Input
                   type="text"
                   className="form-control"
-                  name="phone"
-                  placeholder = "xxx-xxxx-xxxx"
-                  value={phone}
-                  onChange={onChangePhone}
-                  validations={[required, vphone]}
+                  name="Table name"
+                  value={tablename}
+                  onChange={onChangeTablename}
+                  validations={[required, vTablename]}
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="role">Role<br/></label>
-                <Select name='role' value={role} validations={[required]} onChange={onChangeRole}>
-                  <option value=''>Choose your role</option>
-                  <option value='Submittor'>Submittor</option>
-                  <option value='Evaluationer'>Evaluationer</option>
-                </Select>
+                <label htmlFor="Table schema">Task data table schema</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="Table schema"
+                  value={tableschema}
+                  onChange={onChangeTableschema}
+                  validations={[required, vTableschema]}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="Original name">Original data type name</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="Original name"
+                  value={originalname}
+                  onChange={onChangeOriginalname}
+                  validations={[required, vOriginalname]}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="Original schema">Original data type schema</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="Original schema"
+                  value={originalschema}
+                  onChange={onChangeOriginalschema}
+                  validations={[required, vOriginalschema]}
+                />
               </div>
 
               <div className="form-group">
@@ -287,4 +331,4 @@ const Register = (props) => {
   );
 };
 
-export default Register;
+export default CreateTask;

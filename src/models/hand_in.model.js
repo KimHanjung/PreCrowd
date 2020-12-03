@@ -3,11 +3,13 @@ module.exports = (sequelize, Sequelize) => {
       
       H_id: {
         type: Sequelize.STRING,
-        primaryKey: true
+        primaryKey: true,
+        onDelete: 'CASCADE',
       },
       File_index: {
         type: Sequelize.INTEGER,
-        primaryKey : true,
+        primaryKey: true,
+        onDelete: 'CASCADE',
       },
       Round: {
         type: Sequelize.INTEGER,
