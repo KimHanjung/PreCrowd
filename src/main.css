@@ -5,6 +5,11 @@
     justify-content: center;
     align-content: center;
 } */
+
+.body_color tr {
+    background-color: white;
+}
+
 .rft{
     --rft-main-color: #3dce8a;
     --rft-button-color: #3dce8a;
@@ -51,6 +56,7 @@ div.task_popup_form{
     width: 100%;
     justify-content: space-around;
 }
+
 div.modalSheet{
     position: fixed;
     left: 0;
