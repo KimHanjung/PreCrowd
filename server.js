@@ -36,6 +36,13 @@ app.get("/", (req, res) => {
   res.json({ message: "Precrowd." });
 });
 
+app.set('view engine', 'ejs');  
+app.set('views', './views');
+
+app.get('/view',function(req,res){
+  res.render('view',{data:'kim'});
+});
+
 // set port, listen for requests
 
 const PORT = process.env.PORT || 3001;

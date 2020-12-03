@@ -25,6 +25,10 @@ module.exports = (sequelize, Sequelize) => {
       Role: {
         type: Sequelize.STRING,
       },
+      Score: {
+        type: Sequelize.INTEGER,
+        defaultValue: null
+      }
     },{
       timestamps: false,
       charset: 'utf8',
