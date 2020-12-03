@@ -57,6 +57,14 @@ const set_pass = (pass, taskname) => {
   return axios.post(API_URL + "set_pass", {
     pass, taskname
   });
+}
+
+const task_stat = () => {
+  return axios.post(API_URL + "task_stat", { headers: authHeader() });
+};
+
+const task_member = (id) => {
+  return axios.post(API_URL + "task_member", { headers: authHeader(), id: id });
 };
 
 
@@ -68,4 +76,6 @@ export default {
   get_approval,
   modify_approval,
   set_pass,
+  task_stat,
+  task_member,
 };

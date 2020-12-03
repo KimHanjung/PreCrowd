@@ -15,6 +15,10 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         onDelete: 'CASCADE',
       },
+    },{
+      timestamps: false,
+      charset: 'utf8',
+      collate: 'utf8_unicode_ci',
     });
   
     return Original;

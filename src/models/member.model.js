@@ -29,6 +29,10 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER,
         defaultValue: null,
       },
+    },{
+      timestamps: false,
+      charset: 'utf8',
+      collate: 'utf8_unicode_ci',
     });
   
     return Role;

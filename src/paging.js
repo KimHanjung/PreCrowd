@@ -28,7 +28,6 @@ import monitor_score from './scorer/monitor_score.js';
 import manage_score from './scorer/manage_score';
 
 
-
 class Paging extends Component {
     constructor(props) {
         super(props);
@@ -96,8 +95,7 @@ class Paging extends Component {
                 <Route path="/scorer" component={Scorer} />
                 <Route path="/score_file" component={score_file} />
                 <Route path="/monitor_score" component={monitor_score} />
-                <Route path="/manage_score" component={manage_score} />                
-
+                <Route path="/manage_score" component={manage_score} />            
             </div>
         );
     }

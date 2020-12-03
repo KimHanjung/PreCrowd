@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true
       },
       Parsing_file_name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       Pass: {
         type: Sequelize.BOOLEAN,
@@ -18,16 +18,26 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         onDelete: 'CASCADE',
       },
-      System_score: {
+      Total_tuple_num: {
         type: Sequelize.INTEGER,
+      },
+      overlap_tuple: {
+        type: Sequelize.INTEGER,
+      },
+      null_percent : {
+        type: Sequelize.STRING,
       },
       Type_id: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
       },
       Data_file: {
-        type: Sequelize.BLOB,
+        type: Sequelize.BLOB('long'),
       },
+    },{
+      timestamps: false,
+      charset: 'utf8',
+      collate: 'utf8_unicode_ci',
     });
   
     return Parsing;

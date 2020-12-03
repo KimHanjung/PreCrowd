@@ -23,3 +23,11 @@ yarn-debug.log*
 yarn-error.log*
 
 src/jwt.js
+src/uploads
+src/downloads
+
+/node_modules
+node_modules
+node_modules
+node_modules
+node_modules
