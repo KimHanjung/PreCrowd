@@ -7,7 +7,7 @@ class Scorer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ID:'default',
+      ID:'',
       score: 0,
       pass: 0,
       checked: false,
@@ -30,13 +30,7 @@ class Scorer extends Component {
   handleCheckbox = (e) => {
     const { target: { checked } } = e;
     this.setState({ checked });
-    if(this.state.checked === false){
-      this.setState({pass: 0});
-    }
-    else{
-      this.setState({pass: 1});
-    }
-    console.log(this.state.pass);
+    console.log(this.state.checked);
 };
 
   handleSubmit = () =>{ //submit 하면 서버로 점수와 패스 여부 보내줌

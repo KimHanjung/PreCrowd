@@ -10,12 +10,18 @@ const divStyle = {
 
 class Scorer extends Component {
   state = {
-    ID : 'default',
+    ID : '',
     data : [],
   }
 
   getData = async () => {
-    let response = await axios.get('https://jsonplaceholder.typicode.com/users');
+    const myjson = JSON.parse(localStorage.getItem("user"));
+    this.setState({ID: myjson.id});
+    let response = await axios.get('http://localhost:3001/src/api/todolist',{
+      params: {
+        id: this.state.ID
+      }
+    });
     response = response.data;
     this.setState({data: response});
   };
@@ -31,8 +37,7 @@ class Scorer extends Component {
           this.state.data.map((item) => {
             return(
               <div>
-              <p key = {item.name}>name: {item.name} </p>
-              <p key = {item.username}>username: {item.username} </p>
+              <p key = {item.key}>name: {item.Parsing_file_name}, file index: {item.File_index}</p>
               </div>
             );
           })

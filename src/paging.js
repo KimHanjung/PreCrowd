@@ -91,9 +91,9 @@ class Paging extends Component {
                 <Route path="/evaluate" component={Evaluate} />
                 <Route path="/submit" component={Submit} />
 
-                <Route path="/scorer" component={Scorer} />
-                <Route path="/score_file" component={score_file} />
-                <Route path="/monitor_score" component={monitor_score} />              
+                <Route path="/evaluationer" component={Scorer} />
+                <Route path="/evaluate_file" component={score_file} />
+                <Route path="/monitor_evaluation" component={monitor_score} />              
 
 
             </div>
