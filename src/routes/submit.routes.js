@@ -44,7 +44,7 @@ module.exports = function(app) {
   );
 
   app.get(
-    "/src/api/submit/typestate",
+    "/src/api/typestate",
     controller.submittypestate
   );
 

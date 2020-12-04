@@ -23,6 +23,4 @@ yarn-debug.log*
 yarn-error.log*
 
 src/jwt.js
-src/uploads
-src/downloads
 node_modules
