@@ -92,15 +92,14 @@ useEffect(() => {
 
     form1.current.validateAll();
     if (checkBtn1.current.context._errors.length === 0) {
-      
     axios.post("http://localhost:3001/src/api/pass", {
-        file_index: file_index,
+        file_index: file_index.File_index,
         pass: pass,
         user_score: score
     })
       .then(
         (response) => {
-          console.log(response.data.message);
+          alert("success!");
           setMessage1(response.data.message);
           setSuccessful1(true);
         })
@@ -147,7 +146,7 @@ useEffect(() => {
                 </Select>
               </div>
               <div className="form-group">
-                <button className="btn btn-outline-success btn-block">Add</button>
+                <button className="btn btn-outline-success btn-block" onClick = {handleRegister1}>Add</button>
               </div>
             </div>
             {message1 && (

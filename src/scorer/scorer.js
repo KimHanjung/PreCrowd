@@ -24,17 +24,6 @@ class Scorer extends Component {
                 </Link>
             </div>
         </div>
-        
-        //     <div className='mainSelect'>
-        //         <Link to="/score_file">
-        //             <button className='mainbutton'>파싱 데이터 시퀀스 파일 평가하기</button>
-        //         </Link>
-        //         <Link to="/monitor_score">
-        //             <button className='mainbutton'>평가 내역 모니터링</button>
-        //         </Link>
-
-        //     </div>
-        // </div>
     );
   }
 }

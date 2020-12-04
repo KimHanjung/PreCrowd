@@ -18,18 +18,10 @@ const Managetask = (props) => {
       Task_name: 'dafault',
       Term: 0,
       Desc: 'dafault',
-      Pass: 0,
-      Task_data_table_name: 'dafault',
-      Task_data_table_schema: 'dafault',
     }
   ]);
 
-  const [file_index, setFile_index] = useState(0);
 
-
-  const popUpScore = (fileindex) =>{
-    setFile_index(fileindex);
-  }
 
 
   const columns=[
@@ -51,30 +43,18 @@ const Managetask = (props) => {
   ]
 
   useEffect(async () => {
-    // const myjson = JSON.parse(localStorage.getItem("user"));
-    // const URL = "URL" + myjson.id;
-    // let response = await axios.get(URL);
-    // response = response.data;
-    // setData(response);
+    const myjson = JSON.parse(localStorage.getItem("user"));
+    const URL = "http://localhost:3001/src/api/ratestate?id=" + myjson.id;
+    console.log(URL); 
+    let response = await axios.get(URL);
+    response = response.data;
+    setData(response);
   },[]);
 
 
   return (
     <div className='white'>
       <ReactFlexyTable title='Task Management' data={data} columns={columns}/>
-        <Route
-          path={`${props.match.url}/score_file`}
-          render={() => {
-            return (
-              <PopupScore
-                onClick={() => {
-                  props.history.push(props.match.url);
-                }}
-                File_index={file_index}
-              />
-            );
-          }}
-        />
     </div>
   );
 };
