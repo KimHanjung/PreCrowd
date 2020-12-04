@@ -63,9 +63,9 @@ exports.pass = async (req, res) => {
     if (!((pass == 1) || (pass ==0))) {
         return res.status(400).send("You need pass information!");
     }
-   
+    console.log("pass:"+pass );
     var sql;
-    if(pass = 1){
+    if(pass == 1){
         console.log("PASS!!!\n");
         sql = "SELECT t.Task_data_table_name, t.Task_data_table_schema, p.Data_file "+
               "FROM (`parsing_data_files` p JOIN `original_data_files` o ON p.Type_id = o.Type_id) "+
