@@ -300,7 +300,6 @@ useEffect(() => {
                   type="text"
                   className="form-control"
                   name="pass"
-                  value={pass}
                   onChange={onChangePass}
                   validations={[required, vPass]}
                 />
