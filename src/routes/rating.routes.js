@@ -18,6 +18,11 @@ module.exports = function(app) {
         "/src/api/download",
         controller.download
     );
+    
+    app.get(
+      "/src/api/ratestate",
+      controller.ratestate
+    );
 
     app.post(
         "/src/api/pass",
