@@ -3,8 +3,8 @@ const config = require("../config/auth.config");
 const Member = db.member;
 const Task = db.task;
 const Approval = db.approval;
-const Parsing = db.parsing_data_file;
-const Hand = db.hand_in;
+const Parsing = db.parsing;
+const Hand = db.handin;
 const Op = db.Sequelize.Op;
 
 var jwt = require("jsonwebtoken");
@@ -69,6 +69,13 @@ exports.takeeva = (req,res) =>{
       res.send({
         eva : parse_list
       });
+    })
+    .catch(err =>{
+      var parse_list = [];
+      console.log(err);
+      res.status(200).send({
+        eva: parse_list
+      });
     });
 };
 exports.takesub = (req,res) =>{
@@ -103,6 +110,13 @@ exports.takesub = (req,res) =>{
           temp = [];
         }
         res.send({
+          sub: sublist
+        });
+      })
+      .catch(err =>{
+        console.log(err);
+        var sublist = [];
+        res.status(200).send({
           sub: sublist
         });
       });

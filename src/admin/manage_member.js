@@ -70,6 +70,10 @@ const Manage = (props) => {
       (response) =>{
         subtask = [];
         var y = 0;
+        if(response.length === 0){
+          subtask.push("참여한 태스크가 없습니다");
+        }
+        else{
         while(y<response.length){
           subtask.push(
             response[y]
@@ -77,19 +81,28 @@ const Manage = (props) => {
           y = y + 1;
         }
       }
-    );
+    }
+    )
+    .catch(err=>{
+      console.log(err);
+    })
   };
   const takeeva = () => {
     AuthService.takeeva(user_id).then(
       (response) => {
         evatask = [];
         var z = 0;
+        if(response.length === 0){
+          evatask.push("평가한 파일이 없습니다");
+        }
+        else{
         while(z<response.length){
           evatask.push(
             response[z]
           );
           z = z + 1;
         }
+      }
       }
     );
   };
