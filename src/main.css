@@ -1,8 +1,103 @@
-div {
+/* div {
     width: 100%;
+    height: 100%;
     display: block;
     justify-content: center;
     align-content: center;
+} */
+.rft{
+    --rft-main-color: #3dce8a;
+    --rft-button-color: #3dce8a;
+    --rft-even-row-color: #f3f3f3;
+}
+div.formcontainer{
+    width: 100%;
+    border-radius: 5px;
+    border-color: cornflowerblue;
+    border: 1px;
+    padding: 10px;
+}
+.for_refresh{
+    width: 100%;
+    display: inline-flex;
+    justify-content: flex-end;
+    padding-right: 30px;
+}
+.btn-success {
+    background-color: #17e2af;
+    border-color: #17e2af;
+    color: #FFF; }
+.btn-success:hover,
+.btn-success:focus {
+    border-color: #4fdab7;
+    background-color: #15c79a;
+    color: #FFF; }
+.btn-success:active,
+.btn-success:visited,
+.btn-success:active:focus,
+.btn-success:active:hover {
+    border-color: #4fdab7;
+    background-color: #15c79a;
+    color: #FFF; }
+
+div.right {
+    display: inline-flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 10px;
+}
+div.task_popup_form{
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-around;
+}
+div.modalSheet{
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.6);
+    color: black;
+    min-height: max-content;
+    box-sizing: border-box;
+}
+div.modalContent{
+    display: block;
+    align-items: center;
+    justify-items: center;
+    margin: 5%;
+    background-color: rgba(255,255,255);
+    border-radius: 5px;
+    border: darkgreen;
+    border-width: thin;
+    box-sizing: border-box;
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 600px;
+
+}
+div:root{
+    height: 100%;
+}
+body.white{
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+}
+.white{
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    min-height: 650.5px;
+    opacity: 0.95;
+    box-sizing: border-box;
+    display: block;
+    border-radius: 5px;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 .menutitle{
     margin-bottom: 20px;
@@ -117,7 +212,7 @@ div.headercontents{
     margin-right: auto;
     margin-left: auto;
     padding-left: 230px;
-    padding-right: none;
+    padding-right: 230px;
     align-items: center;
 }
 
@@ -156,10 +251,9 @@ div.menu{
     border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible; cursor:pointer;
 }
 
-
 button:focus,
 button:active{
-    border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible; cursor:pointer;
+    border:none; box-shadow:none; border-radius:0; overflow:visible; cursor:pointer;
     border:0;
     outline:0;
     border-bottom-color: none;
@@ -201,5 +295,4 @@ button:active{
     margin-right: 20px;
     margin-left: 20px;
     outline: 0;
-
 }

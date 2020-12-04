@@ -13,7 +13,12 @@ module.exports = (sequelize, Sequelize) => {
       },
       Task_name: {
         type: Sequelize.STRING,
+        onDelete: 'CASCADE',
       },
+    },{
+      timestamps: false,
+      charset: 'utf8',
+      collate: 'utf8_unicode_ci',
     });
   
     return Original;

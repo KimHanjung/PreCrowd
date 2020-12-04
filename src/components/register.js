@@ -119,7 +119,6 @@ const Register = (props) => {
   const onChangeGender = (e) => {
     const gender = e.target.value;
     setGender(gender);
-    
   }
 
   const onChangeBdate = (e) => {

@@ -2,11 +2,11 @@ module.exports = (sequelize, Sequelize) => {
     const Parsing = sequelize.define("PARSING_DATA_FILE", {
       File_index: {
         type: Sequelize.INTEGER,
-        autoincrement:true,
+        autoIncrement:true,
         primaryKey: true
       },
       Parsing_file_name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       Pass: {
         type: Sequelize.BOOLEAN,
@@ -16,16 +16,25 @@ module.exports = (sequelize, Sequelize) => {
       },
       E_id: {
         type: Sequelize.STRING,
+        onDelete: 'CASCADE',
       },
       System_score: {
         type: Sequelize.INTEGER,
       },
-      Type_id: {
+      Total_tuple_num: {
         type: Sequelize.INTEGER,
       },
-      Data_file: {
-        type: Sequelize.BLOB,
+      Type_id: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
       },
+      Data_file: {
+        type: Sequelize.BLOB('long'),
+      },
+    },{
+      timestamps: false,
+      charset: 'utf8',
+      collate: 'utf8_unicode_ci',
     });
   
     return Parsing;

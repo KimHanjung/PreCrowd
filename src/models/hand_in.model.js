@@ -1,11 +1,15 @@
 module.exports = (sequelize, Sequelize) => {
     const Handin = sequelize.define("HAND_IN", {
+      
       H_id: {
         type: Sequelize.STRING,
-        primaryKey: true
+        primaryKey: true,
+        onDelete: 'CASCADE',
       },
       File_index: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        onDelete: 'CASCADE',
       },
       Round: {
         type: Sequelize.INTEGER,
@@ -13,6 +17,10 @@ module.exports = (sequelize, Sequelize) => {
       Period: {
         type: Sequelize.STRING,
       },
+    },{
+      timestamps: false,
+      charset: 'utf8',
+      collate: 'utf8_unicode_ci',
     });
   
     return Handin;
