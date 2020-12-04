@@ -63,9 +63,9 @@ exports.pass = async (req, res) => {
     if (!((pass == 1) || (pass ==0))) {
         return res.status(400).send("You need pass information!");
     }
-   
+    console.log("pass:"+pass );
     var sql;
-    if(pass = 1){
+    if(pass == 1){
         console.log("PASS!!!\n");
         sql = "SELECT t.Task_data_table_name, t.Task_data_table_schema, p.Data_file "+
               "FROM (`parsing_data_files` p JOIN `original_data_files` o ON p.Type_id = o.Type_id) "+
@@ -149,4 +149,16 @@ exports.pass = async (req, res) => {
         type: QueryTypes.UPDATE
     });
     return res.status(200).send("성공적인 업데이트");
+};   
+
+exports.ratestate = async (req, res) => {
+    var id = req.query.id;
+    var sql = "SELECT Parsing_file_name, Pass, User_score FROM `parsing_data_files` "+  
+              "WHERE (E_id = ?) AND (Pass is not NULL);";
+    const result = await sequelize.query(sql, {
+      replacements : [id],
+      type: QueryTypes.SELECT
+    });
+    console.log(result);
+    res.json(result);
 };

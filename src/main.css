@@ -302,3 +302,13 @@ button:active{
     margin-left: 20px;
     outline: 0;
 }
+.evalDownButton{
+    background-color: #3f4444; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 150px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
