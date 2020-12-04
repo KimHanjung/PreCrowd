@@ -27,7 +27,7 @@ import score_file from './scorer/score_file.js';
 import monitor_score from './scorer/monitor_score.js';
 import manage_score from './scorer/manage_score';
 
-import {Participation, Submit_page, Submit_apply, Submit_home, Tasklist} from './submitter';
+import {Participation, Submit_page, Submit_apply, Submit_home, Submit_monitoring, Tasklist} from './submitter';
 
 class Paging extends Component {
     constructor(props) {
@@ -102,7 +102,8 @@ class Paging extends Component {
                 <Route path = "/submitter/participation" component ={Participation}/>  
                 <Route path = "/submitter/submit_apply" component ={Submit_apply}/>            
                 <Route path = "/submitter/submit_home" component ={Submit_home}/>  
-                <Route path = "/submitter/submit_page" component ={Submit_page}/>      
+                <Route path = "/submitter/submit_page" component ={Submit_page}/>
+                <Route path = "/submitter/submit_monitoring" component ={Submit_monitoring}/>      
             </div>
         );
     }

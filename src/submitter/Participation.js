@@ -25,11 +25,11 @@ class Participation extends React.Component {
         const Myuser = JSON.parse(localStorage.getItem("user"));
         const user_id = Myuser.id;
 
-        const TaskName = this.state.task_name;
+        const task_name = this.state.task_name;
         
         return axios.post("/src/api/taskreq", {
             user_id,
-            TaskName
+            task_name
         }).then(res => {
             alert('success')
         }).catch(err => {
@@ -39,10 +39,11 @@ class Participation extends React.Component {
 
     render() {
         const myjson = JSON.parse(localStorage.getItem("user"));
+        console.log(myjson.id);
         return (
             
             <main>
-             <h2>Hi, {myjson.id}</h2>
+             <h2>Hi,{myjson.id}</h2>
              <h2>{this.props.location.state.taskname}</h2>
              <img src={imgfile} />
             <h1>Do you agree?</h1>

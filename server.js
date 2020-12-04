@@ -6,7 +6,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3000"
+  origin: "http://localhost:3001"
 };
 
 app.use(cors());
@@ -253,17 +253,17 @@ function initial2(){
 }
 
 function initial3(){
-  Origin.create({
+  Original.create({
     Schema: "이름, 카드사, 번호",
     Task_name: '카드 로그 수집',
     Type_name: '신한카드',
   })
-  Origin.create({
+  Original.create({
     Schema: "이름, 카드사, 번호",
     Task_name: '카드 로그 수집',
     Type_name: '국민카드',
   })
-  Origin.create({
+  Original.create({
     Schema: "이름, 카드사, 번호",
     Task_name: '보험 로그 수집',
     Type_name: '우리카드',

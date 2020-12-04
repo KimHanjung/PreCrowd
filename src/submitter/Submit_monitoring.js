@@ -3,8 +3,7 @@ import axios from 'axios';
 import {Link, withRouter } from 'react-router-dom';
 import { response } from 'express';
 
-
-function Submit_monitoring({history}){
+function Submit_monitoring({history, props}){
 
     const [tasknum, setTasknum] = useState(null);
     const [typenum, setTypenum] = useState([]);
@@ -41,7 +40,7 @@ function Submit_monitoring({history}){
                     }
                 }
             );
-            setTasknum(response.data.Task_name)
+            setTasks(response.data)
             }
              catch(e){
                 setError(e);
@@ -53,7 +52,7 @@ function Submit_monitoring({history}){
                         '../src/api/submit/taskstate',{
                             params:{
                               user_id: user_id,
-                              task_name: tasknum[i]
+                              task_name: tasks[i]
                             }
                          }
                      );
@@ -96,4 +95,4 @@ function Submit_monitoring({history}){
     if (error) return <div>Error</div>;
 
 }
-export default withRouter(Submit_apply);
+export default Submit_monitoring;

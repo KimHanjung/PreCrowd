@@ -1,19 +1,20 @@
 //4
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {Link, withRouter } from 'react-router-dom';
+import {Link, Route, withRouter } from 'react-router-dom';
+import ReactFlexyTable from 'react-flexy-table'
+import 'react-flexy-table/dist/index.css'
+import SubmitPage from './Submit_page';
 
-
-function Submit_apply({ history }) {
-    const [users, setUsers] = useState(null);
+function Submit_apply({ history, props }) {
+    const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [taskname, setTaskname] =useState('');
     const Myuser = JSON.parse(localStorage.getItem("user"));
     const user_id = Myuser.id;
     const fetchUsers = async () => {
         try {
-            setError(null);
-            setUsers(null);
             setLoading(true);
             const response = await axios.get(
                 '../src/api/taskin',{
@@ -29,10 +30,43 @@ function Submit_apply({ history }) {
         setLoading(false);
     };
 
+    const MyMove=({task})=>{
+        return(
+
+            <Link to={{
+                pathname: '/submitter/submit_page',
+                state: {
+                    taskname: task
+                    }
+                }}>
+                move to {task}
+            </Link>
+        )
+    }
+
+    const additionalCols=[
+        {
+        header:'Move',
+        td:(users)=>{
+            return(
+                <div>
+                    <MyMove task = {users.Task_name}></MyMove>
+                </div>
+                
+                
+            )
+        }
+        
+
+    }        
+    ]
 
     useEffect(() => {
         fetchUsers();
     }, []);
+
+
+    
 
     if (loading) return <div>Loading..</div>;
     if (error) return <div>Error</div>;
@@ -40,20 +74,7 @@ function Submit_apply({ history }) {
     return (
         <>
             <ul>
-                {users.map(user => (
-                    <main>
-                    
-                    <Link to={{
-                     pathname: '/submitter/submit_page',
-                     state: {
-                     taskname:user.Task_name
-                    }
-                        }}>
-                            <button>{user.Task_name}</button>
-                    </Link>
-    
-                    </main>
-                ))}
+                <ReactFlexyTable data={users} className = 'body_color' additionalCols={additionalCols}/>
             </ul>
             <button onClick={fetchUsers}>Reload</button>
         </>

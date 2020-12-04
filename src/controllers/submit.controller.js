@@ -107,6 +107,7 @@ exports.submit = async (req, res) => {
     return res.status(400).send("Please upload a CSV file!");
   }
   var post = req.body;
+  console.log(post);
   var user_id = post.user_id;
   var type_name = post.type_name;
   var task_name = post.task_name;
