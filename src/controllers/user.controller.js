@@ -18,15 +18,31 @@ exports.create_task = (req, res) => {
     Desc: req.body.desc,
     Term: req.body.term,
     Task_data_table_name: req.body.tablename,
-    Task_data_table_schema: req.body.tableschema
+    Task_data_table_schema: req.body.tableschema,
+    Pass: req.body.pass,
   })
     .then(user => {
-      res.send({ message: "New task is successfully created!" });
-      console.log('create_task success');
+      const columns = req.body.tableschema;
+      const attr = columns.split(',');
+      const type = " VARCHAR(255),";
+      var row = "";
+      for(var elem in attr){
+        row += attr[elem] + type;
+      }
+      var query = 'create table ' + req.body.tablename + ' (' + row.slice(0,row.length-1) + ')';
+      const { QueryTypes } = require('sequelize');
+      db.sequelize.query(query, {
+        raw: true,
+        replacements:[]
+      }).then(() => {
+        res.send({ message: "New task is successfully created!" });
+        console.log('create_task success');
+      })
+      .catch((err) => console.log(err))
     })
     .catch(err => {
       res.status(500).send({ message: err.message });
-      console.log('create_task failed');
+      console.log('create_task failed', err);
     });
   }
   };

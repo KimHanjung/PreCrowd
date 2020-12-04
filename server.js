@@ -215,7 +215,7 @@ function initial2(){
     Task_name: '카드 로그 수집',
     Desc: '카드들의 로그를 수집함',
     Term: 5,
-    Task_data_table_name: 'Card_log',
+    Task_data_table_name: 'Card_log1',
     Task_data_table_schema: '회원, 카드번호, 유효기간',
   })
   .then((res) => console.log('Task is created!')
