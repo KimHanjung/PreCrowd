@@ -208,8 +208,9 @@ const Manage = (props) => {
   };
   
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
+    <div className="registercolumn">
+      <div className="registercard2">
+        <div className='menutitle'> 회원 관리 </div>
         <Form onSubmit={handleRegister} ref={form}>
           {
             <div>
@@ -289,7 +290,7 @@ const Manage = (props) => {
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
       </div>
-      <div>
+      <div className="registercard2">
        <table>
          <thead>
            <tr>

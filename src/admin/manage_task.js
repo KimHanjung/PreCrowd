@@ -181,8 +181,7 @@ const Managetask = (props) => {
         alert(resMessage);
       }
     );
-  },[]);
-
+  },[re]);
 
   return (
     <div className='white'>
@@ -200,8 +199,9 @@ const Managetask = (props) => {
           render={() => {
             return (
               <Popupedit
-                onClick={() => {
+                onClick={(e) => {
                   props.history.push(props.match.url);
+                  setRe(1-re);
                 }}
                 value={task_to_detail}
                 pass={pass}
