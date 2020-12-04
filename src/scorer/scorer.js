@@ -17,7 +17,7 @@ class Scorer extends Component {
             </div>
             <div className='mainSelect'>
                 <Link to="/evaluate_file">
-                    <button className='mainbutton'>파싱 데이터 시퀀스 파일 평가하기</button>
+                    <button className='mainbutton'>파일 평가하기</button>
                 </Link>
                 <Link to="/monitor_evaluation">
                     <button className='mainbutton'>평가 내역 모니터링</button>

@@ -125,7 +125,7 @@ useEffect(() => {
         <div className='formcontainer'>
         <Form onSubmit={handleRegister1} ref={form1}>
             <div>
-                <a href = {URL}><button type = 'button' className="btn btn-primary btn-block">Download</button></a>
+                <a href = {URL}><button type = 'button' className="evalDownButton">Download</button></a>
               <div className="form-group">
                 <label htmlFor="Task name">Score</label>
                 <Input
@@ -146,7 +146,7 @@ useEffect(() => {
                 </Select>
               </div>
               <div className="form-group">
-                <button className="btn btn-outline-success btn-block" onClick = {handleRegister1}>Add</button>
+                <button className="btn btn-outline-success btn-block">Add</button>
               </div>
             </div>
             {message1 && (

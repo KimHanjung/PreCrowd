@@ -11,7 +11,7 @@ import PopupScore from './popupscore';
 import { Route, Link } from "react-router-dom";
 
 
-const Managetask = (props) => {
+const Scorefile = (props) => {
   const [data, setData] = useState([
     {
       id: 0,
@@ -37,7 +37,7 @@ const Managetask = (props) => {
       header: 'File name',
       key: 'File name',
       td: (data) => <Link to={`${props.match.url}/score_file`}>
-        <button type = 'button' onClick = {() => popUpScore(data.File_index)}>{data.Parsing_file_name}</button>
+        <button type = 'button' className = 'evalDownButton' onClick = {() => popUpScore(data.File_index)}>{data.Parsing_file_name}</button>
         </Link>,
     },
   ]
@@ -49,7 +49,6 @@ const Managetask = (props) => {
     response = response.data;
     setData(response);
   },[]);
-
 
   return (
     <div className='white'>
@@ -71,4 +70,4 @@ const Managetask = (props) => {
   );
 };
 
-export default Managetask;
+export default Scorefile;

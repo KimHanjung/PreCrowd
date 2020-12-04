@@ -11,7 +11,7 @@ import PopupScore from './popupscore';
 import { Route, Link } from "react-router-dom";
 
 
-const Managetask = (props) => {
+const Monitorscore = (props) => {
   const [data, setData] = useState([
     {
       id: 0,
@@ -20,6 +20,15 @@ const Managetask = (props) => {
       Desc: 'dafault',
     }
   ]);
+
+  const passOrNonpass = (pass) =>{
+    if(pass === 1){
+      return "Pass";
+    }
+    else{
+      return "Nonpass";
+    }
+  }
 
 
 
@@ -33,12 +42,12 @@ const Managetask = (props) => {
     {
       header: 'Score',
       key: 'Score',
-      td: (data) => <div>{data.Score}</div>,
+      td: (data) => <div>{data.User_score}</div>,
     },
     {
-      header: 'Pass',
+      header: 'Pass/Nonpass',
       key: 'Pass',
-      td: (data) => <div>{data.Pass}</div>,
+      td: (data) => <div>{passOrNonpass(data.Pass)}</div>,
     },
   ]
 
@@ -49,6 +58,7 @@ const Managetask = (props) => {
     let response = await axios.get(URL);
     response = response.data;
     setData(response);
+    console.log(response);
   },[]);
 
 
@@ -59,4 +69,4 @@ const Managetask = (props) => {
   );
 };
 
-export default Managetask;
+export default Monitorscore;
