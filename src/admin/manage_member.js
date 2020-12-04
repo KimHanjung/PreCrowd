@@ -21,7 +21,7 @@ const Manage = (props) => {
   const form = useRef();
   const checkBtn = useRef();
   const initial = () => {
-    
+     console.log("initial");
      AuthService.taketask().then(
       (response) =>{
         listtask = [];
@@ -32,6 +32,7 @@ const Manage = (props) => {
           ); 
           x = x + 1;
         }
+     setLoading(false);
       }
      );
   };
@@ -115,10 +116,14 @@ const Manage = (props) => {
   const [role, setRole] = useState("");
   const [user, setUser] = useState("");
   const [task, setTask] = useState("");
-  const [listt, setList] = useState(initial);
+  const [isLoading, setLoading] = useState(true);
+  //const [isopen, setOpen] = useState(true);
   const [user_id, setUserid] = useState("");
+  const [llist, setLlist] = useState([]);
   
-  
+  useEffect(() => {
+    initial();
+  }, [])
 
   const onChangeId = (e) => {
     const id = e.target.value;
@@ -129,6 +134,7 @@ const Manage = (props) => {
     j = 0;
     list = [];
     while(j<user.length){
+      console.log("@@");
       setUserid(user[j].id);
       if(user[j].Role === "Submittor"){
         takesub();
@@ -158,6 +164,8 @@ const Manage = (props) => {
       }
       j = j + 1;
     }
+    console.log(list);
+    setLlist(list);
   };
   const onChangeGender = (e) => {
     const gender = e.target.value;
@@ -186,18 +194,19 @@ const Manage = (props) => {
     const role = e.target.value;
     setRole(role);
   }
-  
   const handleRegister = (e) => {
     e.preventDefault();
+    //console.log(isopen);
 
-    form.current.validateAll();
+    //form.current.validateAll();
+    console.log("hi");
     
       AuthService.management(id,task, gender, byear1, byear2, role).then(
         (response) => {
           setUser(response);
-          write();
         },
         (error) => {
+          //console.log('error sipal');
           const resMessage =
             (error.response &&
               error.response.data &&
@@ -209,7 +218,8 @@ const Manage = (props) => {
       );
   };
 
-  useEffect(() => {},[user]);
+  useEffect(() => {write()},[user]);
+  useEffect(() => {console.log(llist)}, [llist]);
   
   return (
     <div className="registercolumn">
@@ -230,10 +240,10 @@ const Manage = (props) => {
               </div>
               <div className ="form-group">
                 <label htmlFor="task">Task_list<br/></label>
-                <Select name ="task" value ={task} onChange={onChangeSelect}>
+                {!isLoading && <Select name ="task" value ={task} onChange={onChangeSelect}>
                   <option value = "">Task_List</option>
                   {listtask}
-                </Select>
+                </Select>}
               </div>
               <div className="form-group">
                 <label htmlFor="gender">Gender<br/></label>
@@ -277,7 +287,7 @@ const Manage = (props) => {
               </div>
 
               <div className="form-group">
-                <button className="btn btn-primary btn-block">Show members</button>
+                <button className="btn btn-primary btn-block" >Show members</button>
               </div>
             </div>
           }
@@ -308,7 +318,7 @@ const Manage = (props) => {
            </tr>
          </thead>
          <tbody>
-           {list}
+           {llist}
          </tbody>
        </table>
       </div>
