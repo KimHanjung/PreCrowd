@@ -155,14 +155,14 @@ function initial(){
     Desc: 'blablablablablablabla',
     Term: 30,
     Task_data_table_name: 'task2_table',
-    Task_data_table_schema: 'col1,col2,col3'
+    Task_data_table_schema: 'name1,id1,pw1'
   })
   .then((res) => console.log('Task2 is created!')
   )
   .catch((err) => console.log('Task2 creates error: ', err));
 
   Original.create({
-    Schema: 'id1_1,pw1_1,name1_1',
+    Schema: 'name1_1,id1_1,pw1_1',
     Type_name: 'ori1',
     Task_name: 'Task1'
   })
