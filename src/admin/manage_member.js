@@ -1,4 +1,4 @@
-import React, { Component, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
@@ -103,8 +103,10 @@ const Manage = (props) => {
           z = z + 1;
         }
       }
-      }
-    );
+      })
+      .catch(err=>{
+        console.log(err);
+      })
   };
   const [id, setId] = useState("");
   const [gender, setGender] = useState("");
@@ -206,6 +208,8 @@ const Manage = (props) => {
         }
       );
   };
+
+  useEffect(() => {},[user]);
   
   return (
     <div className="registercolumn">
@@ -290,7 +294,7 @@ const Manage = (props) => {
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
       </div>
-      <div className="registercard2">
+      <div className="registercard3">
        <table>
          <thead>
            <tr>
