@@ -6,7 +6,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3000"
+  origin: "http://localhost:3001"
 };
 
 app.use(cors());
@@ -155,14 +155,14 @@ function initial(){
     Desc: 'blablablablablablabla',
     Term: 30,
     Task_data_table_name: 'task2_table',
-    Task_data_table_schema: 'col1,col2,col3'
+    Task_data_table_schema: 'name1,id1,pw1'
   })
   .then((res) => console.log('Task2 is created!')
   )
   .catch((err) => console.log('Task2 creates error: ', err));
 
   Original.create({
-    Schema: 'id1_1,pw1_1,name1_1',
+    Schema: 'name1_1,id1_1,pw1_1',
     Type_name: 'ori1',
     Task_name: 'Task1'
   })
@@ -186,7 +186,7 @@ function initial(){
   Approval.create({
     H_id: 'Submittor1',
     Task_name: 'Task1',
-    Status: false
+    Status: true
   })
   .then((res) => console.log('Approval 1 is created!')
   )
@@ -253,17 +253,17 @@ function initial2(){
 }
 
 function initial3(){
-  Origin.create({
+  Original.create({
     Schema: "이름, 카드사, 번호",
     Task_name: '카드 로그 수집',
     Type_name: '신한카드',
   })
-  Origin.create({
+  Original.create({
     Schema: "이름, 카드사, 번호",
     Task_name: '카드 로그 수집',
     Type_name: '국민카드',
   })
-  Origin.create({
+  Original.create({
     Schema: "이름, 카드사, 번호",
     Task_name: '보험 로그 수집',
     Type_name: '우리카드',

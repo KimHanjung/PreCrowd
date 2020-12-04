@@ -16,7 +16,7 @@ class Home extends Component {
       if(member !== null) {
         if(member.role === 'Administrator') this.props.history.push('/admin');
         else if(member.role === 'Submittor') this.props.history.push('/submit');
-        else if(member.role === 'Evaluationer') this.props.history.push('/evaluate');
+        else if(member.role === 'Evaluationer') this.props.history.push('/evaluationer');
       }
   }
   render() {

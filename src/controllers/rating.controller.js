@@ -149,4 +149,16 @@ exports.pass = async (req, res) => {
         type: QueryTypes.UPDATE
     });
     return res.status(200).send("성공적인 업데이트");
+};   
+
+exports.ratestate = async (req, res) => {
+    var id = req.query.id;
+    var sql = "SELECT Parsing_file_name, Pass, User_score FROM `parsing_data_files` "+  
+              "WHERE (E_id = ?) AND (Pass is not NULL);";
+    const result = await sequelize.query(sql, {
+      replacements : [id],
+      type: QueryTypes.SELECT
+    });
+    console.log(result);
+    res.json(result);
 };
