@@ -151,8 +151,9 @@ exports.create_original = (req, res) => {
       });
   }
 exports.getfile = async (req, res) =>{
+  console.log('!@!@!@!@!@!@!!@');
   try{
-    var task_name = req.query.task_name;
+    var task_name = req.body.row.Task_name;
     var file = "./src/parse_down/"+task_name+'.csv';
     console.log(file);
     var sql = 'SELECT Task_data_table_name FROM TASKs WHERE Task_name=?;';

@@ -1,10 +1,10 @@
 module.exports = {
     HOST: "localhost",
     USER: "root",
-    PASSWORD: "root",
-    DB: "test5",
+    PASSWORD: "database0203",
+    DB: "project",
     dialect: "mariadb",
-    port:3305,
+    port:3306,
     pool: {
       max: 5,
       min: 0,

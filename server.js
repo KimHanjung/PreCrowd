@@ -201,7 +201,7 @@ function initial(){
   // .then((res) => console.log('Approval 2 is created!')
   // )
   // .catch((err) => console.log('Approval 2 creates error: ', err));
-}
+// }
 
 
 // function initial2(){
