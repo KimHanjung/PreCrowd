@@ -1,7 +1,7 @@
 const db = require("../models");
 const {sequelize} = require("../models");
 const {QueryTypes} = require('sequelize');
-const fs = require('fs');
+var fs = require('fs');
 var iconv = require('iconv-lite');
 var csv = require('fast-csv');
 
@@ -151,8 +151,8 @@ exports.submit = async (req, res) => {
   let filename = req.file.filename;
   console.log(filename);
   let path = "./src/uploads/" + filename;
-  let ppath = "./src/parsed/" + filename;
-  
+  let ppath = "./src/parsed/" + Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1) +Date.now() + '.csv';
+  console.log(ppath);
   //DB connection
   var sql = "SELECT `Schema` AS ori_sch, Task_data_table_schema AS res_sch, Type_id "+ 
             "FROM original_data_files o JOIN tasks t ON o.Task_name = t.Task_name "+
@@ -250,35 +250,28 @@ exports.submit = async (req, res) => {
       // System score
       var system_score = (100 - average_null_percent)/2 + (100 - overlap_tuple/total_tuple_num)/2;
       console.log(system_score);   
-
-      fs.readFile(ppath, 'utf-8', async function(err, parsed_file){
-        console.log(parsed_file);
-        sql = 'INSERT INTO parsing_data_files'+
-              '( Parsing_file_name, E_id, System_score, Total_tuple_num, Type_id, Data_file) '+
-              'VALUES(?,?,?,?,?,?);';
-        await sequelize.query(sql, {
-          replacements : [filename, e_id, system_score, total_tuple_num ,type_id, parsed_file],
+      console.log(ppath);
+      
+      sql = 'INSERT INTO parsing_data_files'+
+            '( Parsing_file_name, E_id, System_score, Total_tuple_num, Type_id, Data_file) '+
+            'VALUES(?,?,?,?,?,?);';
+              
+      await sequelize.query(sql, {
+          replacements : [filename, e_id, system_score, total_tuple_num ,type_id, ppath],
           type: QueryTypes.INSERT,
           logging: false,
-        });
-        sql = 'SELECT MAX(File_index) AS File_index FROM parsing_data_files;';
-        var result3 = await sequelize.query(sql, {
-          type: QueryTypes.SELECT
-        });
-        console.log("file_index:" + result3[0].File_index);
-        file_index = result3[0].File_index;
-
-        sql = 'INSERT INTO hand_ins VALUES(?,?,?,?);';
-        await sequelize.query(sql, {
-          replacements : [user_id,file_index, round, period],
-          type: QueryTypes.INSERT
-        });
-        
-        res.status(200).send({
-          message: "Successfully upload",
-        });
       });
-    }); 
+      sql = 'SELECT MAX(File_index) AS File_index FROM parsing_data_files;';
+      var result3 = await sequelize.query(sql, {type: QueryTypes.SELECT});
+      console.log("file_index:" + result3[0].File_index);
+      var file_index = result3[0].File_index;
+      sql = 'INSERT INTO hand_ins VALUES(?,?,?,?);';
+      await sequelize.query(sql, {
+              replacements : [user_id, file_index, round, period],
+              type: QueryTypes.INSERT
+            });
+      });
+      res.status(200).send({message: "Successfully upload",});
   } catch (err){
     console.log(err);
     res.status(400).send({
