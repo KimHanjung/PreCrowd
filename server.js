@@ -6,7 +6,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3000"
+  origin: "http://localhost:3001"
 };
 
 app.use(cors());
@@ -144,25 +144,26 @@ function initial(){
     Desc: 'blablablablablablabla',
     Term: 30,
     Task_data_table_name: 'task1_table',
-    Task_data_table_schema: 'name1,id1,pw1'
+    Task_data_table_schema: 'id1,pw1,name1',
   })
   .then((res) => console.log('Task1 is created!')
   )
   .catch((err) => console.log('Task1 creates error: ', err));
-
+  //Task_data_table_schema: '기준년월,상품코드,대출년도,대출학기,대출과목세분류코드,계좌상태,대출금액,대출잔액,대출금리,상품구분코드'
   Task.create({
     Task_name: 'Task2',
     Desc: 'blablablablablablabla',
     Term: 30,
     Task_data_table_name: 'task2_table',
-    Task_data_table_schema: 'col1,col2,col3'
+    Task_data_table_schema: 'name1,id1,pw1'
   })
   .then((res) => console.log('Task2 is created!')
   )
   .catch((err) => console.log('Task2 creates error: ', err));
 
   Original.create({
-    Schema: 'id1_1,pw1_1,name1_1',
+    Schema : "pw1_1,id1_1,name1_1",
+    //Schema: '기준년월,상품코드,대출년도,대출학기,대출과목세분류코드,계좌상태,대출금액,대출잔액,대출금리,상품구분코드',
     Type_name: 'ori1',
     Task_name: 'Task1'
   })
@@ -186,7 +187,7 @@ function initial(){
   Approval.create({
     H_id: 'Submittor1',
     Task_name: 'Task1',
-    Status: false
+    Status: true
   })
   .then((res) => console.log('Approval 1 is created!')
   )
@@ -209,13 +210,13 @@ function initial2(){
     Desc: '보험들의 로그를 수집함',
     Term: 5,
     Task_data_table_name: 'Card_log',
-    Task_data_table_schema: '회원, 카드번호, 유효기간',
+    Task_data_table_schema: '',
   });
   Task.create({
     Task_name: '카드 로그 수집',
     Desc: '카드들의 로그를 수집함',
     Term: 5,
-    Task_data_table_name: 'Card_log',
+    Task_data_table_name: 'Card_log1',
     Task_data_table_schema: '회원, 카드번호, 유효기간',
   })
   .then((res) => console.log('Task is created!')

@@ -25,6 +25,7 @@ const Managetask = (props) => {
       Pass: 0,
       Task_data_table_name: 'dafault',
       Task_data_table_schema: 'dafault',
+      Status:1
     }
   ]);
   const [task_to_detail, setTask_to_detail] = useState('default');
