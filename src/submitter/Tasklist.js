@@ -41,7 +41,7 @@ function Tasklist({ history }) {
                     taskname: task
                     }
                 }}>
-                move to {task}
+                <button className='btn btn-primary'>Participate</button>
             </Link>
         )
     }

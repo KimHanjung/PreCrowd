@@ -64,9 +64,9 @@ function Submit_apply({ history, props }) {
     if (error) return <div>Error</div>;
     if (!users) return null;
     return (
-        <>
+        <div className='white'>
             <ReactFlexyTable data={users} className = 'body_color' additionalCols={additionalCols}/>
-        </>
+        </div>
     );
 }
 

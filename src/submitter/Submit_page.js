@@ -1,5 +1,3 @@
-//5
-
 import React, { useState, Component } from 'react'
 import axios from 'axios';
 import {post} from 'axios';
@@ -172,7 +170,7 @@ class Submit_page extends React.Component{
                     <label htmlFor="Period">Period</label>
                     <input type="number" name="Duration" onChange={e => this.handleDuration(e)}/>
                 </div>
-                <div className="form-group">
+                <div className="right">
                     <button className='btn btn-primary' type='submit'>Submit</button>
                 </div>
             </form>

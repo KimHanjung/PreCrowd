@@ -35,7 +35,7 @@ function Submit_monitoring(props) {
 
     const additionalCols=[
         {
-        header:'Move',
+        header:'Action',
         td:(users)=>{
             return(
                 <Link to={`/Submit_monitoring/monitoring_popup`}>

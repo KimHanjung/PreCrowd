@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
 import ReactFlexyTable from 'react-flexy-table';
 import 'react-flexy-table/dist/index.css';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import deleteIcon from './delete-button-svgrepo-com.svg'
-import editIcon from './edit-square-svgrepo-com.svg'
-import refreshIcon from './refresh-svgrepo-com.svg'
+import editIcon from './edit-square-svgrepo-com.svg';
 
 import UserService from "../services/user.service";
 import { Route, Link } from "react-router-dom";
