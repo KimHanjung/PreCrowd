@@ -53,6 +53,7 @@ const checkBtn2 = useRef();
 
 const [tname, setTname] = useState(props.value);
 const [pass, setPass] = useState(props.pass);
+const [schema, setSchema] = useState(props.schema);
 
 const [originalname, setOriginalname] = useState("");
 const [originalschema, setOriginalschema] = useState("");
@@ -187,6 +188,10 @@ useEffect(() => {
     setMessage1("");
     setSuccessful1(false);
 
+    if ((schema.match(/,/g) || []).length != (originalschema.match(/,/g) || []).length) {
+      setMessage1('failed: Original data type schema must match the task data type schema.');
+    }
+    else{
     form1.current.validateAll();
     if (checkBtn1.current.context._errors.length === 0) {
       UserService.create_original(originalname,originalschema,tname)
@@ -208,7 +213,7 @@ useEffect(() => {
           setSuccessful1(false);
         }
       );
-    }
+    }}
   };
 
   const handleRegister2 = (e) => {
@@ -300,6 +305,7 @@ useEffect(() => {
                   type="text"
                   className="form-control"
                   name="pass"
+                  placeholder={pass}
                   onChange={onChangePass}
                   validations={[required, vPass]}
                 />
