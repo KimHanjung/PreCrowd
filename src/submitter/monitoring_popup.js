@@ -6,8 +6,6 @@ import 'react-flexy-table/dist/index.css';
 
 const Popup = (props) => {
 
-const [tname, setTname] = useState(props.value);
-
 const [data, setData] = useState([
   {
     Id: 'dafault',
@@ -49,13 +47,14 @@ const columns=[
 const fetchdata = async () => {
     try {
         const response = await axios.get(
-            '../src/api/typestate',{
+            'http://localhost:3001/src/api/typestate',{
                 params:{
-                    id: props.id,
+                    user_id: props.id,
                     task_name: props.taskname
                 }
             }
         );
+        console.log(response);
         setData(response.data); 
     } catch (e) {
         console.log(e);
