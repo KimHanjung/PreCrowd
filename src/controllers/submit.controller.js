@@ -170,16 +170,16 @@ exports.submit = async (req, res) => {
     type: QueryTypes.SELECT
   });
   
-
   // 해당 data type과 task가 없을 때 error handleing 필요
-  var ori_sch = result1[0].ori_sch.split(',');
-  var res_sch = result1[0].res_sch.split(',');
+  var ori_sch = result1[0].ori_sch.replace(/ /g,"").split(',');
+  var res_sch = result1[0].res_sch.replace(/ /g,"").split(',');
   var type_id = result1[0].Type_id;
   var col_num = ori_sch.length;
   //평가자 한명도 없을 때 error 핸들링 필요
+  if(result2.length == 0){
+    res.status(400).send({message: "There is no evaluator!",})
+  }
   var e_id = result2[0].Id;
-  
-  console.log(ori_sch);console.log(res_sch);console.log(type_id);console.log(e_id);
   
   var stream = fs.createReadStream(path).pipe(iconv.decodeStream('euc-kr'));
   var wstream = fs.createWriteStream(ppath);
