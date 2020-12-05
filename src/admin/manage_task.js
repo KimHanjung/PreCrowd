@@ -30,11 +30,13 @@ const Managetask = (props) => {
   ]);
   const [task_to_detail, setTask_to_detail] = useState('default');
   const [pass, setPass] = useState('');
+  const [schema, setSchema] = useState('');
   const [re, setRe] = useState(0);
 
-  const onClickTask_to_detail = (value, pass) => {
+  const onClickTask_to_detail = (value, pass, schema) => {
     setTask_to_detail(value);
     setPass(pass);
+    setSchema(schema);
   };
 
   const confirm = (value) => {
@@ -135,7 +137,7 @@ const Managetask = (props) => {
               src={editIcon}
               width='30'
               height='20'
-              onClick={()=>{onClickTask_to_detail(data.Task_name, data.Pass)}}
+              onClick={()=>{onClickTask_to_detail(data.Task_name, data.Pass, data.Task_data_table_schema)}}
             />
         </Link>{'    '}
         <img
@@ -187,14 +189,6 @@ const Managetask = (props) => {
   return (
     <div className='white'>
       <ReactFlexyTable title='Task Management' data={data} columns={columns} filterable nonFilterCols={["Action"]} globalSearch />
-        {/* <div className='for_refresh'>
-        <img
-              src={refreshIcon}
-              width='50'
-              height='40'
-              onClick={()=>{setRe(re+1)}}
-            />
-        </div> */}
         <Route
           path={`${props.match.url}/popup_edit`}
           render={() => {
@@ -204,6 +198,7 @@ const Managetask = (props) => {
                   props.history.push(props.match.url);
                   setRe(1-re);
                 }}
+                schema={schema}
                 value={task_to_detail}
                 pass={pass}
               />

@@ -116,7 +116,7 @@ exports.pass = async (req, res) => {
         } else{
             //non-pass
             console.log("non-PASS!!");
-            sql4 = "UPDATE parsing_data_files p " +
+            sql4 = "UPDATE PARSING_DATA_FILEs p " +
                 "SET p.Pass = 0, p.User_score = ? "+
                 "WHERE p.File_index = ?;";
             //console.log(sql);
@@ -130,8 +130,8 @@ exports.pass = async (req, res) => {
         //Pass 상관없이 제출자 점수 업데이트
         
         sql5 = "SELECT m.Id, m.Score, COUNT(*) AS count "+
-            "FROM hand_ins h JOIN members m ON h.H_id = m.Id JOIN parsing_data_files p ON h.File_index = p.File_index " +
-            "WHERE (m.Id = (SELECT h.H_id FROM hand_ins WHERE h.File_index = ? LIMIT 1)) "+ 
+            "FROM HAND_INs h JOIN MEMBERs m ON h.H_id = m.Id JOIN PARSING_DATA_FILEs p ON h.File_index = p.File_index " +
+            "WHERE (m.Id = (SELECT h.H_id FROM HAND_INs WHERE h.File_index = ? LIMIT 1)) "+ 
             "AND (p.Pass IS NOT NULL);";
         
         var result2 = await sequelize.query(sql5, {
@@ -153,7 +153,7 @@ exports.pass = async (req, res) => {
         }
         console.log(next_score);
 
-        sql6 = "UPDATE members m " +
+        sql6 = "UPDATE MEMBERs m " +
             "SET m.Score = ? "+
             "WHERE m.Id = ?;";
         
@@ -171,7 +171,7 @@ exports.pass = async (req, res) => {
 exports.ratestate = async (req, res) => {
     try{
         var id = req.query.id;
-        var sql = "SELECT Parsing_file_name, Pass, User_score FROM `parsing_data_files` "+  
+        var sql = "SELECT Parsing_file_name, Pass, User_score FROM `PARSING_DATA_FILEs` "+  
                 "WHERE (E_id = ?) AND (Pass is not NULL);";
         const result = await sequelize.query(sql, {
         replacements : [id],

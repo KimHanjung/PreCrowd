@@ -9,6 +9,21 @@
 .body_color tr {
     background-color: white;
 }
+.img_loc{
+    position: absolute;
+    left:500px;
+}
+.agree_loc{
+    position:absolute;
+    left:1020px;
+    top:780px;
+}
+
+.agree_btn{
+    position:absolute;
+    left:1050px;
+    top:780px;
+}
 
 .rft{
     --rft-main-color: #3dce8a;

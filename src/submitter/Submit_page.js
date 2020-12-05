@@ -4,7 +4,7 @@ import React, { useState, Component } from 'react'
 import axios from 'axios';
 import {post} from 'axios';
 import Select from 'react-select';
-import { Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 class Submit_page extends React.Component{
 
     constructor(props) {
@@ -87,7 +87,6 @@ class Submit_page extends React.Component{
         })
       }
 
-
       handleSubmit(){
           const url ='http://localhost:3001/src/api/submit';
           const formData = new FormData();
@@ -108,11 +107,8 @@ class Submit_page extends React.Component{
           console.log(this.state.my_name);
           console.log(this.state.task_name);
           console.log(this.state.selectedFile);
-
           return post(url, formData, config)
       }
-
-
 
     handlePost=()=> {
         const Myuser = JSON.parse(localStorage.getItem("user"));
@@ -154,27 +150,34 @@ class Submit_page extends React.Component{
     render(){
         console.log(this.state.type_list)
         return (
-            <div>
-            <form name='accountfirm' onSubmit={this.handleFormSubmit}>
+            <div className="registercolumn">
             <div className="registercard">
-                <h1>{this.state.task_name}, hello</h1>
+            <div className='menutitle'>Task: {this.state.task_name}</div>
+                <form name='accountfirm' onSubmit={this.handleFormSubmit}>
                 <div className="form-group">
-                <Select options={this.state.type_list} onChange={this.handleChange.bind(this)}>
-                {this.state.my_name}
-                </Select>
+                    <label htmlFor="Select Original Data Type">Select Original Data Type</label>
+                    <Select options={this.state.type_list} onChange={this.handleChange.bind(this)}>
+                    {this.state.my_name}
+                    </Select>
                 </div>
-                <p>You have selected <strong>{this.state.my_name}</strong></p>
-                <input type="file" name="file" onChange={e => this.handleFileInput(e)} />
-                <h1>Round</h1>
-                <input type="text" name="Round" onChange={e => this.handleRound(e)} />
-                <h1>Period</h1>
-                <input type="text" name="Duration" onChange={e => this.handleDuration(e)}/>
-                <button type='submit'>제출</button>
-
-                
+                <div className="form-group">
+                    <label htmlFor="Select File">Select File</label>
+                    <input type="file" name="file" onChange={e => this.handleFileInput(e)} />
                 </div>
-                </form>
-            </div>
+                <div className="form-group">
+                    <label htmlFor="Round">Round</label>
+                    <input type="number" name="Round" onChange={e => this.handleRound(e)} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="Period">Period</label>
+                    <input type="number" name="Duration" onChange={e => this.handleDuration(e)}/>
+                </div>
+                <div className="form-group">
+                    <button className='btn btn-primary' type='submit'>Submit</button>
+                </div>
+            </form>
+        </div>
+        </div>
         )
     }
     
