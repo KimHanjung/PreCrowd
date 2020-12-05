@@ -54,7 +54,7 @@ exports.takeeva = (req,res) =>{
     raw:true,
     where:
     {
-      E_id: req.body.user_id
+      E_id: req.body["user_id"]
     }
   })
     .then(file =>{
@@ -83,35 +83,34 @@ exports.takesub = (req,res) =>{
     raw:true,
     where:
     {
-      H_id: req.body.user_id
+      H_id: req.body["user_id"],
     }
   })
-  .then(who => {
-    Parsing.findAll({
-      raw:true,
-      where:
-      {
-        File_index: who.File_index
-      }
-    })
-      .then(files => {
+    .then(files => {
+        Approval.findAll({
+          raw:true,
+          where:
+          {
+            H_id: req.body["user_id"],
+            Status: 1
+          }
+        })
+        .then(task =>{
         var sublist = [];
         var c = 0;
         var temp = [];
-        while(c<files.length){
-          temp.push(files[c].Parsing_file_name);
-          temp.push(files[c].Pass);
-          temp.push(files[c].User_score);
-          temp.push(files[c].System_score);
+        while(c<task.length){
           sublist.push(
-            temp
+            task[c].Task_name
           );
           c = c + 1;
-          temp = [];
         }
+        console.log(sublist);
         res.send({
           sub: sublist
         });
+        })
+        
       })
       .catch(err =>{
         console.log(err);
@@ -120,7 +119,6 @@ exports.takesub = (req,res) =>{
           sub: sublist
         });
       });
-  });
 };
 exports.management = (req, res) =>{
   console.log(req.body.task);

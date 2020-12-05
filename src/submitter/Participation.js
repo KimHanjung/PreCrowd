@@ -44,8 +44,10 @@ class Participation extends React.Component {
             
             <main>
             <div className="registercard">
-             <h2>Hi,{myjson.id}</h2>
-             <h2>{this.props.location.state.taskname}</h2>
+             <h2 style={{
+                 display:'inline-flex',
+                 justifyContent:'center'
+             }}>Hi,{myjson.id}. this is {this.props.location.state.taskname} </h2>
              <div style={{
                  display:'inline-flex',
                  justifyContent:'center'

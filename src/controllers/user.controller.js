@@ -181,6 +181,7 @@ exports.getfile = async (req, res) =>{
     });
     console.log(result2);
     var schema = result2[0].Task_data_table_schema.replace(/\s/g, '').split(',')
+    schema.unshift('제출자');
     var output = new Array();
     
     output.push(schema);
