@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 // import './main.css';
 // import "bootstrap/dist/css/bootstrap.min.css";
+import AuthService from './services/auth.service';
+import AppContainer from './AppContainer';
 
 import Home from './Home';
 import Register from './components/register';
 import Login from './components/login'
 import Profile from './components/Profile'
+import Password from './components/password';
 
-import AuthService from './services/auth.service';
-import AppContainer from './AppContainer';
 
 import Admin from './admin/admin.js';
 import manage_member from './admin/manage_member.js';
@@ -19,14 +20,11 @@ import task_statistics from './admin/task_statistics.js';
 
 import Evaluate from './evaluate.js'
 
-import Submit from './submit.js'
-import Password from './components/password';
-
 import Scorer from './scorer/scorer.js';
 import score_file from './scorer/score_file.js';
 import monitor_score from './scorer/monitor_score.js';
-import manage_score from './scorer/manage_score';
 
+import {Participation, Submit_page, Submit_apply, Submit_home, Submit_monitoring, Tasklist} from './submitter';
 
 class Paging extends Component {
     constructor(props) {
@@ -90,12 +88,23 @@ class Paging extends Component {
                 <Route path="/task_statistics" component={task_statistics} />
 
                 <Route path="/evaluate" component={Evaluate} />
-                <Route path="/submit" component={Submit} />
 
                 <Route path="/scorer" component={Scorer} />
                 <Route path="/score_file" component={score_file} />
                 <Route path="/monitor_score" component={monitor_score} />
-                <Route path="/manage_score" component={manage_score} />            
+
+                <Route path = "/tasklist" component ={Tasklist}/>  
+                <Route path = "/participation" component ={Participation}/>  
+                <Route path = "/submit_apply" component ={Submit_apply}/>            
+                <Route path = "/submittor" component={Submit_home} />
+                <Route path = "/submit_page" component ={Submit_page}/>
+                <Route path = "/submit_monitoring" component ={Submit_monitoring}/>      
+
+                <Route path="/evaluationer" component={Scorer} />
+                <Route path="/evaluate_file" component={score_file} />
+                <Route path="/monitor_evaluation" component={monitor_score} />              
+
+
             </div>
         );
     }

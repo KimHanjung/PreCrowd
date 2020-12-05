@@ -9,7 +9,18 @@ module.exports = function(app) {
     );
     next();
   });
-
+  app.post(
+    "/src/auth/takeeva",
+    controller.takeeva
+  );
+  app.post(
+    "/src/auth/takesub",
+    controller.takesub
+  );
+  app.post(
+    "/src/auth/taketask",
+    controller.taketask
+  );
   app.post(
     "/src/auth/signup",
     [

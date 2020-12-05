@@ -17,15 +17,6 @@ const required = (value) => {
     );
   }
 };
-const vPass = (value) => {
-  if (parseInt(value) < 0 || parseInt(value) > 100) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        Pass cut line must be 0 ~ 100
-      </div>
-    );
-  }
-};
 const vOriginalname = (value) => {
   if (value.length < 1 || value.length > 30) {
     return (
@@ -72,7 +63,7 @@ const [data, setData] = useState([
 
 const onChangePass = (e) => {
   const pass = e.target.value;
-  setPass(parseInt(pass));
+  setPass(pass);
 };
 
 const onChangeOriginalname = (e) => {
@@ -297,12 +288,13 @@ useEffect(() => {
               <div className="form-group">
                 <label htmlFor="Task name">Pass cut line</label>
                 <Input
-                  type="text"
+                  type="number"
                   className="form-control"
                   name="pass"
-                  value={pass}
+                  min="1"
+                  max="100"
                   onChange={onChangePass}
-                  validations={[required, vPass]}
+                  validations={[required]}
                 />
               </div>
               <div className="form-group">

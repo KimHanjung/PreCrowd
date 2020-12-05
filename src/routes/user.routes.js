@@ -9,6 +9,7 @@ module.exports = function(app) {
     );
     next();
   });
+  app.get("/src/user/getfile", controller.getfile);
 
   app.post("/src/user/create_task", controller.create_task);
   
@@ -27,5 +28,4 @@ module.exports = function(app) {
   app.post("/src/user/task_stat", controller.task_stat);
 
   app.post("/src/user/task_member", controller.task_member);
-  console.log('hi@!#!@#!@#!@#!@#!@#!@#@@#!!@#@!#@!#!@#!@#');
 };

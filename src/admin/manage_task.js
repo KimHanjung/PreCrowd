@@ -25,6 +25,7 @@ const Managetask = (props) => {
       Pass: 0,
       Task_data_table_name: 'dafault',
       Task_data_table_schema: 'dafault',
+      Status:1
     }
   ]);
   const [task_to_detail, setTask_to_detail] = useState('default');
@@ -181,8 +182,7 @@ const Managetask = (props) => {
         alert(resMessage);
       }
     );
-  },[]);
-
+  },[re]);
 
   return (
     <div className='white'>
@@ -200,8 +200,9 @@ const Managetask = (props) => {
           render={() => {
             return (
               <Popupedit
-                onClick={() => {
+                onClick={(e) => {
                   props.history.push(props.match.url);
+                  setRe(1-re);
                 }}
                 value={task_to_detail}
                 pass={pass}

@@ -8,8 +8,8 @@ var csv = require('fast-csv');
 exports.tasklist = async (req, res) => {
   try{
     var id = req.query.id;
-    var sql = "SELECT t.Task_name, t.Desc, t.Term FROM `tasks` t WHERE NOT EXISTS "+ 
-                  "(SELECT * FROM `approvals` a WHERE (a.Task_name = t.Task_name) AND (a.H_id = ?));";
+    var sql = "SELECT t.Task_name, t.Desc, t.Term FROM `TASKs` t WHERE NOT EXISTS "+ 
+                  "(SELECT * FROM `APPROVALs` a WHERE (a.Task_name = t.Task_name) AND (a.H_id = ?));";
     const result = await sequelize.query(sql, {
       replacements : [id],
       type: QueryTypes.SELECT
@@ -17,6 +17,7 @@ exports.tasklist = async (req, res) => {
     console.log(result);
     res.json(result);
   }catch(err){
+    console.log(err);
     res.status(400).send("There is an error");
   }
 };
@@ -26,7 +27,7 @@ exports.taskreq = async (req, res) => {
     var post = req.body;
     var user_id = post.user_id;
     var task_name = post.task_name;
-    var sql = "INSERT INTO `approvals` VALUES(?, ?, 0);";
+    var sql = "INSERT INTO `APPROVALs` VALUES(?, ?, 0);";
     const result = await sequelize.query(sql, {
       replacements : [user_id, task_name],
       type: QueryTypes.SELECT
@@ -34,6 +35,7 @@ exports.taskreq = async (req, res) => {
     console.log(result);
     res.status(200).json(result);
   } catch(err){
+    console.log(err);
     res.status(400).send("There is an error!");
   }
 };
@@ -41,8 +43,8 @@ exports.taskreq = async (req, res) => {
 exports.taskin = async (req, res) => {
   try{
   var id = req.query.id;
-  var sql = "SELECT t.Task_name, t.Desc, t.Term FROM `tasks` t WHERE EXISTS "+ 
-                "(SELECT * FROM `approvals` a WHERE (a.status = 1) "+ 
+  var sql = "SELECT t.Task_name, t.Desc, t.Term FROM `TASKs` t WHERE EXISTS "+ 
+                "(SELECT * FROM `APPROVALs` a WHERE (a.status = 1) "+ 
                 "AND (a.Task_name = t.Task_name) AND (a.H_id = ?));";
   const result = await sequelize.query(sql, {
     replacements : [id],
@@ -60,7 +62,7 @@ exports.submitscore = async (req, res) => {
   try{
     var user_id = req.query.user_id;
 
-    var sql = "SELECT `Score` FROM `members` WHERE Id = ?";
+    var sql = "SELECT `Score` FROM `MEMBERs` WHERE Id = ?";
     const result = await sequelize.query(sql, {
       replacements : [user_id],
       type: QueryTypes.SELECT
@@ -77,8 +79,8 @@ exports.submittaskstate = async (req,res) => {
     var user_id = req.query.user_id;
     var task_name =req.query.task_name;
     var sql = "SELECT COUNT(*) as pass_num, COALESCE(SUM(p.Total_tuple_num), 0) as tuple_num "+
-              "FROM  (`Parsing_data_files` p JOIN `Hand_ins` h ON p.File_index = h.File_index) "+ 
-              "JOIN `Original_data_files` o ON p.Type_id = o.Type_id " +
+              "FROM  (`PARSING_DATA_FILEs` p JOIN `HADN_INs` h ON p.File_index = h.File_index) "+ 
+              "JOIN `ORIGINAL_DATA_FILEs` o ON p.Type_id = o.Type_id " +
               "WHERE (o.Task_name = ?) AND (h.H_id = ? ) AND (p.pass = 1) "
               "GROUP BY Task_name";
     const result = await sequelize.query(sql,{
@@ -98,8 +100,8 @@ exports.submittypestate = async (req,res) => {
     var user_id = req.query.user_id;
     var task_name = req.query.task_name;
     var sql = "SELECT  o.Type_name, p.Parsing_file_name, p.Pass, h.Round "+
-              "FROM  (`Parsing_data_files` p JOIN `Hand_ins` h ON p.File_index = h.File_index) "+ 
-              "JOIN `Original_data_files` o ON p.Type_id = o.Type_id "+
+              "FROM  (`PARSING_DATA_FILEs` p JOIN `HAND_INs` h ON p.File_index = h.File_index) "+ 
+              "JOIN `ORIGINAL_DATA_FILEs` o ON p.Type_id = o.Type_id "+
               "WHERE (o.Task_name = ?) AND (h.H_id = ? ) "+
               "ORDER by h.Round;";
     const result = await sequelize.query(sql,{
@@ -118,7 +120,7 @@ exports.typelist = async (req, res) => {
   try{
   var task_name = req.query.task_name;
 
-  var sql = "SELECT Type_name FROM original_data_files WHERE Task_name = ?";
+  var sql = "SELECT Type_name FROM ORIGINAL_DATA_FILEs WHERE Task_name = ?";
   const result = await sequelize.query(sql, {
     replacements : [task_name],
     type: QueryTypes.SELECT
@@ -141,6 +143,7 @@ exports.submit = async (req, res) => {
   }
   try{
   var post = req.body;
+  console.log(post);
   var user_id = post.user_id;
   var type_name = post.type_name;
   var task_name = post.task_name;
@@ -155,14 +158,14 @@ exports.submit = async (req, res) => {
   console.log(ppath);
   //DB connection
   var sql = "SELECT `Schema` AS ori_sch, Task_data_table_schema AS res_sch, Type_id "+ 
-            "FROM original_data_files o JOIN tasks t ON o.Task_name = t.Task_name "+
+            "FROM ORIGINAL_DATA_FILEs o JOIN TAKSs t ON o.Task_name = t.Task_name "+
             "WHERE (o.Type_name = ?) AND (t.Task_name = ?); ";
   var result1 = await sequelize.query(sql, {
     replacements : [type_name, task_name],
     type: QueryTypes.SELECT
   });
 
-  var sql = "SELECT Id FROM `members` WHERE Role= \'Evaluationer\' ORDER BY RAND() LIMIT 1 ;";
+  var sql = "SELECT Id FROM `MEMBERs` WHERE Role= \'Evaluationer\' ORDER BY RAND() LIMIT 1 ;";
   var result2 = await sequelize.query(sql, {
     type: QueryTypes.SELECT
   });

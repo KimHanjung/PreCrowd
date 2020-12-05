@@ -3,9 +3,10 @@ import authHeader from "./auth-header";
 
 const API_URL = "http://localhost:3001/src/auth/";
 
-const management = (id, gender, byear1, byear2, role) =>{
+const management = (id, task, gender, byear1, byear2, role) =>{
   return axios.post(API_URL + "management",{
     id,
+    task,
     gender,
     byear1,
     byear2,
@@ -16,7 +17,28 @@ const management = (id, gender, byear1, byear2, role) =>{
     return response.data.users;
   });
 };
-
+const takeeva = (user_id) => {
+  return axios.post(API_URL+"takeeva",{
+    user_id
+  })
+  .then((response) =>{
+    return response.data.eva;
+  });
+};
+const takesub = (user_id) => {
+  return axios.post(API_URL+"takesub",{
+    user_id
+  })
+  .then((response) =>{
+    return response.data.sub;
+  });
+};
+const taketask = () =>{
+  return axios.post(API_URL + "taketask")
+  .then((response) =>{
+    return response.data.task_list;
+  });
+};
 const register = (username, id, password, address, gender, bdate, phone, role) => {
   return axios.post(API_URL + "signup", {
     username,
@@ -85,6 +107,9 @@ const getCurrentUser = () => {
 };
 
 export default {
+  takeeva,
+  takesub,
+  taketask,
   register,
   withdrawal,
   login,
