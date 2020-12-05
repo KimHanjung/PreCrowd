@@ -58,7 +58,6 @@ const onChangePass = (e) =>{
 
 useEffect(() => {
     setFile_Index(props.File_index);
-    console.log(file_index);
     
     
     
@@ -93,8 +92,9 @@ useEffect(() => {
 
     form1.current.validateAll();
     if (checkBtn1.current.context._errors.length === 0) {
+      console.log(file_index);
     axios.post("http://localhost:3001/src/api/pass", {
-        file_index: file_index.File_index,
+        file_index: file_index,
         pass: pass,
         user_score: score
     })
