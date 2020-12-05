@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {Link, Route} from 'react-router-dom';
+import {Link, Route, useHistory} from 'react-router-dom';
 import ReactFlexyTable from 'react-flexy-table'
 import 'react-flexy-table/dist/index.css'
 import Popup from "./monitoring_popup.js";
 
 
 
-function Submit_monitoring({ history, props }) {
+function Submit_monitoring(props) {
     const [users, setUsers] = useState([]);
     const [taskname, setTaskname] =useState('');
     const Myuser = JSON.parse(localStorage.getItem("user"));
     const user_id = Myuser.id;
+    const history = useHistory();
 
     const fetchUsers = async () => {
         try {
             const response = await axios.get(
-                '../src/api/taskin',{
+                'http://localhost:3001/src/api/taskin',{
                     params:{
                         id: user_id
                     }
@@ -37,7 +38,7 @@ function Submit_monitoring({ history, props }) {
         header:'Move',
         td:(users)=>{
             return(
-                <Link to={`/submitter/Submit_monitoring/monitoring_popup`}>
+                <Link to={`/Submit_monitoring/monitoring_popup`}>
                     <button className='btn btn-primary' onClick={() => {MyMove(users.Task_name)}}>Monitoring</button>
                 </Link>
             )
@@ -53,12 +54,12 @@ function Submit_monitoring({ history, props }) {
         <div className='white'>
             <ReactFlexyTable data={users} className = 'body_color' additionalCols={additionalCols}/>
             <Route
-                path={`/submitter/Submit_monitoring/monitoring_popup`}
+                path={`/Submit_monitoring/monitoring_popup`}
                 render={() => {
                     return (
                     <Popup
                         onClick={(e) => {
-                        props.history.push(props.match.url);
+                        history.push('/Submit_monitoring');
                         }}
                         taskname={taskname}
                         id={user_id}
@@ -71,10 +72,3 @@ function Submit_monitoring({ history, props }) {
 }
 
 export default Submit_monitoring;
-
-
-
-
-
-
-

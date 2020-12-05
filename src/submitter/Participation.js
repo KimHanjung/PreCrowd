@@ -27,7 +27,7 @@ class Participation extends React.Component {
 
         const task_name = this.state.task_name;
         
-        return axios.post("/src/api/taskreq", {
+        return axios.post("http://localhost:3001/src/api/taskreq", {
             user_id,
             task_name
         }).then(res => {
@@ -43,9 +43,15 @@ class Participation extends React.Component {
         return (
             
             <main>
+            <div className="registercard">
              <h2>Hi,{myjson.id}</h2>
              <h2>{this.props.location.state.taskname}</h2>
+             <div style={{
+                 display:'inline-flex',
+                 justifyContent:'center'
+             }}>
              <img src={imgfile} />
+             </div>
             <h1>Do you agree?</h1>
             <input
                 type="checkbox"
@@ -54,14 +60,15 @@ class Participation extends React.Component {
                 />
 
 
-            <Link to='/submitter/submit_apply'>
-                    <button
+            <Link to='/submit_apply'>
+                    <button className='btn btn-primary'
                         disabled={!this.state.checked}
                         onClick={() => this.handlePost()}
                     >
                         Apply?
                     </button>
             </Link>
+            </div>
             </main>
         );
     }

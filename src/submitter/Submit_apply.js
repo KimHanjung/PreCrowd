@@ -17,7 +17,7 @@ function Submit_apply({ history, props }) {
         try {
             setLoading(true);
             const response = await axios.get(
-                '../src/api/taskin',{
+                'http://localhost:3001/src/api/taskin',{
                     params:{
                         id: user_id
                     }
@@ -34,7 +34,7 @@ function Submit_apply({ history, props }) {
         return(
 
             <Link to={{
-                pathname: '/submitter/submit_page',
+                pathname: '/submit_page',
                 state: {
                     taskname: task
                     }

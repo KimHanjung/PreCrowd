@@ -72,9 +72,7 @@ function Row(props) {
         </TableCell>
         <TableCell component="th" scope="row">
           {row.Task_name}
-          console.log({filesrc})
           {getfile}
-          console.log({filesrc})
         </TableCell>
         <TableCell align="right"><a href={filesrc}><button>Download data</button></a></TableCell>
         <TableCell align="right">{row.Desc}</TableCell>

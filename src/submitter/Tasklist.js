@@ -20,7 +20,7 @@ function Tasklist({ history }) {
             setUsers(null);
             setLoading(true);
             const response = await axios.get(
-                '../src/api/tasklist' ,{
+                'http://localhost:3001/src/api/tasklist' ,{
                     params:{
                         id: user_id
                     }
@@ -37,7 +37,7 @@ function Tasklist({ history }) {
         return(
 
             <Link to={{
-                pathname: '/submitter/participation',
+                pathname: '/participation',
                 state: {
                     taskname: task
                     }
