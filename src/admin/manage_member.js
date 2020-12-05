@@ -92,6 +92,7 @@ const Manage = (props) => {
   const takeeva = (e) => {
     AuthService.takeeva(e).then(
       (response) => {
+        console.log(response);
         evatask = [];
         var z = 0;
         if(response.length === 0){

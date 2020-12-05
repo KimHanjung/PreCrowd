@@ -50,19 +50,23 @@ exports.taketask = (req, res) =>{
     });
 };
 exports.takeeva = (req,res) =>{
+  console.log(req.body, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+  console.log(req.body["user_id"]);
   Parsing.findAll({
     raw:true,
     where:
     {
-      E_id: req.body["user_id"]
+      E_id: req.body["user_id"],
+      User_score:  {[Op.ne]: null}
     }
   })
     .then(file =>{
+      console.log(file, "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
       var parse_list = [];
       var b = 0;
       while(b<file.length){
         parse_list.push(
-          file.Parsing_file_name
+          file[b].Parsing_file_name
         );
         b = b + 1;
       }
