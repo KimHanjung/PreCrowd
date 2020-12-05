@@ -18,6 +18,8 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 
+import {CSVLink, CSVDownload} from 'react-csv';
+
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
@@ -41,13 +43,16 @@ function Row(props) {
   const [filesrc, setSrc] = React.useState("");
   const [URL, setUrl] = React.useState("");
   const [loaded, setLoaded] = useState(false);
+  const [csvdata, setCsvdata] = useState([]);
 
-  useEffect(() => getfile(), []);
+  useEffect(() => {
+    getfile();
+  }, []);
 
   useEffect(() => {
     setLoaded(true);
-    console.log(filesrc);
-  }, [filesrc]);
+    console.log(csvdata);
+  }, [csvdata]);
   
   const handleClickOpen = (id) => {
     UserService.task_member(id)
@@ -63,11 +68,10 @@ function Row(props) {
   const getfile = () => {
     console.log("be");
     UserService.getfile(row)
-    .then(
-      console.log("af"),
-      (response) =>{
+    .then((response) =>{
         console.log(response);
         setSrc(response);
+        setCsvdata(response.data);
       }
     )
     return filesrc;
@@ -88,7 +92,9 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.Task_name}
         </TableCell>
-        {loaded && <TableCell align="right"><a href={filesrc}><button>Download data</button></a></TableCell>}
+        <TableCell align="right">
+          {loaded && <CSVLink data={csvdata} filename={row.Task_name + ".csv"}>Download me</CSVLink>}
+        </TableCell>
         <TableCell align="right">{row.Desc}</TableCell>
         <TableCell align="right">{row.Pass}</TableCell>
         <TableCell align="right">{row.Total}</TableCell>
