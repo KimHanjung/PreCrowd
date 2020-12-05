@@ -73,6 +73,14 @@ exports.pass = async (req, res) => {
         var sql;
         if(pass == 1){
             console.log("PASS!!!\n");
+            sql0 = "SELECT Name FROM MEMBERs, HAND_INs WHERE Id=H_id AND File_index=?;"
+            var result0 = await sequelize.query(sql0, {
+                replacements : [file_index],
+                type: QueryTypes.SELECT,
+                logging: false,
+            });
+            var submit_name = result0[0].Name;
+
             sql1 = "SELECT t.Task_data_table_schema, t.Task_data_table_name, p.Parsing_file_name, p.Data_file "+
                 "FROM (`PARSING_DATA_FILEs` p JOIN `ORIGINAL_DATA_FILEs` o ON p.Type_id = o.Type_id) "+
                 "JOIN `TASKs` t ON t.task_name = o.task_name " +
@@ -90,11 +98,11 @@ exports.pass = async (req, res) => {
             console.log(data_file);
             
             var stream = fs.createReadStream(data_file);
-            sql2 = "INSERT INTO " +task_data_table_name + " VALUES(?);"  ;
+            sql2 = "INSERT INTO " +task_data_table_name + " VALUES(?, ?);"  ;
             csv.parseStream(stream, {headers : false})
             .on("data", async function(data){
                 await sequelize.query(sql2, {
-                    replacements : [data],
+                    replacements : [submit_name, data],
                     type: QueryTypes.INSERT,
                     logging: false,
                 });

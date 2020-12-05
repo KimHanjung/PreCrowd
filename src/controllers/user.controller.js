@@ -25,7 +25,7 @@ exports.create_task = (req, res) => {
       const columns = req.body.tableschema;
       const attr = columns.split(',');
       const type = " VARCHAR(255),";
-      var row = "";
+      var row = "제출자 VARCHAR(255),";
       for(var elem in attr){
         row += attr[elem] + type;
       }
