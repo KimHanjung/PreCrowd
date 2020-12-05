@@ -158,17 +158,18 @@ exports.submit = async (req, res) => {
   console.log(ppath);
   //DB connection
   var sql = "SELECT `Schema` AS ori_sch, Task_data_table_schema AS res_sch, Type_id "+ 
-            "FROM ORIGINAL_DATA_FILEs o JOIN TAKSs t ON o.Task_name = t.Task_name "+
+            "FROM ORIGINAL_DATA_FILEs o JOIN TASKs t ON o.Task_name = t.Task_name "+
             "WHERE (o.Type_name = ?) AND (t.Task_name = ?); ";
   var result1 = await sequelize.query(sql, {
     replacements : [type_name, task_name],
     type: QueryTypes.SELECT
   });
-
+  
   var sql = "SELECT Id FROM `MEMBERs` WHERE Role= \'Evaluationer\' ORDER BY RAND() LIMIT 1 ;";
   var result2 = await sequelize.query(sql, {
     type: QueryTypes.SELECT
   });
+  
 
   // 해당 data type과 task가 없을 때 error handleing 필요
   var ori_sch = result1[0].ori_sch.split(',');
@@ -255,7 +256,7 @@ exports.submit = async (req, res) => {
       console.log(system_score);   
       console.log(ppath);
       
-      sql = 'INSERT INTO parsing_data_files'+
+      sql = 'INSERT INTO PARSING_DATA_FILEs'+
             '( Parsing_file_name, E_id, System_score, Total_tuple_num, Type_id, Data_file) '+
             'VALUES(?,?,?,?,?,?);';
               
@@ -264,11 +265,11 @@ exports.submit = async (req, res) => {
           type: QueryTypes.INSERT,
           logging: false,
       });
-      sql = 'SELECT MAX(File_index) AS File_index FROM parsing_data_files;';
+      sql = 'SELECT MAX(File_index) AS File_index FROM PARSING_DATA_FILEs;';
       var result3 = await sequelize.query(sql, {type: QueryTypes.SELECT});
       console.log("file_index:" + result3[0].File_index);
       var file_index = result3[0].File_index;
-      sql = 'INSERT INTO hand_ins VALUES(?,?,?,?);';
+      sql = 'INSERT INTO HAND_INs VALUES(?,?,?,?);';
       await sequelize.query(sql, {
               replacements : [user_id, file_index, round, period],
               type: QueryTypes.INSERT

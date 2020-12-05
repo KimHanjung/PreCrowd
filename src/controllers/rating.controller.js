@@ -9,7 +9,7 @@ var csv = require('fast-csv');
 exports.todolist = async (req, res) => {
     try{
         var id = req.query.id;
-        var sql = "SELECT Parsing_file_name, File_index  FROM `parsing_data_files` f "+
+        var sql = "SELECT Parsing_file_name, File_index  FROM `PARSING_DATA_FILEs` f "+
                 "WHERE (e_id = ?) AND (User_score is NULL);";
         const result = await sequelize.query(sql, {
         replacements : [id],
@@ -25,7 +25,7 @@ exports.todolist = async (req, res) => {
 exports.download = async (req, res) => {
     try{
         var file_index = req.query.file_index;
-        var sql = "SELECT `Parsing_file_name`, `Data_file` FROM `parsing_data_files` WHERE File_index = ?;";
+        var sql = "SELECT `Parsing_file_name`, `Data_file` FROM `PARSING_DATA_FILEs` WHERE File_index = ?;";
         const result = await sequelize.query(sql, {
             replacements : [file_index],
             type: QueryTypes.SELECT
@@ -74,8 +74,8 @@ exports.pass = async (req, res) => {
         if(pass == 1){
             console.log("PASS!!!\n");
             sql1 = "SELECT t.Task_data_table_schema, t.Task_data_table_name, p.Parsing_file_name, p.Data_file "+
-                "FROM (`parsing_data_files` p JOIN `original_data_files` o ON p.Type_id = o.Type_id) "+
-                "JOIN `tasks` t ON t.task_name = o.task_name " +
+                "FROM (`PARSING_DATA_FILEs` p JOIN `ORIGINAL_DATA_FILEs` o ON p.Type_id = o.Type_id) "+
+                "JOIN `TASKs` t ON t.task_name = o.task_name " +
                 "WHERE p.File_index = ?;";
             var result1 = await sequelize.query(sql1, {
                 replacements : [file_index],
@@ -102,7 +102,7 @@ exports.pass = async (req, res) => {
                 console.log("insert compelte");
             });
             //file 평가 자료 업데이트
-            sql3 = "UPDATE parsing_data_files p " +
+            sql3 = "UPDATE PARSING_DATA_FILEs p " +
                     "SET p.Pass = 1, p.User_score = ? "+
                     "WHERE p.File_index = ?;";
             //console.log(sql);
