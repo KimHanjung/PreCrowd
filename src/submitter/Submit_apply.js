@@ -39,53 +39,35 @@ function Submit_apply({ history, props }) {
                     taskname: task
                     }
                 }}>
-                move to {task}
+                <button className='btn btn-primary'>Submit</button>
             </Link>
         )
     }
 
     const additionalCols=[
         {
-        header:'Move',
+        header:'Action',
         td:(users)=>{
             return(
                 <div>
                     <MyMove task = {users.Task_name}></MyMove>
                 </div>
-                
-                
             )
         }
-        
-
     }        
     ]
-
     useEffect(() => {
         fetchUsers();
     }, []);
-
-
-    
 
     if (loading) return <div>Loading..</div>;
     if (error) return <div>Error</div>;
     if (!users) return null;
     return (
         <>
-            <ul>
-                <ReactFlexyTable data={users} className = 'body_color' additionalCols={additionalCols}/>
-            </ul>
-            <button onClick={fetchUsers}>Reload</button>
+            <ReactFlexyTable data={users} className = 'body_color' additionalCols={additionalCols}/>
         </>
     );
 }
 
 export default withRouter(Submit_apply);
-
-
-
-
-
-
-
