@@ -88,12 +88,6 @@ exports.pass = async (req, res) => {
             var Task_data_table_schema = result1[0].Task_data_table_schema;
             var file_name = result1[0].Parsing_file_name;
             console.log(data_file);
-            /*
-            var data_array = new Array();
-            for(var i=0; i<data_file.length;i++){
-                data_array[i] = data_file[i].split(',');
-            }
-            */
             
             var stream = fs.createReadStream(data_file);
             sql2 = "INSERT INTO " +task_data_table_name + " VALUES(?);"  ;
@@ -107,18 +101,6 @@ exports.pass = async (req, res) => {
             }).on("end", function(){
                 console.log("insert compelte");
             });
-            /*
-            sql = "LOAD DATA LOCAL INFILE ? "+
-                  "INTO TABLE " + task_data_table_name + 
-                  " FIELDS TERMINATED BY \',\' LINES TERMINATED BY '\r\n';" ;
-            console.log(sql);
-            await sequelize.query(sql, {
-                replacements : [data_file, task_data_table_name],
-                type: QueryTypes.RAW,
-                
-            });
-            console.log("result2 complete");
-            */
             //file 평가 자료 업데이트
             sql3 = "UPDATE parsing_data_files p " +
                     "SET p.Pass = 1, p.User_score = ? "+
