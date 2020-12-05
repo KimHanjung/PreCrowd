@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
 import { Alert } from 'bootstrap';
-import imgfile from './Signin.JPG';
+import imgfile from './SignIn.jpg';
 class Participation extends React.Component {
     constructor(props) {
         super(props);
