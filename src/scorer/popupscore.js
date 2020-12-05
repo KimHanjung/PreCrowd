@@ -43,7 +43,7 @@ const [message1, setMessage1] = useState("");
 const [successful1, setSuccessful1] = useState(false);
 
 
-const URL = "http://localhost:3001/src/api/download?file_index=" + props;
+const URL = "http://localhost:3001/src/api/download?file_index=" + file_index;
 
 const onChangeScore = (e) =>{
     const score = e.target.value;
@@ -57,7 +57,7 @@ const onChangePass = (e) =>{
 
 
 useEffect(() => {
-    setFile_Index(props);
+    setFile_Index(props.File_index);
     
     
     
@@ -82,7 +82,7 @@ useEffect(() => {
 //         alert(resMessage);
 //       }
 //     );
-  },[]);
+  },[file_index]);
 
   const handleRegister1 = (e) => {
     e.preventDefault();
@@ -92,8 +92,9 @@ useEffect(() => {
 
     form1.current.validateAll();
     if (checkBtn1.current.context._errors.length === 0) {
+      console.log(file_index);
     axios.post("http://localhost:3001/src/api/pass", {
-        file_index: file_index.File_index,
+        file_index: file_index,
         pass: pass,
         user_score: score
     })

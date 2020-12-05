@@ -129,7 +129,7 @@ const CreateTask = (props) => {
 
   const onChangePass = (e) => {
     const pass = e.target.value;
-    setPass(parseInt(pass));
+    setPass(pass);
   };
 
   const onChangeTablename = (e) => {
@@ -227,12 +227,14 @@ const CreateTask = (props) => {
               <div className="form-group">
                 <label htmlFor="Minimum update term">Minimum update term</label>
                 <Input
-                  type="text"
+                  type="number"
                   className="form-control"
                   name="Minimum update term"
+                  min="1"
+                  max="31"
                   value={term}
                   onChange={onChangeTerm}
-                  validations={[required, vTerm]}
+                  validations={[required]}
                 />
               </div>
 
@@ -251,12 +253,14 @@ const CreateTask = (props) => {
               <div className="form-group">
                 <label htmlFor="Cut line of pass(0~100)">Cut line of pass(0~100)</label>
                 <Input
-                  type="text"
+                  type="number"
                   className="form-control"
                   name="Cut line of pass(0~100)"
+                  min="0"
+                  max="100"
                   value={pass}
                   onChange={onChangePass}
-                  validations={[required, vPass]}
+                  validations={[required]}
                 />
               </div>
 

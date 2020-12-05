@@ -69,7 +69,6 @@ class Participation extends React.Component {
                     </button>
             </Link>
             </div>
-            <h1>Do you agree?</h1>
             </main>
         );
     }

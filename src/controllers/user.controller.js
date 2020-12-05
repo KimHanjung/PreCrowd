@@ -4,7 +4,7 @@ const Original = db.origin;
 const Member = db.member;
 const Approval = db.approval;
 
-const { QueryTypes } = require('sequelize');
+const { QueryTypes, queryInterface } = require('sequelize');
 const Op = db.Sequelize.Op;
 
 exports.create_task = (req, res) => {
@@ -54,6 +54,14 @@ exports.create_original = (req, res) => {
     Task_name: req.body.taskname
   })
     .then(user => {
+      queryInterface.addConstraint('ORIGINAL_DATA_FILEs', {
+        fields: ['Type_name', 'Task_name'],
+        type: 'unique',
+        name: 'unique in task'
+      })
+      .then(() => console.log("add unique success"))
+      .catch((err) => console.log("add unique failed: ", err));
+      ;
       res.send({ message: "New original data type is successfully created!" });
       console.log('create_original success');
     })
