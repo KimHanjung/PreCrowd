@@ -21,7 +21,6 @@ const Manage = (props) => {
   const form = useRef();
   const checkBtn = useRef();
   const initial = () => {
-     console.log("initial");
      AuthService.taketask().then(
       (response) =>{
         listtask = [];
@@ -199,7 +198,6 @@ const Manage = (props) => {
     //console.log(isopen);
 
     //form.current.validateAll();
-    console.log("hi");
     
       AuthService.management(id,task, gender, byear1, byear2, role).then(
         (response) => {

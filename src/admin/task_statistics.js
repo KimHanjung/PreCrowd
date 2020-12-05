@@ -38,6 +38,7 @@ function Row(props) {
   const classes = useRowStyles();
   const [dial, setDial] = React.useState(false);
   const [member_task, setMemtask] = React.useState([]);
+  const [filesrc, setSrc] = React.useState("");
   
   const handleClickOpen = (id) => {
     UserService.task_member(id)
@@ -50,7 +51,17 @@ function Row(props) {
   const handleClose = () => {
     setDial(false);
   };
-
+  const getfile = () => {
+    console.log("be");
+    UserService.getfile(row)
+    .then(
+      console.log("af"),
+      (response) =>{
+        setSrc(response);
+      }
+    )
+    return filesrc;
+  }
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
@@ -61,7 +72,11 @@ function Row(props) {
         </TableCell>
         <TableCell component="th" scope="row">
           {row.Task_name}
+          console.log({filesrc})
+          {getfile}
+          console.log({filesrc})
         </TableCell>
+        <TableCell align="right"><a href={filesrc}><button>Download data</button></a></TableCell>
         <TableCell align="right">{row.Desc}</TableCell>
         <TableCell align="right">{row.Pass}</TableCell>
         <TableCell align="right">{row.Total}</TableCell>
@@ -179,6 +194,7 @@ export default function CollapsibleTable() {
           <TableRow>
               <TableCell />
               <TableCell >Task Name</TableCell>
+              <TableCell align="right">Download</TableCell>
               <TableCell align="right">Description</TableCell>
               <TableCell align="right">Pass&nbsp;</TableCell>
               <TableCell align="right">Total&nbsp;</TableCell>
@@ -192,6 +208,7 @@ export default function CollapsibleTable() {
             <TableRow>
                 <TableCell />
                 <TableCell >Task Name</TableCell>
+                <TableCell align="right">Download</TableCell>
                 <TableCell align="right">Description</TableCell>
                 <TableCell align="right">Pass&nbsp;</TableCell>
                 <TableCell align="right">Total&nbsp;</TableCell>

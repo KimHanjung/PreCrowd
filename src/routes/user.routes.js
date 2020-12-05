@@ -9,6 +9,7 @@ module.exports = function(app) {
     );
     next();
   });
+  app.get("/src/user/getfile", controller.getfile);
 
   app.post("/src/user/create_task", controller.create_task);
   

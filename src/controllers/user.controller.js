@@ -134,6 +134,22 @@ exports.create_original = (req, res) => {
         console.log(err);
       });
   }
+exports.getfile = async (req, res) =>{
+  var task_name = req.query.Task_name;
+  var path = "";
+  var result = await db.sequelize.query('SELECT Task_data_table_name FROM TASKs WHERE Task_name=?;',{
+    type: QueryTypes.SELECT,
+    replacements: [task_name]
+  })
+  var name = result[0].Task_data_table_name;
+  console.log(name);
+  await db.sequelize.query('SELECT * FROM '+name+' INTO OUTFILE "../parse_down/"'+task_name+'.csv;')
+      path = "../parse_down/"+task_name+'.csv';
+      res.send({
+        path
+      });
+    
+};
 
 exports.task_stat = (req, res) => {
 
