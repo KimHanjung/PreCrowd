@@ -55,16 +55,16 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
-// function initial(){
-//   Member.create({
-//     Name: 'admin',
-//     Id: 'admin',
-//     Pw: bcrypt.hashSync('admin', 8),
-//     Role: 'Administrator'
-//   })
-//   .then((res) => console.log('Administrator is created!'))
-//   .catch((err) => console.log('Administrator creates error!'));
-// }
+function initial(){
+  Member.create({
+    Name: '괄리자',
+    Id: 'admin',
+    Pw: bcrypt.hashSync('admin', 8),
+    Role: 'Administrator'
+  })
+  .then((res) => console.log('Administrator is created!'))
+  .catch((err) => console.log('Administrator creates error!'));
+}
 
 function initial(){
   Member.bulkCreate([{
@@ -126,6 +126,22 @@ function initial(){
   .catch((err) => console.log('Submittor1 creates error: ', err));
 
   Member.create({
+    Name: 'Submittor2',
+    Id: 'Submittor2',
+    Pw: bcrypt.hashSync('11111', 8),
+    Role: 'Submittor',
+    Bdate: '34-11-11',
+    Gender: 1,
+    Phone:'010-1111-1111',
+    Address: 'busan',
+    Score: 70
+  })
+  .then((res) => console.log('Submittor1 is created!')
+  )
+  .catch((err) => console.log('Submittor1 creates error: ', err));
+
+
+  Member.create({
     Name: 'Evaluationer1',
     Id: 'Evaluationer1',
     Pw: bcrypt.hashSync('11111', 8),
@@ -144,12 +160,12 @@ function initial(){
     Desc: 'blablablablablablabla',
     Term: 30,
     Task_data_table_name: 'task1_table',
-    Task_data_table_schema: 'id1,pw1,name1',
+    Task_data_table_schema: '기준년월,상품코드,대출년도,대출학기,대출과목세분류코드,계좌상태,대출금액,대출잔액,대출금리,상품구분코드'
   })
   .then((res) => console.log('Task1 is created!')
   )
   .catch((err) => console.log('Task1 creates error: ', err));
-  //Task_data_table_schema: '기준년월,상품코드,대출년도,대출학기,대출과목세분류코드,계좌상태,대출금액,대출잔액,대출금리,상품구분코드'
+  //Task_data_table_schema: 'id1,pw1,name1'
   Task.create({
     Task_name: 'Task2',
     Desc: 'blablablablablablabla',
@@ -162,8 +178,8 @@ function initial(){
   .catch((err) => console.log('Task2 creates error: ', err));
 
   Original.create({
-    Schema : "pw1_1,id1_1,name1_1",
-    //Schema: '기준년월,상품코드,대출년도,대출학기,대출과목세분류코드,계좌상태,대출금액,대출잔액,대출금리,상품구분코드',
+    //Schema : "pw1_1,id1_1,name1_1",
+    Schema: '기준년월,상품코드,대출년도,대출학기,대출과목세분류코드,계좌상태,대출금액,대출잔액,대출금리,상품구분코드',
     Type_name: 'ori1',
     Task_name: 'Task1'
   })
@@ -193,14 +209,14 @@ function initial(){
   )
   .catch((err) => console.log('Approval 1 creates error: ', err));
   
-  // Approval.create({
-  //   H_id: 'Submittor2',
-  //   Task_name: 'Task2',
-  //   Status: false
-  // })
-  // .then((res) => console.log('Approval 2 is created!')
-  // )
-  // .catch((err) => console.log('Approval 2 creates error: ', err));
+  Approval.create({
+    H_id: 'Submittor2',
+    Task_name: 'Task2',
+    Status: false
+  })
+  .then((res) => console.log('Approval 2 is created!')
+  )
+  .catch((err) => console.log('Approval 2 creates error: ', err));
 }
 
 

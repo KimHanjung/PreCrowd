@@ -95,9 +95,9 @@ exports.create_original = (req, res) => {
   };
 
   exports.get_approval = (req, res) => {
-    db.sequelize.query('select Members.Id as Id, Members.Name as Name, Members.Score as Score, Approvals.Status as Status\
-    from Tasks, Approvals, Members\
-    where Tasks.Task_name=? and Tasks.Task_name=Approvals.Task_name and Approvals.H_id=Members.Id', {
+    db.sequelize.query('select MEMBERs.Id as Id, MEMBERs.Name as Name, MEMBERs.Score as Score, APPROVALs.Status as Status\
+    from TASKs, APPROVALs, MEMBERs\
+    where TASKs.Task_name=? and TASKs.Task_name=APPROVALs.Task_name and APPROVALs.H_id=MEMBERs.Id', {
       raw:true,
       type: QueryTypes.SELECT,
       replacements: [req.body.Task_name],
@@ -116,7 +116,7 @@ exports.create_original = (req, res) => {
     let id = req.body.id;
     let taskname = req.body.taskname;
     let input_status = 1-req.body.status;
-    db.sequelize.query('update Approvals\
+    db.sequelize.query('update APPROVALs\
     set Status=?\
     where Task_name=? and H_id=?', {
       raw:true,
@@ -134,7 +134,7 @@ exports.create_original = (req, res) => {
   };
 
   exports.set_pass = (req, res) => {
-    db.sequelize.query('update Tasks\
+    db.sequelize.query('update TASKs\
     set Pass=?\
     where Task_name=?', {
       raw:true,
@@ -150,6 +150,22 @@ exports.create_original = (req, res) => {
         console.log(err);
       });
   }
+exports.getfile = async (req, res) =>{
+  var task_name = req.query.Task_name;
+  var path = "";
+  var result = await db.sequelize.query('SELECT Task_data_table_name FROM TASKs WHERE Task_name=?;',{
+    type: QueryTypes.SELECT,
+    replacements: [task_name]
+  })
+  var name = result[0].Task_data_table_name;
+  console.log(name);
+  await db.sequelize.query('SELECT * FROM '+name+' INTO OUTFILE "../parse_down/"'+task_name+'.csv;')
+      path = "../parse_down/"+task_name+'.csv';
+      res.send({
+        path
+      });
+    
+};
 
 exports.task_stat = (req, res) => {
 
@@ -188,7 +204,7 @@ exports.task_stat = (req, res) => {
           })
           result.push(temp);
           db.sequelize.query('select M.Name as Name, M.Id as Id from MEMBERs as M, APPROVALs as A\
-          where M.Id=A.H_id and A.Task_name=? order by Name;', {
+          where A.Status=1 and M.Id=A.H_id and A.Task_name=? order by Name;', {
             replacements: [temp['Task_name']],
             raw:true,
             type: QueryTypes.SELECT,
@@ -214,7 +230,7 @@ exports.task_stat = (req, res) => {
   exports.task_member = (req, res) => {
 
     db.sequelize.query('select A.Task_name as Task_name from MEMBERs as M, APPROVALs as A\
-    where M.Id=A.H_id and M.Id=?;', {
+    where A.Status=1 and M.Id=A.H_id and M.Id=?;', {
       replacements: [req.body.id],
       raw:true,
       type: QueryTypes.SELECT,

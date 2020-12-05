@@ -1,4 +1,4 @@
-import React, { Component, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
@@ -21,7 +21,6 @@ const Manage = (props) => {
   const form = useRef();
   const checkBtn = useRef();
   const initial = () => {
-    
      AuthService.taketask().then(
       (response) =>{
         listtask = [];
@@ -32,6 +31,7 @@ const Manage = (props) => {
           ); 
           x = x + 1;
         }
+     setLoading(false);
       }
      );
   };
@@ -70,6 +70,10 @@ const Manage = (props) => {
       (response) =>{
         subtask = [];
         var y = 0;
+        if(response.length === 0){
+          subtask.push("참여한 태스크가 없습니다");
+        }
+        else{
         while(y<response.length){
           subtask.push(
             response[y]
@@ -77,13 +81,21 @@ const Manage = (props) => {
           y = y + 1;
         }
       }
-    );
+    }
+    )
+    .catch(err=>{
+      console.log(err);
+    })
   };
   const takeeva = () => {
     AuthService.takeeva(user_id).then(
       (response) => {
         evatask = [];
         var z = 0;
+        if(response.length === 0){
+          evatask.push("평가한 파일이 없습니다");
+        }
+        else{
         while(z<response.length){
           evatask.push(
             response[z]
@@ -91,7 +103,10 @@ const Manage = (props) => {
           z = z + 1;
         }
       }
-    );
+      })
+      .catch(err=>{
+        console.log(err);
+      })
   };
   const [id, setId] = useState("");
   const [gender, setGender] = useState("");
@@ -100,10 +115,14 @@ const Manage = (props) => {
   const [role, setRole] = useState("");
   const [user, setUser] = useState("");
   const [task, setTask] = useState("");
-  const [listt, setList] = useState(initial);
+  const [isLoading, setLoading] = useState(true);
+  //const [isopen, setOpen] = useState(true);
   const [user_id, setUserid] = useState("");
+  const [llist, setLlist] = useState([]);
   
-  
+  useEffect(() => {
+    initial();
+  }, [])
 
   const onChangeId = (e) => {
     const id = e.target.value;
@@ -114,6 +133,7 @@ const Manage = (props) => {
     j = 0;
     list = [];
     while(j<user.length){
+      console.log("@@");
       setUserid(user[j].id);
       if(user[j].Role === "Submittor"){
         takesub();
@@ -143,6 +163,8 @@ const Manage = (props) => {
       }
       j = j + 1;
     }
+    console.log(list);
+    setLlist(list);
   };
   const onChangeGender = (e) => {
     const gender = e.target.value;
@@ -171,18 +193,18 @@ const Manage = (props) => {
     const role = e.target.value;
     setRole(role);
   }
-  
   const handleRegister = (e) => {
     e.preventDefault();
+    //console.log(isopen);
 
-    form.current.validateAll();
+    //form.current.validateAll();
     
       AuthService.management(id,task, gender, byear1, byear2, role).then(
         (response) => {
           setUser(response);
-          write();
         },
         (error) => {
+          //console.log('error sipal');
           const resMessage =
             (error.response &&
               error.response.data &&
@@ -193,6 +215,9 @@ const Manage = (props) => {
         }
       );
   };
+
+  useEffect(() => {write()},[user]);
+  useEffect(() => {console.log(llist)}, [llist]);
   
   return (
     <div className="registercolumn">
@@ -213,10 +238,10 @@ const Manage = (props) => {
               </div>
               <div className ="form-group">
                 <label htmlFor="task">Task_list<br/></label>
-                <Select name ="task" value ={task} onChange={onChangeSelect}>
+                {!isLoading && <Select name ="task" value ={task} onChange={onChangeSelect}>
                   <option value = "">Task_List</option>
                   {listtask}
-                </Select>
+                </Select>}
               </div>
               <div className="form-group">
                 <label htmlFor="gender">Gender<br/></label>
@@ -260,7 +285,7 @@ const Manage = (props) => {
               </div>
 
               <div className="form-group">
-                <button className="btn btn-primary btn-block">Show members</button>
+                <button className="btn btn-primary btn-block" >Show members</button>
               </div>
             </div>
           }
@@ -277,7 +302,7 @@ const Manage = (props) => {
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
       </div>
-      <div className="registercard2">
+      <div className="registercard3">
        <table>
          <thead>
            <tr>
@@ -291,7 +316,7 @@ const Manage = (props) => {
            </tr>
          </thead>
          <tbody>
-           {list}
+           {llist}
          </tbody>
        </table>
       </div>

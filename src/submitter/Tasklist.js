@@ -20,7 +20,7 @@ function Tasklist({ history }) {
             setUsers(null);
             setLoading(true);
             const response = await axios.get(
-                '../src/api/tasklist' ,{
+                'http://localhost:3001/src/api/tasklist' ,{
                     params:{
                         id: user_id
                     }
@@ -37,19 +37,19 @@ function Tasklist({ history }) {
         return(
 
             <Link to={{
-                pathname: '/submitter/participation',
+                pathname: '/participation',
                 state: {
                     taskname: task
                     }
                 }}>
-                move to {task}
+                <button className='btn btn-primary'>Participate</button>
             </Link>
         )
     }
 
     const additionalCols=[
         {
-        header:'Move',
+        header:'Action',
         td:(users)=>{
             return(
                 <div>
@@ -73,27 +73,12 @@ function Tasklist({ history }) {
 
 
     return (
-        <>
-            <body>
-                
-                
-                <ReactFlexyTable data={users} className = 'body_color' additionalCols={additionalCols}/>
-
-
-            </body>
-
-
-            <div className="reload_button"
-            style={{
-                top:'200px',
-                padding: '10px'
-            }}
-            >
-            <button class="btn btn-primary"
-            
-            onClick={fetchUsers}>Reload</button>
-            </div>
-        </>
+        <div className='white'>
+            <ReactFlexyTable data={users} className = 'body_color' additionalCols={additionalCols}/>
+            {/* <div className="right">
+                <button class="btn btn-primary" onClick={fetchUsers}>Reload</button>
+            </div> */}
+        </div>
     );
 }
 

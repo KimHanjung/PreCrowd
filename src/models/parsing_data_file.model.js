@@ -29,7 +29,7 @@ module.exports = (sequelize, Sequelize) => {
         onDelete: 'CASCADE',
       },
       Data_file: {
-        type: Sequelize.BLOB('long'),
+        type: Sequelize.STRING,
       },
     },{
       timestamps: false,

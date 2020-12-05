@@ -9,6 +9,21 @@
 .body_color tr {
     background-color: white;
 }
+.img_loc{
+    position: absolute;
+    left:500px;
+}
+.agree_loc{
+    position:absolute;
+    left:1020px;
+    top:780px;
+}
+
+.agree_btn{
+    position:absolute;
+    left:1050px;
+    top:780px;
+}
 
 .rft{
     --rft-main-color: #3dce8a;
@@ -186,6 +201,24 @@ div.row {
     height: max-content;
 }
 .registercard2{
+    position: relative;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: rgba(255,255,255,0.7);
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    padding: 10px;
+    width: 1000px;
+    height: max-content;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.registercard3{
+    text-align: center;
     position: relative;
     height: 400px;
     display: flex;

@@ -17,7 +17,7 @@ function Submit_apply({ history, props }) {
         try {
             setLoading(true);
             const response = await axios.get(
-                '../src/api/taskin',{
+                'http://localhost:3001/src/api/taskin',{
                     params:{
                         id: user_id
                     }
@@ -34,58 +34,40 @@ function Submit_apply({ history, props }) {
         return(
 
             <Link to={{
-                pathname: '/submitter/submit_page',
+                pathname: '/submit_page',
                 state: {
                     taskname: task
                     }
                 }}>
-                move to {task}
+                <button className='btn btn-primary'>Submit</button>
             </Link>
         )
     }
 
     const additionalCols=[
         {
-        header:'Move',
+        header:'Action',
         td:(users)=>{
             return(
                 <div>
                     <MyMove task = {users.Task_name}></MyMove>
                 </div>
-                
-                
             )
         }
-        
-
     }        
     ]
-
     useEffect(() => {
         fetchUsers();
     }, []);
-
-
-    
 
     if (loading) return <div>Loading..</div>;
     if (error) return <div>Error</div>;
     if (!users) return null;
     return (
-        <>
-            <ul>
-                <ReactFlexyTable data={users} className = 'body_color' additionalCols={additionalCols}/>
-            </ul>
-            <button onClick={fetchUsers}>Reload</button>
-        </>
+        <div className='white'>
+            <ReactFlexyTable data={users} className = 'body_color' additionalCols={additionalCols}/>
+        </div>
     );
 }
 
 export default withRouter(Submit_apply);
-
-
-
-
-
-
-

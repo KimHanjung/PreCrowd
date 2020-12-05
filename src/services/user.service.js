@@ -3,7 +3,14 @@ import authHeader from "./auth-header";
 
 const API_URL = "http://localhost:3001/src/user/";
 
-
+const getfile = (row) => {
+  return axios.post(API_URL + "getfile",{
+    row
+  })
+    .then((response) =>{
+      return response;
+    });
+};
 const create_task = (taskname, term, desc, pass, tablename, tableschema, originalschema) => {
   return axios.post(API_URL + "create_task", {
     taskname,
@@ -69,6 +76,7 @@ const task_member = (id) => {
 
 
 export default {
+  getfile,
   create_task,
   create_original,
   get_task,

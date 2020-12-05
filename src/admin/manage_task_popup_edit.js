@@ -17,15 +17,6 @@ const required = (value) => {
     );
   }
 };
-const vPass = (value) => {
-  if (parseInt(value) < 0 || parseInt(value) > 100) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        Pass cut line must be 0 ~ 100
-      </div>
-    );
-  }
-};
 const vOriginalname = (value) => {
   if (value.length < 1 || value.length > 30) {
     return (
@@ -73,7 +64,7 @@ const [data, setData] = useState([
 
 const onChangePass = (e) => {
   const pass = e.target.value;
-  setPass(parseInt(pass));
+  setPass(pass);
 };
 
 const onChangeOriginalname = (e) => {
@@ -192,27 +183,27 @@ useEffect(() => {
       setMessage1('failed: Original data type schema must match the task data type schema.');
     }
     else{
-    form1.current.validateAll();
-    if (checkBtn1.current.context._errors.length === 0) {
-      UserService.create_original(originalname,originalschema,tname)
-      .then(
-        (response) => {
-          console.log(response.data.message);
-          setMessage1(response.data.message);
-          setSuccessful1(true);
-        })
-        .catch(
-        (error) => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-          setMessage1(resMessage);
-          setSuccessful1(false);
-        }
-      );
+      form1.current.validateAll();
+      if (checkBtn1.current.context._errors.length === 0) {
+        UserService.create_original(originalname,originalschema,tname)
+        .then(
+          (response) => {
+            console.log(response.data.message);
+            setMessage1(response.data.message);
+            setSuccessful1(true);
+          })
+          .catch(
+          (error) => {
+            const resMessage =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+            setMessage1(resMessage);
+            setSuccessful1(false);
+          }
+        );
     }}
   };
 
@@ -302,12 +293,14 @@ useEffect(() => {
               <div className="form-group">
                 <label htmlFor="Task name">Pass cut line</label>
                 <Input
-                  type="text"
+                  type="number"
                   className="form-control"
                   name="pass"
                   placeholder={pass}
+                  min="1"
+                  max="100"
                   onChange={onChangePass}
-                  validations={[required, vPass]}
+                  validations={[required]}
                 />
               </div>
               <div className="form-group">
