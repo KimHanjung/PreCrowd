@@ -80,7 +80,7 @@ exports.submittaskstate = async (req,res) => {
     var sql = "SELECT o.Task_name, COUNT(*) as pass_num, COALESCE(SUM(p.Total_tuple_num), 0) as tuple_num "+
               "FROM  (`PARSING_DATA_FILEs` p JOIN `HAND_INs` h ON p.File_index = h.File_index) "+ 
               "JOIN `ORIGINAL_DATA_FILEs` o ON p.Type_id = o.Type_id " +
-              "WHERE  (h.H_id = ? ) AND (p.Pass = 1)"
+              "WHERE  (h.H_id = ? ) AND (p.Pass = 1) " + 
               "GROUP BY o.Task_name";
     const result = await sequelize.query(sql,{
       replacements: [user_id],
@@ -203,7 +203,7 @@ exports.submit = async (req, res) => {
   csv.parseStream(stream, {headers : false})
     .on("error", error => {
       console.log("안녕하세요!");
-      res.status(400).send({message: "적절하지 않은 스키마입니다. 스키마를 확인하고 다시 제출해 주세요"});
+      res.status(200).send({message: "적절하지 않은 스키마입니다. 스키마를 확인하고 다시 제출해 주세요"});
     })
     .on("data", function(data){
       if(total_tuple_num == 0){

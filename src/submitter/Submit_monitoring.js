@@ -24,6 +24,23 @@ function Submit_monitoring(props) {
                     }
                 }
             );
+            setUsers(response.data);
+
+            UserService.get_memberscore(user_id).then(
+                (response) => {
+                  console.log(response.data[0].Score);
+                  setScore(response.data[0].Score);
+                },
+                (error) => {
+                  const resMessage =
+                    (error.response &&
+                      error.response.data &&
+                      error.response.data.message) ||
+                    error.message ||
+                error.toString();
+                console.log(resMessage);
+                }
+              );
             if(response.data[0].Task_name === null){
                 setUsers([{"Task_name":"nothing submitted","pass_num":0,"tuple_num":0}]);
             }
