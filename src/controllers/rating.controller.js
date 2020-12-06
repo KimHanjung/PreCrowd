@@ -151,7 +151,8 @@ exports.pass = async (req, res) => {
         var submit_id =result2[0].Id;
         var prev_score =result2[0].Score;
         var submit_count = result2[0].count;
-
+        console.log("submit_count: " + submit_count);
+        
         var next_score;
         //제출자 점수 업데이트
         if(submit_count == 1){
@@ -159,7 +160,7 @@ exports.pass = async (req, res) => {
         } else{
             next_score = ((prev_score * (submit_count - 1)) + user_score ) / submit_count;
         }
-        console.log(next_score);
+        console.log("next_score is :" +next_score);
 
         sql6 = "UPDATE MEMBERs m " +
             "SET m.Score = ? "+
