@@ -198,7 +198,10 @@ exports.submit = async (req, res) => {
   }
 
   csv.parseStream(stream, {headers : false})
-    .on("error", error => {console.log(error);})
+    .on("error", error => {
+      console.log("안녕하세요!");
+            
+    })
     .on("data", function(data){
       if(total_tuple_num == 0){
         //submit schema read
@@ -276,9 +279,11 @@ exports.submit = async (req, res) => {
       await sequelize.query(sql, {
               replacements : [user_id, file_index, round, period],
               type: QueryTypes.INSERT
-            });
       });
       res.status(200).send({message: "Successfully upload",});
+      });
+      res.status(400).send({message: "적절하지 않은 스키마입니다. 스키마를 확인하고 다시 제출해 주세요"})
+      
   } catch (err){
     console.log(err);
     res.status(400).send({

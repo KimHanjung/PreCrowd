@@ -296,6 +296,7 @@ useEffect(() => {
                   type="number"
                   className="form-control"
                   name="pass"
+                  placeholder={pass}
                   min="1"
                   max="100"
                   onChange={onChangePass}

@@ -42,34 +42,26 @@ class Participation extends React.Component {
         console.log(myjson.id);
         return (
             
-            <main>
+            <div className="registercolumn">
             <div className="registercard">
-             <h2>Hi,{myjson.id}</h2>
-             <h2>{this.props.location.state.taskname}</h2>
-             <div style={{
-                 display:'inline-flex',
-                 justifyContent:'center'
-             }}>
-             <img src={imgfile} />
-             </div>
-            <h1>Do you agree?</h1>
-            <input
-                type="checkbox"
-                checked={this.state.checked}
-                onChange={this.handleCheckbox}
-                />
+                <h2>ID: {myjson.id}</h2>
+                <h2>Task name: {this.props.location.state.taskname}</h2>
+                <div style={{display:'inline-flex', justifyContent:'center'}}>
+                    <img src={imgfile} />
+                </div>
+                <h1>Do you agree?</h1>
+                <input type="checkbox" checked={this.state.checked} onChange={this.handleCheckbox}/>
 
-
-            <Link to='/submit_apply'>
+                <Link to='/submit_apply'>
                     <button className='btn btn-primary'
                         disabled={!this.state.checked}
                         onClick={() => this.handlePost()}
                     >
-                        Apply?
+                        Apply
                     </button>
-            </Link>
+                </Link>
             </div>
-            </main>
+            </div>
         );
     }
 }

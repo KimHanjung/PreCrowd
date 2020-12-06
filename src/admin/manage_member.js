@@ -65,9 +65,11 @@ const Manage = (props) => {
       ]
     });
   };
-  const takesub = () => {
-    AuthService.takesub(user_id).then(
+  const takesub = (e) => {
+    console.log(e);
+    AuthService.takesub(e).then(
       (response) =>{
+        console.log(response);
         subtask = [];
         var y = 0;
         if(response.length === 0){
@@ -87,9 +89,10 @@ const Manage = (props) => {
       console.log(err);
     })
   };
-  const takeeva = () => {
-    AuthService.takeeva(user_id).then(
+  const takeeva = (e) => {
+    AuthService.takeeva(e).then(
       (response) => {
+        console.log(response);
         evatask = [];
         var z = 0;
         if(response.length === 0){
@@ -128,15 +131,16 @@ const Manage = (props) => {
     const id = e.target.value;
     setId(id);
   };
+
+  
   
   const write  = () => {
     j = 0;
     list = [];
+    console.log(user);
     while(j<user.length){
-      console.log("@@");
-      setUserid(user[j].id);
       if(user[j].Role === "Submittor"){
-        takesub();
+        takesub(user[j].Id);
         list.push(
           <tr onClick={()=>{{confirm_sub(subtask)}}}>
             <td>{user[j].Id}</td>
@@ -149,7 +153,7 @@ const Manage = (props) => {
           </tr>);
       }
       else{
-        takeeva();
+        takeeva(user[j].Id);
         list.push(
           <tr onClick={()=>{{confirm_eva(evatask)}}}>
             <td>{user[j].Id}</td>
@@ -163,7 +167,6 @@ const Manage = (props) => {
       }
       j = j + 1;
     }
-    console.log(list);
     setLlist(list);
   };
   const onChangeGender = (e) => {

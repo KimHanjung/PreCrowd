@@ -1,4 +1,3 @@
-//2
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
@@ -10,14 +9,14 @@ import 'react-flexy-table/dist/index.css'
 
 function Tasklist({ history }) {
     const user_id = localStorage.getItem("user");
-    const [users, setUsers] = useState(null);
+    const [tasks, setTasks] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const fetchUsers = async () => {
+    const fetchTasks = async () => {
         try {
             setError(null);
-            setUsers(null);
+            setTasks(null);
             setLoading(true);
             const response = await axios.get(
                 'http://localhost:3001/src/api/tasklist' ,{
@@ -26,7 +25,7 @@ function Tasklist({ history }) {
                     }
                 }
             );
-            setUsers(response.data);
+            setTasks(response.data);
         } catch (e) {
             setError(e);
         }
@@ -42,7 +41,7 @@ function Tasklist({ history }) {
                     taskname: task
                     }
                 }}>
-                move to {task}
+                <button className='btn btn-primary'>Participate</button>
             </Link>
         )
     }
@@ -50,10 +49,10 @@ function Tasklist({ history }) {
     const additionalCols=[
         {
         header:'Move',
-        td:(users)=>{
+        td:(tasks)=>{
             return(
                 <div>
-                    <MyMove task = {users.Task_name}></MyMove>
+                    <MyMove task = {tasks.Task_name}></MyMove>
                 </div>
                 
                 
@@ -63,13 +62,14 @@ function Tasklist({ history }) {
 
     }        
     ]
+    
     useEffect(() => {
-        fetchUsers();
+        fetchTasks();
     }, []);
 
     if (loading) return <div>Loading</div>;
     if (error) return <div>Error</div>;
-    if (!users) return null;
+    if (!tasks) return null;
 
 
     return (
@@ -77,7 +77,7 @@ function Tasklist({ history }) {
             <body>
                 
                 
-                <ReactFlexyTable data={users} className = 'body_color' additionalCols={additionalCols}/>
+                <ReactFlexyTable data={tasks} className = 'body_color' additionalCols={additionalCols}/>
 
 
             </body>
@@ -91,7 +91,7 @@ function Tasklist({ history }) {
             >
             <button class="btn btn-primary"
             
-            onClick={fetchUsers}>Reload</button>
+            onClick={fetchTasks}>Reload</button>
             </div>
         </>
     );

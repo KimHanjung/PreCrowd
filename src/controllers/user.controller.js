@@ -25,7 +25,7 @@ exports.create_task = (req, res) => {
       const columns = req.body.tableschema;
       const attr = columns.split(',');
       const type = " VARCHAR(255),";
-      var row = "";
+      var row = "제출자 VARCHAR(255),";
       for(var elem in attr){
         row += attr[elem] + type;
       }
@@ -151,9 +151,10 @@ exports.create_original = (req, res) => {
       });
   }
 exports.getfile = async (req, res) =>{
+  console.log('!@!@!@!@!@!@!!@');
   try{
-    var task_name = req.query.task_name;
-    var file = "'"+ __dirname + "\\..\\parse_down\\"+task_name+".csv'";
+    var task_name = req.body.row.Task_name;
+    var file = "./src/parse_down/"+task_name+'.csv';
     var sql = 'SELECT Task_data_table_name FROM TASKs WHERE Task_name=?;';
     var result = await db.sequelize.query(sql,{
       type: QueryTypes.SELECT,
@@ -179,7 +180,8 @@ exports.getfile = async (req, res) =>{
       type: QueryTypes.SELECT,
     });
     console.log(result2);
-    var schema = result2[0].Task_data_table_schema.split(',');
+    var schema = result2[0].Task_data_table_schema.replace(/\s/g, '').split(',')
+    schema.unshift('제출자');
     var output = new Array();
     
     output.push(schema);
@@ -190,6 +192,7 @@ exports.getfile = async (req, res) =>{
       }
       output.push(temp);
     });
+    console.log(output);
     res.status(200).send(output);
   }catch(err){
     console.log(err);
