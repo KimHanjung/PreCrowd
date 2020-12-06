@@ -44,22 +44,13 @@ class Participation extends React.Component {
             
             <div className="registercolumn">
             <div className="registercard">
-             <h2 style={{
-                 display:'inline-flex',
-                 justifyContent:'center'
-             }}>Hi,{myjson.id}. this is {this.props.location.state.taskname} </h2>
-             <div style={{
-                 display:'inline-flex',
-                 justifyContent:'center'
-             }}>
-             <img src={imgfile} />
-             </div>
-            <h1>Do you agree?</h1>
-            <input
-                type="checkbox"
-                checked={this.state.checked}
-                onChange={this.handleCheckbox}
-                />
+                <h2>ID: {myjson.id}</h2>
+                <h2>Task name: {this.props.location.state.taskname}</h2>
+                <div style={{display:'inline-flex', justifyContent:'center'}}>
+                    <img src={imgfile} />
+                </div>
+                <h1>Do you agree?</h1>
+                <input type="checkbox" checked={this.state.checked} onChange={this.handleCheckbox}/>
 
                 <Link to='/submit_apply'>
                     <button className='btn btn-primary'
