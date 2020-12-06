@@ -130,12 +130,14 @@ useEffect(() => {
               <div className="form-group">
                 <label htmlFor="Task name">Score</label>
                 <Input
-                  type="text"
+                  type="number"
                   className="form-control"
                   name="score"
+                  min="0"
+                  max="10"
                   value={score}
                   onChange={onChangeScore}
-                  validations={[required, vScore]}
+                  validations={[required]}
                 />
               </div>
 
