@@ -243,3 +243,16 @@ exports.task_stat = (req, res) => {
     })
     .catch(err => res.status(400).send(err))
   };
+
+  exports.get_memberscore = (req, res) =>{
+    db.sequelize.query('select Score from MEMBERs\
+    where Id=?;', {
+      replacements: [req.body.id],
+      raw:true,
+      type: QueryTypes.SELECT,
+    })
+    .then(rows => {
+      res.send(rows);
+    })
+    .catch(err => res.status(400).send(err));
+  };

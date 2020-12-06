@@ -4,12 +4,13 @@ import {Link, Route, useHistory} from 'react-router-dom';
 import ReactFlexyTable from 'react-flexy-table'
 import 'react-flexy-table/dist/index.css'
 import Popup from "./monitoring_popup.js";
-
+import UserService from "../services/user.service";
 
 
 function Submit_monitoring(props) {
     const [users, setUsers] = useState([]);
     const [taskname, setTaskname] =useState('');
+    const [score, setScore] =useState('');
     const Myuser = JSON.parse(localStorage.getItem("user"));
     const user_id = Myuser.id;
     const history = useHistory();
@@ -23,7 +24,23 @@ function Submit_monitoring(props) {
                     }
                 }
             );
-            setUsers(response.data); 
+            setUsers(response.data);
+
+            UserService.get_memberscore(user_id).then(
+                (response) => {
+                  console.log(response.data[0].Score);
+                  setScore(response.data[0].Score);
+                },
+                (error) => {
+                  const resMessage =
+                    (error.response &&
+                      error.response.data &&
+                      error.response.data.message) ||
+                    error.message ||
+                error.toString();
+                console.log(resMessage);
+                }
+              );
         } catch (e) {
             console.log(e);
         }
@@ -52,6 +69,7 @@ function Submit_monitoring(props) {
 
     return (
         <div className='white'>
+            <div className='right'>My score: {score}</div>
             <ReactFlexyTable data={users} className = 'body_color' additionalCols={additionalCols}/>
             <Route
                 path={`/Submit_monitoring/monitoring_popup`}
