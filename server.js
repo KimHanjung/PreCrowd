@@ -140,6 +140,35 @@ function initial(){
 //   )
 //   .catch((err) => console.log('Submittor1 creates error: ', err));
 
+// //   Member.create({
+// //     Name: 'Submittor2',
+// //     Id: 'Submittor2',
+// //     Pw: bcrypt.hashSync('11111', 8),
+// //     Role: 'Submittor',
+// //     Bdate: '34-11-11',
+// //     Gender: 1,
+// //     Phone:'010-1111-1111',
+// //     Address: 'busan',
+// //     Score: 70
+// //   })
+// //   .then((res) => console.log('Submittor1 is created!')
+// //   )
+// //   .catch((err) => console.log('Submittor1 creates error: ', err));
+
+
+// //   Member.create({
+// //     Name: 'Evaluationer1',
+// //     Id: 'Evaluationer1',
+// //     Pw: bcrypt.hashSync('11111', 8),
+// //     Role: 'Evaluationer',
+// //     Bdate: '65-12-12',
+// //     Gender: 0,
+// //     Phone:'010-2222-2222',
+// //     Address: 'seoul',
+// //   })
+// //   .then((res) => console.log('Evaluationer1 is created!')
+// //   )
+// //   .catch((err) => console.log('Evaluationer1 creates error: ', err));
 
 //   Member.create({
 //     Name: 'Evaluationer1',
@@ -177,15 +206,15 @@ function initial(){
 //   )
 //   .catch((err) => console.log('Task2 creates error: ', err));
 
-//   Original.create({
-//     //Schema : "pw1_1,id1_1,name1_1",
-//     Schema: '기준년월,상품코드,대출년도,대출학기,대출과목세분류코드,계좌상태,대출금액,대출잔액,대출금리,상품구분코드',
-//     Type_name: 'ori1',
-//     Task_name: 'Task1'
-//   })
-//   .then((res) => console.log('Original data1 is created!')
-//   )
-//   .catch((err) => console.log('Original data1 creates error: ', err));
+// //   Original.create({
+// //     //Schema : "pw1_1,id1_1,name1_1",
+// //     Schema: '기준년월,상품코드,대출년도,대출학기,대출과목세분류코드,계좌상태,대출금액,대출잔액,대출금리,상품구분코드',
+// //     Type_name: 'ori1',
+// //     Task_name: 'Task1'
+// //   })
+// //   .then((res) => console.log('Original data1 is created!')
+// //   )
+// //   .catch((err) => console.log('Original data1 creates error: ', err));
 
 //   Parsing.create({
 //     Parsing_file_name: 'parsing file 1',
@@ -209,15 +238,15 @@ function initial(){
 //   )
 //   .catch((err) => console.log('Approval 1 creates error: ', err));
   
-//   Approval.create({
-//     H_id: 'Submittor2',
-//     Task_name: 'Task2',
-//     Status: false
-//   })
-//   .then((res) => console.log('Approval 2 is created!')
-//   )
-//   .catch((err) => console.log('Approval 2 creates error: ', err));
-// }
+// //   Approval.create({
+// //     H_id: 'Submittor2',
+// //     Task_name: 'Task2',
+// //     Status: false
+// //   })
+// //   .then((res) => console.log('Approval 2 is created!')
+// //   )
+// //   .catch((err) => console.log('Approval 2 creates error: ', err));
+// // }
 
 
 // function initial2(){
@@ -320,4 +349,4 @@ function initial(){
 //     File_index: 1,
 //   })
 //   .then((res) => {console.log('Handin is created!');
-// })}
+// })}}

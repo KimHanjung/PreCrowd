@@ -29,7 +29,7 @@ exports.create_task = (req, res) => {
       for(var elem in attr){
         row += attr[elem] + type;
       }
-      var query = 'create table ' + req.body.tablename + ' (' + row.slice(0,row.length-1) + ')';
+      var query = 'create table ' + req.body.tablename + ' (' + row.slice(0,row.length-1) + ') default character set utf8 collate utf8_general_ci;';
       const { QueryTypes } = require('sequelize');
       db.sequelize.query(query, {
         raw: true,
