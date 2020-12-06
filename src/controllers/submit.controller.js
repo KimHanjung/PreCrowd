@@ -203,7 +203,7 @@ exports.submit = async (req, res) => {
   csv.parseStream(stream, {headers : false})
     .on("error", error => {
       console.log("안녕하세요!");
-      res.status(200).send({message: "적절하지 않은 스키마입니다. 스키마를 확인하고 다시 제출해 주세요"});
+      res.status(400).send({message: "적절하지 않은 스키마입니다. 스키마를 확인하고 다시 제출해 주세요"});
     })
     .on("data", function(data){
       if(total_tuple_num == 0){
