@@ -80,8 +80,10 @@ class Submit_page extends React.Component{
       handleFormSubmit(e){
         e.preventDefault()
         this.handleSubmit()
-        .then((response)=>{
+        .then(res => {
             alert('success')
+        }).catch(err => {
+            alert('fails')
         })
       }
 
@@ -108,38 +110,6 @@ class Submit_page extends React.Component{
           return post(url, formData, config)
       }
 
-    handlePost=()=> {
-        const Myuser = JSON.parse(localStorage.getItem("user"));
-        const user_id = Myuser.id;
-        const type_name = this.state.my_name;
-        const task_name = this.state.task_name;
-        const round = this.state.round;
-        const period = this.state.duration;
-        const userfile = this.state.selectedFile;
-        const formData = new FormData();
-        formData.append('user_id', user_id);
-        formData.append('type_name', this.state.my_name);
-        formData.append('task_name', this.state.task_name);
-        formData.append('round', this.state.round);
-        formData.append('period', this.state.duration);
-        formData.append('usefile', this.state.selectedFile);
-        console.log(user_id);
-        console.log(type_name);
-        console.log(task_name);
-        console.log(round);
-        console.log(period);
-        console.log(userfile);
-        return axios.post("http://localhost:3001/src/api/submit" ,formData,{
-            headers:{
-                'content-type': 'multipart/form-data'
-            }
-            
-        }).then(res => {
-            alert('success')
-        }).catch(err => {
-            alert('fails')
-        })
-    }
 
     componentDidMount(){
         this.fetchType()
