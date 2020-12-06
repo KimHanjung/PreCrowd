@@ -198,6 +198,7 @@ exports.submit = async (req, res) => {
   }
 
   csv.parseStream(stream, {headers : false})
+    .on("error", error => {console.log(error);})
     .on("data", function(data){
       if(total_tuple_num == 0){
         //submit schema read
@@ -214,6 +215,7 @@ exports.submit = async (req, res) => {
               mapping_info[i] = j;
               break;
             }
+            if(j== col_num-1) throw new Error("스키마가 적절하지 않은 csv파일입니다!");
           }
         }
       }else{
@@ -239,6 +241,7 @@ exports.submit = async (req, res) => {
       total_tuple_num ++;
     })
     .on("end", async function(){
+      console.log("End!");
       wstream.end();
       var average_null_percent = 0;
       //convert count to percent
@@ -279,7 +282,7 @@ exports.submit = async (req, res) => {
   } catch (err){
     console.log(err);
     res.status(400).send({
-      message: "There is an error!",
+      message: "당신의 제출은 적절하지 않습니다.",
     });
   }
 };

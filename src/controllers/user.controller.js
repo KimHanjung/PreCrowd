@@ -153,8 +153,7 @@ exports.create_original = (req, res) => {
 exports.getfile = async (req, res) =>{
   try{
     var task_name = req.query.task_name;
-    var file = "./src/parse_down/"+task_name+'.csv';
-    console.log(file);
+    var file = "'"+ __dirname + "\\..\\parse_down\\"+task_name+".csv'";
     var sql = 'SELECT Task_data_table_name FROM TASKs WHERE Task_name=?;';
     var result = await db.sequelize.query(sql,{
       type: QueryTypes.SELECT,
@@ -162,36 +161,40 @@ exports.getfile = async (req, res) =>{
     })
     var name = result[0].Task_data_table_name;
     console.log(name);
-
-    var sql1 = 'SELECT * FROM '+name+' INTO OUTFILE ?;';
-    console.log(sql1);
-    await db.sequelize.query(sql1,{
-      type: QueryTypes.SELECT,
-      repalcements: [name]
-    });
-  try {
-    if (fs.existsSync(file)) { // 파일이 존재하는지 체크
-    var file_name = name;
-    var mimetype = mime.getType(file); // 파일의 타입(형식)을 가져옴
-    console.log(mimetype);
-    res.setHeader('Content-disposition', 'attachment; filename=' + encodeURI(file_name)); // 다운받아질 파일명 설정
-    res.setHeader('Content-type', mimetype); // 파일 형식 지정
-        
-    var filestream = fs.createReadStream(file);
-    filestream.pipe(res);
-    } else {
-    res.send('해당 파일이 없습니다.');  
+    console.log("filepath: " + file);
+    //var sql1 = 'SELECT * FROM '+name+' INTO OUTFILE ?;';
+    var sql1 = "SELECT * FROM "+  name +";";
       
-    }
-  } catch (e) { // 에러 발생시
-    console.log(e);
-    res.send('파일을 다운로드하는 중에 에러가 발생하였습니다.');
-  }    
+    console.log(sql1);
+    var result1 = await db.sequelize.query(sql1,{
+      replacements: [],
+      type: QueryTypes.SELECT,
+      logging: false,
+    });
+    console.log(task_name);
+    var sql2 = "SELECT Task_data_table_schema FROM TASKs WHERE Task_name = ?;";
+      
+    var result2 = await db.sequelize.query(sql2,{
+      replacements: [task_name],
+      type: QueryTypes.SELECT,
+    });
+    console.log(result2);
+    var schema = result2[0].Task_data_table_schema.split(',');
+    var output = new Array();
+    
+    output.push(schema);
+    result1.forEach(element => {
+      var temp = new Array();
+      for(var i in schema){
+        temp.push(element[schema[i]]);
+      }
+      output.push(temp);
+    });
+    res.status(200).send(output);
   }catch(err){
     console.log(err);
-    res.status(400).send("잘못된 요청입니다.");
+    res.status(400).send("ERROR!");
   }
-    
 };
 
 exports.task_stat = (req, res) => {
