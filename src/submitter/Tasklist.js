@@ -19,7 +19,7 @@ function Tasklist({ history }) {
             setTasks(null);
             setLoading(true);
             const response = await axios.get(
-                'http://localhost:3001/src/api/tasklist' ,{
+                'http://165.132.105.42:3020/src/api/tasklist' ,{
                     params:{
                         id: user_id
                     }

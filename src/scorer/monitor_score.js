@@ -53,7 +53,7 @@ const Monitorscore = (props) => {
 
   useEffect(async () => {
     const myjson = JSON.parse(localStorage.getItem("user"));
-    const URL = "http://localhost:3001/src/api/ratestate?id=" + myjson.id;
+    const URL = "http://165.132.105.42:3020/src/api/ratestate?id=" + myjson.id;
     console.log(URL); 
     let response = await axios.get(URL);
     response = response.data;

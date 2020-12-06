@@ -47,7 +47,7 @@ const columns=[
 const fetchdata = async () => {
     try {
         const response = await axios.get(
-            'http://localhost:3001/src/api/typestate',{
+            'http://165.132.105.42:3020/src/api/typestate',{
                 params:{
                     user_id: props.id,
                     task_name: props.taskname

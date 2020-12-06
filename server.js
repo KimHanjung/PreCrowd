@@ -6,7 +6,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3001"
+  origin: "http://165.132.105.42:3020"
 };
 
 app.use(cors());
@@ -50,14 +50,14 @@ app.get('/view',function(req,res){
 
 // set port, listen for requests
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3021;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
 function initial(){
   Member.create({
-    Name: '괄리자',
+    Name: '관리자',
     Id: 'admin',
     Pw: bcrypt.hashSync('admin', 8),
     Role: 'Administrator'

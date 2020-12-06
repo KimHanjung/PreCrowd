@@ -43,7 +43,7 @@ const [message1, setMessage1] = useState("");
 const [successful1, setSuccessful1] = useState(false);
 
 
-const URL = "http://localhost:3001/src/api/download?file_index=" + file_index;
+const URL = "http://165.132.105.42:3020/src/api/download?file_index=" + file_index;
 
 const onChangeScore = (e) =>{
     const score = e.target.value;
@@ -93,7 +93,7 @@ useEffect(() => {
     form1.current.validateAll();
     if (checkBtn1.current.context._errors.length === 0) {
       console.log(file_index);
-    axios.post("http://localhost:3001/src/api/pass", {
+    axios.post("http://165.132.105.42:3020/src/api/pass", {
         file_index: file_index,
         pass: pass,
         user_score: score

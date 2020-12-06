@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://localhost:3001/src/auth/";
+const API_URL = "http://165.132.105.42:3020/src/auth/";
 
 const management = (id, task, gender, byear1, byear2, role) =>{
   return axios.post(API_URL + "management",{

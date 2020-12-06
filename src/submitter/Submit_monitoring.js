@@ -18,7 +18,7 @@ function Submit_monitoring(props) {
     const fetchUsers = async () => {
         try {
             const response = await axios.get(
-                'http://localhost:3001/src/api/submit/taskstate',{
+                'http://165.132.105.42:3020/src/api/submit/taskstate',{
                     params:{
                         user_id: user_id
                     }

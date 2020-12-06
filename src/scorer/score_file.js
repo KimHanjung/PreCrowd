@@ -44,7 +44,7 @@ const Scorefile = (props) => {
 
   useEffect(async () => {
     const myjson = JSON.parse(localStorage.getItem("user"));
-    const URL = "http://localhost:3001/src/api/todolist?id=" + myjson.id;
+    const URL = "http://165.132.105.42:3020/src/api/todolist?id=" + myjson.id;
     let response = await axios.get(URL);
     response = response.data;
     setData(response);

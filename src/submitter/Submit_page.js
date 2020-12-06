@@ -30,7 +30,7 @@ class Submit_page extends React.Component{
     }
     
     fetchType = async () => {
-        axios.get("http://localhost:3001/src/api/typelist",{
+        axios.get("http://165.132.105.42:3020/src/api/typelist",{
             params:{
                 task_name: this.state.task_name
             }
@@ -88,7 +88,7 @@ class Submit_page extends React.Component{
       }
 
       handleSubmit(){
-          const url ='http://localhost:3001/src/api/submit';
+          const url ='http://165.132.105.42:3020/src/api/submit';
           const formData = new FormData();
           const Myuser = JSON.parse(localStorage.getItem("user"));
           const user_id = Myuser.id;

@@ -17,7 +17,7 @@ function Submit_apply({ history, props }) {
         try {
             setLoading(true);
             const response = await axios.get(
-                'http://localhost:3001/src/api/taskin',{
+                'http://165.132.105.42:3020/src/api/taskin',{
                     params:{
                         id: user_id
                     }

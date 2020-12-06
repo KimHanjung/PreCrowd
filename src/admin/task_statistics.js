@@ -79,7 +79,7 @@ function Row(props) {
 
   const handleUrl = (e) =>{
     console.log('hi');
-    setUrl('http://localhost:3001/src/api/getfile?task_name='+e);
+    setUrl('http://165.132.105.42:3020/src/api/getfile?task_name='+e);
   }
   return (
     <React.Fragment>

@@ -27,7 +27,7 @@ class Participation extends React.Component {
 
         const task_name = this.state.task_name;
         
-        return axios.post("http://localhost:3001/src/api/taskreq", {
+        return axios.post("http://165.132.105.42:3020/src/api/taskreq", {
             user_id,
             task_name
         }).then(res => {
