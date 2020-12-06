@@ -140,6 +140,35 @@ function initial(){
 //   )
 //   .catch((err) => console.log('Submittor1 creates error: ', err));
 
+//   Member.create({
+//     Name: 'Submittor2',
+//     Id: 'Submittor2',
+//     Pw: bcrypt.hashSync('11111', 8),
+//     Role: 'Submittor',
+//     Bdate: '34-11-11',
+//     Gender: 1,
+//     Phone:'010-1111-1111',
+//     Address: 'busan',
+//     Score: 70
+//   })
+//   .then((res) => console.log('Submittor1 is created!')
+//   )
+//   .catch((err) => console.log('Submittor1 creates error: ', err));
+
+
+//   Member.create({
+//     Name: 'Evaluationer1',
+//     Id: 'Evaluationer1',
+//     Pw: bcrypt.hashSync('11111', 8),
+//     Role: 'Evaluationer',
+//     Bdate: '65-12-12',
+//     Gender: 0,
+//     Phone:'010-2222-2222',
+//     Address: 'seoul',
+//   })
+//   .then((res) => console.log('Evaluationer1 is created!')
+//   )
+//   .catch((err) => console.log('Evaluationer1 creates error: ', err));
 
 //   Member.create({
 //     Name: 'Evaluationer1',

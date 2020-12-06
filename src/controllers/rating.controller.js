@@ -137,29 +137,52 @@ exports.pass = async (req, res) => {
 
         //Pass 상관없이 제출자 점수 업데이트
         
-        sql5 = "SELECT m.Id, m.Score, COUNT(*) AS count "+
-            "FROM HAND_INs h JOIN MEMBERs m ON h.H_id = m.Id JOIN PARSING_DATA_FILEs p ON h.File_index = p.File_index " +
+        sql5 = "SELECT m.Id, m.Score "+
+            "FROM (HAND_INs h JOIN MEMBERs m ON h.H_id = m.Id) " +
             "WHERE (m.Id = (SELECT h.H_id FROM HAND_INs WHERE h.File_index = ? LIMIT 1)) "+ 
-            "AND (p.Pass IS NOT NULL);";
+            "AND (h.Round IS NOT NULL);" ;
         
         var result2 = await sequelize.query(sql5, {
             replacements : [file_index],
             type: QueryTypes.SELECT,
-            logging: false
+            
         });
-        
+        console.log(result2);
         var submit_id =result2[0].Id;
         var prev_score =result2[0].Score;
-        var submit_count = result2[0].count;
+        
+        
+        sql6 = "SELECT COUNT(*) AS count "+
+            "FROM HAND_INs h JOIN PARSING_DATA_FILEs  p ON h.File_index = p.File_index WHERE (h.H_id=?) AND (p.Pass IS NOT NULL) ;" ;
+        
+        var result3 = await sequelize.query(sql6, {
+            replacements : [submit_id],
+            type: QueryTypes.SELECT,
+            
+        });
+        var  submit_count = parseInt(result3[0].count);
 
+        sql7 = "SELECT System_score FROM PARSING_DATA_FILEs WHERE File_index =? ;";
+        
+        var result4 = await sequelize.query(sql7, {
+            replacements : [file_index],
+            type: QueryTypes.SELECT,
+            
+        });
+        var system_score = parseInt(result4[0].System_score);
+        console.log("SYstemscore:"+system_score);
+        console.log("submit_count: " + submit_count);
+        console.log("Preve_socre: "+prev_score);
+        console.log("Userscore:" + user_score);
         var next_score;
+        var score_from_user = parseInt(user_score);
         //제출자 점수 업데이트
         if(submit_count == 1){
-            next_score = user_score;
+            next_score = score_from_user + system_score;
         } else{
-            next_score = ((prev_score * (submit_count - 1)) + user_score ) / submit_count;
+            next_score = (((prev_score * (submit_count - 1)) + (score_from_user+system_score) ) / submit_count);
         }
-        console.log(next_score);
+        console.log("next_score is :" +next_score);
 
         sql6 = "UPDATE MEMBERs m " +
             "SET m.Score = ? "+

@@ -80,7 +80,7 @@ exports.submittaskstate = async (req,res) => {
     var sql = "SELECT o.Task_name, COUNT(*) as pass_num, COALESCE(SUM(p.Total_tuple_num), 0) as tuple_num "+
               "FROM  (`PARSING_DATA_FILEs` p JOIN `HAND_INs` h ON p.File_index = h.File_index) "+ 
               "JOIN `ORIGINAL_DATA_FILEs` o ON p.Type_id = o.Type_id " +
-              "WHERE  (h.H_id = ? ) AND (p.Pass = 1) " +
+              "WHERE  (h.H_id = ? ) AND (p.Pass = 1) " + 
               "GROUP BY o.Task_name";
     const result = await sequelize.query(sql,{
       replacements: [user_id],
