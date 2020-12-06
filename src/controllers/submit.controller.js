@@ -77,20 +77,20 @@ exports.submitscore = async (req, res) => {
 exports.submittaskstate = async (req,res) => {
   try{
     var user_id = req.query.user_id;
-    var task_name =req.query.task_name;
-    var sql = "SELECT COUNT(*) as pass_num, COALESCE(SUM(p.Total_tuple_num), 0) as tuple_num "+
-              "FROM  (`PARSING_DATA_FILEs` p JOIN `HADN_INs` h ON p.File_index = h.File_index) "+ 
+    var sql = "SELECT o.Task_name, COUNT(*) as pass_num, COALESCE(SUM(p.Total_tuple_num), 0) as tuple_num "+
+              "FROM  (`PARSING_DATA_FILEs` p JOIN `HAND_INs` h ON p.File_index = h.File_index) "+ 
               "JOIN `ORIGINAL_DATA_FILEs` o ON p.Type_id = o.Type_id " +
-              "WHERE (o.Task_name = ?) AND (h.H_id = ? ) AND (p.pass = 1) "
-              "GROUP BY Task_name";
+              "WHERE  (h.H_id = ? ) AND (p.Pass = 1) " + 
+              "GROUP BY o.Task_name";
     const result = await sequelize.query(sql,{
-      replacements: [task_name, user_id],
+      replacements: [user_id],
       type: QueryTypes.SELECT
     });
 
     console.log(result);
     res.status(200).json(result);
   }catch(err){
+    console.log(err);
     res.status(400).send("There is an Error!");
   }
 };
@@ -112,6 +112,7 @@ exports.submittypestate = async (req,res) => {
     console.log(result);
     res.json(result);
   } catch(err){
+    console.log(err);
     res.status(400).send("There is an Error!");
   }
 };
@@ -182,6 +183,8 @@ exports.submit = async (req, res) => {
   var e_id = result2[0].Id;
   
   var stream = fs.createReadStream(path).pipe(iconv.decodeStream('euc-kr'));
+
+
   var wstream = fs.createWriteStream(ppath);
 
   var csv_temp_array = new Array();
@@ -200,7 +203,7 @@ exports.submit = async (req, res) => {
   csv.parseStream(stream, {headers : false})
     .on("error", error => {
       console.log("안녕하세요!");
-            
+      res.status(400).send({message: "적절하지 않은 스키마입니다. 스키마를 확인하고 다시 제출해 주세요"});
     })
     .on("data", function(data){
       if(total_tuple_num == 0){
@@ -282,7 +285,6 @@ exports.submit = async (req, res) => {
       });
       res.status(200).send({message: "Successfully upload",});
       });
-      res.status(400).send({message: "적절하지 않은 스키마입니다. 스키마를 확인하고 다시 제출해 주세요"})
       
   } catch (err){
     console.log(err);

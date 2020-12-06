@@ -29,7 +29,7 @@ exports.create_task = (req, res) => {
       for(var elem in attr){
         row += attr[elem] + type;
       }
-      var query = 'create table ' + req.body.tablename + ' (' + row.slice(0,row.length-1) + ')';
+      var query = 'create table ' + req.body.tablename + ' (' + row.slice(0,row.length-1) + ') default character set utf8 collate utf8_general_ci;';
       const { QueryTypes } = require('sequelize');
       db.sequelize.query(query, {
         raw: true,
@@ -275,4 +275,17 @@ exports.task_stat = (req, res) => {
       res.send(result);
     })
     .catch(err => res.status(400).send(err))
+  };
+
+  exports.get_memberscore = (req, res) =>{
+    db.sequelize.query('select Score from MEMBERs\
+    where Id=?;', {
+      replacements: [req.body.id],
+      raw:true,
+      type: QueryTypes.SELECT,
+    })
+    .then(rows => {
+      res.send(rows);
+    })
+    .catch(err => res.status(400).send(err));
   };

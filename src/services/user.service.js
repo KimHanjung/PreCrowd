@@ -39,6 +39,15 @@ const get_task = () => {
   });
 };
 
+const get_memberscore = (id) => {
+  return axios.post(API_URL + "get_memberscore", {
+    id
+  })
+  .then((response) => {
+    return response;
+  });
+};
+
 const get_approval = (Task_name) => {
   return axios.post(API_URL + "get_approval", {
     Task_name
@@ -86,4 +95,5 @@ export default {
   set_pass,
   task_stat,
   task_member,
+  get_memberscore,
 };
