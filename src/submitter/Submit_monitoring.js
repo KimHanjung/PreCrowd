@@ -18,29 +18,19 @@ function Submit_monitoring(props) {
     const fetchUsers = async () => {
         try {
             const response = await axios.get(
-                'http://localhost:3001/src/api/taskin',{
+                'http://localhost:3001/src/api/submit/taskstate',{
                     params:{
-                        id: user_id
+                        user_id: user_id
                     }
                 }
             );
-            setUsers(response.data);
-
-            UserService.get_memberscore(user_id).then(
-                (response) => {
-                  console.log(response.data[0].Score);
-                  setScore(response.data[0].Score);
-                },
-                (error) => {
-                  const resMessage =
-                    (error.response &&
-                      error.response.data &&
-                      error.response.data.message) ||
-                    error.message ||
-                error.toString();
-                console.log(resMessage);
-                }
-              );
+            if(response.data[0].Task_name === null){
+                setUsers([{"Task_name":"nothing submitted","pass_num":0,"tuple_num":0}]);
+            }
+            else{
+                setUsers(response.data); 
+            }
+            
         } catch (e) {
             console.log(e);
         }
@@ -54,11 +44,15 @@ function Submit_monitoring(props) {
         {
         header:'Action',
         td:(users)=>{
-            return(
-                <Link to={`/Submit_monitoring/monitoring_popup`}>
-                    <button className='btn btn-primary' onClick={() => {MyMove(users.Task_name)}}>Monitoring</button>
-                </Link>
-            )
+            if(users.Task_name !== "nothing submitted"){
+
+                return(
+                    <Link to={`/Submit_monitoring/monitoring_popup`}>
+                        <button className='btn btn-primary' onClick={() => {MyMove(users.Task_name)}}>Monitoring</button>
+                    </Link>
+                )
+            }
+            
         }
     }        
     ]
